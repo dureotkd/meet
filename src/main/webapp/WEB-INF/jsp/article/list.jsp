@@ -3,27 +3,6 @@
 
 <%@ include file="../part/head.jspf"%>
 
-<style>
-.table-box {
-	margin-left: auto;
-	margin-right: auto;
-	display:flex;
-	justify-content:center;
-}
-
-.table-box>table {
-	width: 50%;
-	border-collapse: collapse;
-}
-
-.table-box>table th, .table-box>table td {
-	border: 1px solid black;
-	padding: 10px;
-	text-align: left;
-}
-
-
-</style>
 
 <h1>리스트</h1>
 <div class="table-box">
@@ -44,7 +23,7 @@
 				<tr>
 					<td>${article.id}</td>
 					<td>${article.regDate}</td>
-					<td>${article.title}</td>
+					<td><a href="detail?id=${article.id}">${article.title}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

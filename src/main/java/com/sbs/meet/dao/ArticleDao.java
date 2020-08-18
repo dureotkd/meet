@@ -15,5 +15,7 @@ public interface ArticleDao  {
 	Article getForPrintPrison(String searchKeyword);
 
 	List<Article> getForPrintArticles();
+
+	Article getForPrintOneArticle(int id);
 	
 }

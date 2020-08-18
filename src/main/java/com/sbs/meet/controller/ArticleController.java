@@ -28,15 +28,12 @@ public class ArticleController {
 	@RequestMapping("article/registered")
 	public String registered(Model model,@RequestParam Map<String, Object> param,HttpServletRequest req) {
 		
-		Map<String, Object> newParam = Util.getNewMapOf(param,"title","body","memberId");
-		
-
-		int newArticleId = articleService.register(newParam);
+		int newArticleId = articleService.register(param);
 		
 		String redirectUri = (String) param.get("redirectUri");
-		model.addAttribute("redirectUri",redirectUri);
+		redirectUri = redirectUri.replace("#id", newArticleId + "");
 		
-		return "common/redirect";
+		return "redirect:" + redirectUri;
 	}
 	
 	@RequestMapping("article/list")
@@ -44,10 +41,19 @@ public class ArticleController {
 		
 		List<Article>  articles = articleService.getForPrintArticles();
 		model.addAttribute("articles",articles);
-		
-			
 
 		return "article/list";
+	}
+	
+	@RequestMapping("article/detail")
+	public String showDetail(Model model,@RequestParam Map<String, Object> param) {
+		
+		int id = Integer.parseInt((String) param.get("id"));
+		
+		Article article = articleService.getForPrintOneArticle(id);
+		model.addAttribute("article",article);
+		
+		return "article/detail";
 	}
 	
 	
