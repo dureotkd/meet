@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sbs.meet.dao.ArticleDao">
+	
+	<insert id="register" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO article
+	SET regDate = NOW(),
+	updateDate = NOW(),
+	title = #{title},
+	body = #{body},
+	memberId = #{memberId},
+	displayStatus = 1
+	</insert>
+	
+	<select id="getForPrintPrison" resultType="Article">
+	SELECT * FROM article
+	WHERE nickname LIKE '%#{searchKeyword}%'
+	</select>
+	
+	<select id="getForPrintArticles" resultType="Article">
+	SELECT * FROM article
+	WHERE displayStatus = 1
+	ORDER BY id DESC
+	</select>
+
+</mapper>

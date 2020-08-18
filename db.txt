@@ -1,40 +1,43 @@
--- 웹 SNS 사이트
-
-
--- 웹사이트 명 : meet in here
-
--- member 
 
 CREATE DATABASE meet;
 
-
+DROP TABLE `member`;
 CREATE TABLE MEMBER(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME,
+    email CHAR(100) NOT NULL,
+    `name` CHAR(20) NOT NULL,
     nickname CHAR(50) NOT NULL,
     loginPw CHAR(255) NOT NULL,
-    email CHAR(100) NOT NULL,
-    tier CHAR(50) NOT NULL,
     mailStatus TINYINT(1) UNSIGNED NOT NULL
 );
 
 SELECT * FROM MEMBER;
 
-CREATE TABLE prison (
-    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    regDate DATETIME NOT NULL,
-    updateDate DATETIME,
-    nickname CHAR(50) NOT NULL,
-    tier CHAR(50) NOT NULL
+DROP TABLE prison;
+
+CREATE TABLE article (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME,
+	title CHAR(50) NOT NULL,
+	`body` TEXT NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	displayStatus TINYINT(1) UNSIGNED NOT NULL
 );
 
-SELECT * FROM prison;
-`meet`
-ALTER TABLE `prison` ADD COLUMN memberId INT(10) UNSIGNED NOT  NULL;
-
-ALTER TABLE MEMBER DROP memberId;
+SELECT * FROM article
+WHERE displayStatus = 1
+ORDER BY id DESC;
 
 
-SELECT * FROM MEMBER;
-SELECT * FROM prison;
+
+CREATE TABLE 
+
+
+SELECT * FROM article;
+
+
+
+

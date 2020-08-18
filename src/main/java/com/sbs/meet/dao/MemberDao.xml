@@ -11,7 +11,7 @@
 		updateDate = NOW(),
 		mailStatus = 0,
 		email = #{email},
-		tier = #{tier},
+		name = #{name},
 		nickname = #{nickname},
 		loginPw = #{loginPw}
 	</insert>
@@ -23,9 +23,9 @@
 		WHERE nickname = #{nickname}
 	</select>
 	
-	<select id="getMemberByNickname" resultType="Member">
+	<select id="getMemberByEmail" resultType="Member">
 	SELECT * FROM member
-	WHERE nickname = #{nickname}
+	WHERE email = #{email}
 	</select>
 
 

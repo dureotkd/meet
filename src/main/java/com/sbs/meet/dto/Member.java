@@ -12,8 +12,8 @@ public class Member {
 	private int mailStatus;
 	private String regDate;
 	private String updateDate;
-	private String nickname;
-	private String loginPw;
 	private String email;
-	private String tier;
+	private String nickname;
+	private String name;
+	private String loginPw;
 }

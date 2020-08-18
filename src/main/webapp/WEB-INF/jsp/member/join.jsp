@@ -9,55 +9,22 @@
 		text-align:center;
 	}
 	
-	form {
-		display:flex;
-		justify-content:center;
-		flex-direction:column;
-		align-items:center;
-	}
 	
 </style>
 
 <h1>회원가입</h1>
 
-<form action="doJoin" method="POST"
-	onsubmit="MemberJoinForm__submit(this); return false;">
-	<input type="hidden" name="redirectUri" value="member/login" /> <input
-		type="hidden" name="loginPwReal" />
-<table>
-	<colgroup>
-		<col width="100">
-	</colgroup>
-	<tr>
-		<th>이메일</th>
-		<td><div class="">
-				<input type="email" name="email" />
-			</div></td>
-	</tr>
-	<tr>
-		<th>티어</th>
-		<td><div class="">
-				<input type="text" name="tier" />
-			</div></td>
-	</tr>
-	<tr>
-		<th>닉네임</th>
-		<td><div class="">
-				<input type="text" name="nickname" />
-			</div></td>
-	</tr>
-	<tr>
-		<th>비밀번호</th>
-		<td><div class="">
-				<input type="password" name="loginPw" />
-			</div></td>
-	</tr>
-	
-	
-</table>
-<input type="submit"  class="submit" />
-
+<div class="login-form-box">
+<form action="doJoin"  methofd="POST" class="login-form" onsubmit="MemberJoinForm__submit(this); return false;" >
+<input type="hidden" name="redirectUri" value="login" />
+<input type="hidden" name="loginPwReal"  />
+<input type="text"  name="email" class="login-input-box" placeholder="이메일"/>
+<input type="text"  name="name" class="login-input-box" placeholder="성명"/>
+<input type="text"  name="nickname" class="login-input-box" placeholder="활동명"/>
+<input type="password" name="loginPw" class="login-input-box" placeholder="비밀번호"/>
+<input type="submit" class="submit" value="Go" />
 </form>
+
 
 
 

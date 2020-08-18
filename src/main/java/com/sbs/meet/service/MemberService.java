@@ -15,14 +15,14 @@ public class MemberService {
 	@Autowired
 	MemberDao memberDao;
 
-	public ResultData checkNicknameJoinable(String nickname) {
+ public ResultData checkNicknameJoinable(String nickname) {
 		int count = memberDao.getNicknameDupCount(nickname);
 		
 		if ( count == 0) {
-			return new ResultData("S-1","가입가능한 소환사명 입니다.","nickname",nickname);
+			return new ResultData("S-1","가입가능한 닉네임 입니다.","nickname",nickname);
 		}
 		
-		return new ResultData("F-1","이미 사용중인 소환사명 입니다.","nickname",nickname);
+		return new ResultData("F-1","이미 사용중인 닉네임 입니다.","nickname",nickname);
 	}
 
 	public int join(Map<String, Object> param) {
@@ -32,7 +32,7 @@ public class MemberService {
 		return Util.getAsInt(param.get("id"));
 	}
 
-	public Member getMemberByNickname(String nickname) {
-		return memberDao.getMemberByNickname(nickname);
+	public Member getMemberByEmail(String email) {
+		return memberDao.getMemberByEmail(email);
 	}
 }

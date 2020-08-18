@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Prison {
+public class Article  {
 	private int id;
 	private int memberId;
 	private String regDate;
 	private String updateDate;
-	private String nickname;
-	private String tier;
+	private String title;
+	private String body;
 }

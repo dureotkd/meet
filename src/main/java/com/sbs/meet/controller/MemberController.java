@@ -50,14 +50,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/doLogin")
-	public String doLogin(String nickname, String loginPwReal, String redirectUri , Model model, HttpSession session) {
+	public String doLogin(String email, String loginPwReal, String redirectUri , Model model, HttpSession session) {
 		
 		String loginPw = loginPwReal;
-		Member member = memberService.getMemberByNickname(nickname);
+		Member member = memberService.getMemberByEmail(email);
 		
 		if (member == null) {
 			model.addAttribute("historyBack",true);
-			model.addAttribute("alertMsg","존재하지 않는 소환사입니다.");
+			model.addAttribute("alertMsg","존재하지 않는 계정입니다.");
 			return "common/redirect";
 		}
 		
@@ -74,7 +74,7 @@ public class MemberController {
 		}
 		
 		model.addAttribute("redirectUri",redirectUri);
-		model.addAttribute("alertMsg",String.format("%s소환사님 환영합니다.",member.getNickname()));
+		model.addAttribute("alertMsg",String.format("%s님 환영합니다.",member.getNickname()));
 		
 		return "common/redirect";
 	}
@@ -84,7 +84,7 @@ public class MemberController {
 		session.removeAttribute("loginedMemberId");
 		
 		if ( redirectUri == null || redirectUri.length() == 0) {
-			redirectUri = "home/main";
+			redirectUri = "../home/main";
 		}
 		
 		model.addAttribute("redirectUri",redirectUri);

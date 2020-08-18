@@ -1,5 +1,6 @@
 package com.sbs.meet.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,31 +11,45 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sbs.meet.service.PrisonService;
+import com.sbs.meet.dto.Article;
+import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.util.Util;
 
 @Controller
-public class PrisonController {
+public class ArticleController {
 	@Autowired
-	PrisonService prisonService;
+	ArticleService  articleService;
 	
-	@RequestMapping("prison/register")
+	@RequestMapping("article/register")
 	public String register() {
-		return "prison/register";
+		return "article/register";
 	}
 	
-	@RequestMapping("prison/registered")
+	@RequestMapping("article/registered")
 	public String registered(Model model,@RequestParam Map<String, Object> param,HttpServletRequest req) {
 		
-		Map<String, Object> newParam = Util.getNewMapOf(param,"nickname","tier");
-//		int loginedMemberId = (int)req.getAttribute("loginedMemberId");
-//		newParam.put("memberId",loginedMemberId);
+		Map<String, Object> newParam = Util.getNewMapOf(param,"title","body","memberId");
 		
-		int newPrisonId = prisonService.register(newParam);
+
+		int newArticleId = articleService.register(newParam);
 		
 		String redirectUri = (String) param.get("redirectUri");
 		model.addAttribute("redirectUri",redirectUri);
 		
 		return "common/redirect";
 	}
+	
+	@RequestMapping("article/list")
+	public String showList(Model model,HttpServletRequest  req) {
+		
+		List<Article>  articles = articleService.getForPrintArticles();
+		model.addAttribute("articles",articles);
+		
+			
+
+		return "article/list";
+	}
+	
+	
+	
 }

@@ -13,6 +13,6 @@ public interface MemberDao {
 
 	void join(Map<String, Object> param);
 
-	Member getMemberByNickname(String nickname);
+	Member getMemberByEmail(String nickname);
 	
 }

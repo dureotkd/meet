@@ -8,9 +8,9 @@
 
 <div class="login-form-box">
 <form action="doLogin" class="login-form" onsubmit="loginForm_submit(this); return false;" >
-<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
+<input type="hidden" name="redirectUri" value="../home/main" />
 <input type="hidden" name="loginPwReal"  />
-<input type="text"  name="nickname" class="login-input-box" placeholder="소환사명"/>
+<input type="email"  name="email" class="login-input-box" placeholder="이메일"/>
 <input type="password" name="loginPw" class="login-input-box" placeholder="비밀번호"/>
 <input type="submit" class="submit" value="Go" />
 </form>
