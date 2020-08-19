@@ -1,6 +1,7 @@
 package com.sbs.meet.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.sbs.meet.dao.ArticleDao;
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.util.Util;
+import com.sbs.meet.dto.File;
 
 @Service
 public class ArticleService {
@@ -48,7 +50,21 @@ public class ArticleService {
 	}
 
 	public Article getForPrintOneArticle(int id) {		
-		return articleDao.getForPrintOneArticle(id);
+		Article article = articleDao.getForPrintOneArticle(id);
+		
+		List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
+
+		Map<String, File> filesMap = new HashMap<>();
+
+		for (File file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		Util.putExtraVal(article, "file__common__attachment", filesMap);
+		
+		
+		
+		return article;
 	}
 	
 	

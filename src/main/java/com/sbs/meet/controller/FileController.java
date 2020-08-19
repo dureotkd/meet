@@ -1,6 +1,8 @@
 package com.sbs.meet.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,12 +10,16 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +42,7 @@ public class FileController {
 	@Autowired
 	private VideoStreamService videoStreamService;
 	
+
 	private LoadingCache<Integer, File> fileCache = CacheBuilder.newBuilder().maximumSize(100)
 			.expireAfterAccess(2, TimeUnit.MINUTES).build(new CacheLoader<Integer, File>() {
 				@Override
@@ -52,6 +59,14 @@ public class FileController {
 		return videoStreamService.prepareContent(new ByteArrayInputStream(file.getBody()), file.getFileSize(),
 				file.getFileExt(), httpRangeList);
 	}
+	
+	@RequestMapping(value = "/file/showImg", method = RequestMethod.GET)
+	public void showImg3(HttpServletResponse response, int id) throws IOException {
+		InputStream in = new ByteArrayInputStream(fileService.getFileBodyById(id));
+		response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+		IOUtils.copy(in, response.getOutputStream());
+	}
+
 
 	@RequestMapping("/file/doUploadAjax")
 	@ResponseBody

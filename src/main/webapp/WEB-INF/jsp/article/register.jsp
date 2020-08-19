@@ -9,7 +9,6 @@ function ArticleWriteForm__submit(form) {
 		alert('처리중입니다.');
 		return;
 	}
-	
 	form.title.value = form.title.value.trim();
 
 	if (form.title.value.length == 0) {
@@ -28,38 +27,73 @@ function ArticleWriteForm__submit(form) {
 		return;
 	}
 
-	var startUploadFiles  = function(onSuccess){
-		if ( form.file__article__0__common__attachment__1.value.length == 0 && form.file__article__0__common__2.value.length == 0){
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024 //50MB
+	
+	if (form.file__article__0__common__attachment__1.value) {
+		if ( form.file__article__0__common__attachment__1.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
+	if (form.file__article__0__common__attachment__2.value) {
+		if ( form.file__article__0__common__attachment__2.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
+	if (form.file__article__0__common__attachment__3.value) {
+		if ( form.file__article__0__common__attachment__3.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
+	if (form.file__article__0__common__attachment__4.value) {
+		if ( form.file__article__0__common__attachment__4.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
+
+	var startUploadFiles = function(onSuccess) {
+		if ( form.file__article__0__common__attachment__1.value.length == 0
+			&& form.file__article__0__common__attachment__2.value.length == 0 && form.file__article__0__common__attachment__3.value.length == 0
+			&&  form.file__article__0__common__attachment__4.value.length == 0
+			) {
 			onSuccess();
 			return;
 		}
-		
-		var fileUploadFormData = new FormData(form);
 
-		fileUploadFormData.delete("fileIdsStr");
-		fileUploadFormData.delete("redirectUrl");
-		fileUploadFormData.delete("title");
-		fileUploadFormData.delete("body");
+		var fileUploadFormData = new FormData(form); 
 
 		$.ajax({
-			url : '/file/doUploadAjax',
+			url : './../file/doUploadAjax',
 			data : fileUploadFormData,
 			processData : false,
 			contentType : false,
-			dataType : "json",
+			dataType:"json",
 			type : 'POST',
 			success : onSuccess
 		});
 	}
 
 	ArticleWriteForm__submitDone = true;
-
 	startUploadFiles(function(data) {
+		var fileIdsStr = '';
+
 		if ( data && data.body && data.body.fileIdsStr ) {
-			form.fileIdsStr.value = data.body.fileIdsStr;
-			alert(form.fileIdsStr.value);
+			fileIdsStr = data.body.fileIdsStr;
 		}
 
+		form.fileIdsStr.value = fileIdsStr;
+		form.file__article__0__common__attachment__1.value = '';
+		form.file__article__0__common__attachment__2.value = '';
+		form.file__article__0__common__attachment__3.value = '';
+		form.file__article__0__common__attachment__4.vlaue = '';
 		form.submit();
 	});
 }
@@ -81,9 +115,11 @@ function ArticleWriteForm__submit(form) {
 <input type="hidden" name="fileIdsStr">
 <input type="text" name="title" placeholder="제목" />
 <textarea name="body"  id="" cols="30" rows="10" placeholder="내용" ></textarea>
-<input type="file" accept="video/*" capture name="file__article__0__common__attachment__1" />
-<input type="file" accept="video/*" capture name="file__article__0__common__attachment__2" />
+<input type="file" accept="video/*"  name="file__article__0__common__attachment__1" />
+<input type="file" accept="video/*"  name="file__article__0__common__attachment__2" />
 <input type="hidden" name="memberId"  value="${loginedMemberId}"/>
+<input type="file" accept="image/*" name="file__article__0__common__attachment__3">
+<input type="file" accept="image/*" name="file__article__0__common__attachment__4">
 <input type="submit" class="submit" />
 </form>
 </div>

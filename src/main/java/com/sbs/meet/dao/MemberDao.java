@@ -17,5 +17,9 @@ public interface MemberDao {
 	Member getMemberByEmail(String nickname);
 
 	Member getMemberById(@Param("id") int id);
+
+	void doModifyPrivate(int id,String loginPw);
+
+	Member doFinrIdLoginId(String nickname, String name);
 	
 }

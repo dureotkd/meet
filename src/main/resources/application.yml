@@ -1,6 +1,27 @@
 server:
   port: 8088
+  error:    include-binding-errors: always
+    include-exception: true
+    include-message: always
+    include-stacktrace: always
+custom:
+  siteName: meetInHere
+  siteMainUri: https://meetInHere.com/
+  logoText: MeetInHere
+  emailFrom: no-reply@meetInHere.com
+  emailFromName: meetInHere  
 spring:
+  profiles:    active: local
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jangka512@gmail.com
+    password: caslfrokflgzpwan
+    properties:      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable:  true
   servlet:
     multipart:
       file-size-threshold: 1MB
@@ -17,3 +38,4 @@ spring:
     password: sbs123414
 mybatis:
   type-aliases-package: com.sbs.meet.dto
+    

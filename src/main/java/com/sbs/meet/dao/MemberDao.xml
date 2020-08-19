@@ -6,7 +6,8 @@
 <mapper namespace="com.sbs.meet.dao.MemberDao">
 
 	<insert id="join" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO member
+		INSERT
+		INTO member
 		SET regDate = NOW(),
 		updateDate = NOW(),
 		mailStatus = 0,
@@ -22,15 +23,30 @@
 		FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	
+
 	<select id="getMemberByEmail" resultType="Member">
-	SELECT * FROM member
-	WHERE email = #{email}
+		SELECT * FROM member
+		WHERE email = #{email}
 	</select>
-	
+
 	<select id="getMemberById" resultType="Member">
+		SELECT * FROM member
+		WHERE id = #{id}
+	</select>
+
+	<update id="doModifyPrivate">
+		UPDATE member
+		<set>
+			updateDate = NOW(),
+			<if test="loginPw != null">loginPw = #{loginPw},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+	
+	<select id="doFindLoginId" resultType="Member">
 	SELECT * FROM member
-	WHERE id = #{id}
+	WHERE nickname = #{nickname}
+	AND name = #{name}
 	</select>
 
 

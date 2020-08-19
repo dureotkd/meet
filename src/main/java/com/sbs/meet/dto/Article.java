@@ -1,5 +1,7 @@
 package com.sbs.meet.dto;
 
+import java.util.Map;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class Article  {
 	private String updateDate;
 	private String title;
 	private String body;
+	private Map<String, Object> extra;
 }
