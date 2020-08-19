@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.service.ArticleService;
-import com.sbs.meet.util.Util;
 
 @Controller
 public class ArticleController {
@@ -51,7 +51,9 @@ public class ArticleController {
 		int id = Integer.parseInt((String) param.get("id"));
 		
 		Article article = articleService.getForPrintOneArticle(id);
+		List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies();
 		model.addAttribute("article",article);
+		model.addAttribute("articleReplies",articleReplies);
 		
 		return "article/detail";
 	}

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbs.meet.dao.ArticleDao;
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.util.Util;
 import com.sbs.meet.dto.File;
 
@@ -65,6 +66,10 @@ public class ArticleService {
 		
 		
 		return article;
+	}
+
+	public List<ArticleReply> getForPrintArticleReplies() {
+		return articleDao.getForPrintArticleReplies();
 	}
 	
 	

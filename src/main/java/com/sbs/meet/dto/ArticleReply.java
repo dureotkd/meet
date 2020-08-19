@@ -9,15 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Member {
+public class ArticleReply {
 	private int id;
-	private int mailStatus;
-	private String regDate;
-	private String updateDate;
-	private String email;
-	private String nickname;
-	private String name;
-	private String loginPw;
-	private String introduce; 	
+	private int regDate;
+	private int updateDate;
+	private int articleId;
+	private int memberId;
+	private int displayStatus;
+	private String body;
 	private Map<String, Object> extra;
 }

@@ -59,9 +59,68 @@ CREATE TABLE `file` (
 SELECT * FROM FILE;
 
 
+CREATE TABLE attr (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `name` CHAR(100) NOT NULL UNIQUE,
+    `value` TEXT NOT NULL
+);
+
+ALTER TABLE `cateItem` ADD COLUMN `updateDate` DATETIME NOT NULL AFTER `regDate`; 
+
+# attr 테이블에서 name 을 4가지 칼럼으로 나누기
+ALTER TABLE `attr` DROP COLUMN `name`,
+ADD COLUMN `relTypeCode` CHAR(20) NOT NULL AFTER `updateDate`,
+ADD COLUMN `relId` INT(10) UNSIGNED NOT NULL AFTER `relTypeCode`,
+ADD COLUMN `typeCode` CHAR(30) NOT NULL AFTER `relId`,
+ADD COLUMN `type2Code` CHAR(30) NOT NULL AFTER `typeCode`,
+CHANGE `value` `value` TEXT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `type2Code`,
+DROP INDEX `name`; 
 
 
+# 중복변수 생성금지. 변수찾는 속도 최적화 UNIQUE
+ALTER TABLE `attr` ADD UNIQUE INDEX (`relTypeCode`, `relId`, `typeCode`, `type2Code`); 
 
+
+## 특정 조건을 만족하는 회원 또는 게시물(기타 데이터)를 빠르게 찾기 위해서
+ALTER TABLE `attr` ADD INDEX (`relTypeCode`, `typeCode`, `type2Code`); 
+
+
+SELECT * FROM attr;
+SELECT * FROM MEMBER;
+
+ALTER TABLE `member` ADD COLUMN introduce TEXT NOT NULL;
+
+SELECT M.*,
+M.nickname AS extra__writer
+FROM MEMBER AS M
+WHERE id = 2;
+SELECT COUNT(*) AS
+cnt 
+FROM MEMBER
+WHERE email = 'dureotkd123@naver.com';
+
+
+SELECT COUNT(*) AS
+cnt
+FROM MEMBER
+WHERE nickname = '케빈';
+
+SELECT * FROM `file`;
+SELECT * FROM `member`;
+
+
+DROP TABLE articleReply;
+CREATE TABLE articleReply (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME,
+	`body` TEXT NOT NULL,
+	articleId INT(10) UNSIGNED NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	displayStatus TINYINT(1) UNSIGNED NOT NULL
+);
 
 
 

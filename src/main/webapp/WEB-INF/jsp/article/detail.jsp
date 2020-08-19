@@ -67,7 +67,6 @@
 						<div class="img-box"><img src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" /></div>
 					</td>
 				</tr>
-			
 			</c:if>
 			
    				
@@ -75,4 +74,41 @@
    		</tbody>
    	</table>
    	</div> 
+   	
+   	
+   	<h1>댓글</h1>
+   	<div class="table-box">
+   	<table>
+   		<colgroup>
+			<col width="100" />
+			<col width="200" />
+		</colgroup>
+   		<thead>
+   			<tr>
+   				<td>번호</td>
+   				<td>날짜</td>
+   				<td>글쓴이</td>
+   				<td>제목</td>
+   				<td>내용</td>
+   			</tr>
+   		</thead>
+   		<tbody>
+   			<tr>
+   			<c:forEach items="${articleReplies}" var="articleReply">
+   				<td>${articleReply.id}</td>
+   				<td>${articleReply.regDate}</td>
+   				<td>${articleReply.extra.writer }</td>
+   				<td class="title">${articleReply.title}</td>
+   				<td>${articleReply.body} </td>
+   			</c:forEach>
+   			</tr>
+   		</tbody>
+   	</table>
+   	</div> 
+   	
+   	
+   	
+   	
+   	
+   	
 <%@ include file="../part/foot.jspf"%>

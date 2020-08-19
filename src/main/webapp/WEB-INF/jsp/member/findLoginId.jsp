@@ -29,7 +29,7 @@ h1 {
 
 		if (form.nickname.value.length == 0){
 			form.nickname.focus();
-			alert('활동명을 입력해줒세요');
+			alert('활동명을 입력해주세요');
 			return;
 		}
 
@@ -41,6 +41,7 @@ h1 {
 <div class="login-form-box">
 	<form action="doFindLoginId" methofd="POST" class="login-form"
 		onsubmit="doFindLoginIdForm__submit(this); return false;">
+		<input type="hidden" name="redirectUri" value="login" />
 		<input type="text" name="name" class="login-input-box"
 			placeholder="성명" /> <input type="text" name="nickname"
 			class="login-input-box" placeholder="활동명" /> <input type="submit"

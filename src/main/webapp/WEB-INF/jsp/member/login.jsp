@@ -59,6 +59,10 @@
 		<p>아디 잊어버렸나요?</p>
 		<a href="findLoginId"><div class="join-item">아디찾기</div></a>
 	</div>
+	<div class="join-box">
+		<p>혹시 비밀번호도?</p>
+		<a href="findLoginPw"><div class="join-item">비번찾기</div></a>
+	</div>
 
 
 </div>
