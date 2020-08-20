@@ -73,6 +73,24 @@ public class ArticleService {
 	public List<Article> getForPrintArticles(@RequestParam Map<String, Object> param) {
 		return articleDao.getForPrintArticles(param);
 	}
+
+	public List<Article> getForPrintArticles2(int memberId) {
+		
+		List<Article> articles = articleDao.getForPrintArticles2(memberId);
+		
+		for ( Article article : articles ) {
+			
+			List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
+			Map<String, File> filesMap = new HashMap<>();
+
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "", file);
+			}
+
+			Util.putExtraVal(article, "file__common__attachment", filesMap);
+		}		
+		return articles;
+	}
 	
 	
 	

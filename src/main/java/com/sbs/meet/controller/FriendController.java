@@ -22,15 +22,12 @@ public class FriendController {
 	
 	@RequestMapping("/member/follow")
 	@ResponseBody
-	public String showOther(@RequestParam Map<String, Object> param,Model model,int memberId,int loginedMemberId) {
-		
-
+	public String showOther(@RequestParam Map<String, Object> param,Model model,int memberId,int loginedMemberId,String redirectUri) {
 		
 		// 팔로우 기능
 		friendService.applyToFollow(loginedMemberId,memberId);
-
-
-
+		
+		
 		return "common/redirect";
 	}
 }

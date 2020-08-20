@@ -27,6 +27,34 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
+	/* window.onload = function() {
+		if (window.Notification) {
+			Notification.requestPermission();
+		}
+	}
+
+	function calculate() {
+		setTimeout(function() {
+			notify();
+		}, 4000);
+	}
+
+	function notify() {
+		if (Notification.permission !== 'granted') {
+			alert('notification is disabled');
+		} else {
+			var notification = new Notification(
+					'Notification title',
+					{
+						icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+						body : 'Notification text',
+					});
+
+			notification.onclick = function() {
+				window.open('http://google.com');
+			};
+		}
+	} */
 
 	function loginNotify() {
 		// Let's check if the browser supports notifications
@@ -38,7 +66,8 @@
 		else if (Notification.permission === "granted") {
 
 			var options = {
-				body : '로그인 되었습니다 ^^.',
+				icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+				body : '로그인 되었습니다.',
 				data : 'Meet In here'
 			}
 
@@ -212,9 +241,9 @@ style>.table-box {
 }
 
 .reply-img-Avatar {
-	width:100px;
-	height:100px;
-	border-radius:50%;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
 }
 </style>
 

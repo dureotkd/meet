@@ -3,6 +3,7 @@ package com.sbs.meet.controller;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -15,8 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.dto.ResultData;
+import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FriendService;
 import com.sbs.meet.service.MemberService;
 import com.sbs.meet.util.Util;
@@ -27,6 +30,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private FriendService friendService;
+	@Autowired
+	private ArticleService articleService;
 
 	@RequestMapping("/member/join")
 	public String join() {
@@ -322,6 +327,9 @@ public class MemberController {
 		// 회원이 쓴 게시글 카운트
 		int articleCount = memberService.getArticleCount(memberId);
 		
+		// 회원이 쓴 게시글 
+		List<Article> articles = articleService.getForPrintArticles2(memberId);
+		
 		if ( member == null ) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("탈퇴한 회원이거나 존재하지 않는 회원입니다."));
@@ -329,6 +337,7 @@ public class MemberController {
 		}
 		model.addAttribute("articleCount",articleCount);
 		model.addAttribute("member",member);
+		model.addAttribute("articles",articles);
 		
 		return "member/showOther";
 	}

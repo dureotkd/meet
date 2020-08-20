@@ -23,5 +23,7 @@ public interface ArticleDao  {
 	List<ArticleReply> getForPrintArticleReplies();
 
 	List<Article> getForPrintArticles(@RequestParam Map<String, Object> param);
+
+	List<Article> getForPrintArticles2(int memberId);
 	
 }
