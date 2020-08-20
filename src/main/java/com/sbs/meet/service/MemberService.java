@@ -160,6 +160,10 @@ public class MemberService {
 		memberDao.doMyInfoEdit(email,name,nickname,introduce,id);
 	}
 
+	public int getArticleCount(int memberId) {
+		return memberDao.getArticleCount(memberId);
+	}
+
 	
 
 }

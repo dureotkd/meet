@@ -32,5 +32,7 @@ public interface MemberDao {
 
 	void doMyInfoEdit(String email, String name, String nickname, String introduce, int id);
 
+	int getArticleCount(int memberId);
+
 	
 }

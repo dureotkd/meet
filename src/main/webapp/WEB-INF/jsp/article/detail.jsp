@@ -6,11 +6,7 @@
 .reply-body {
 	width:100%;
 }
-.reply-img-Avatar {
-	width:100px;
-	height:100px;
-	border-radius:50%;
-}
+
 </style>
 
 <script>
@@ -36,9 +32,6 @@
 		form.body.value = '';
 	}
 
-	
-
-	
 </script>
 
 <h1>디테일</h1>
@@ -205,7 +198,6 @@
 		html += '</td>';
 		html += '</tr>';
 		var $tr = $(html);
-		$tr.data('data-originBody', articleReply.body);
 		ReplyList__$tbody.prepend($tr);
 	}
 

@@ -57,9 +57,6 @@
 				}
 			});
 		}
-
-		// At last, if the user has denied notifications, and you 
-		// want to be respectful there is no need to bother them any more.
 	}
 
 	function logOutNotify() {
@@ -212,6 +209,12 @@ style>.table-box {
 
 .title {
 	width: 200px;
+}
+
+.reply-img-Avatar {
+	width:100px;
+	height:100px;
+	border-radius:50%;
 }
 </style>
 

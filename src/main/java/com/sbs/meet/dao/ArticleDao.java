@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.ArticleReply;
@@ -20,5 +21,7 @@ public interface ArticleDao  {
 	Article getForPrintOneArticle(int id);
 
 	List<ArticleReply> getForPrintArticleReplies();
+
+	List<Article> getForPrintArticles(@RequestParam Map<String, Object> param);
 	
 }

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.meet.dao.ArticleDao;
 import com.sbs.meet.dto.Article;
@@ -67,6 +68,10 @@ public class ArticleService {
 
 	public List<ArticleReply> getForPrintArticleReplies() {
 		return articleDao.getForPrintArticleReplies();
+	}
+
+	public List<Article> getForPrintArticles(@RequestParam Map<String, Object> param) {
+		return articleDao.getForPrintArticles(param);
 	}
 	
 	

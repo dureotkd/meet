@@ -78,6 +78,13 @@
 		WHERE id = #{id}
 	</update>
 	
+	<select  id="getArticleCount" resultType="int">
+		SELECT COUNT(*) AS
+		cnt FROM article
+		WHERE memberId = #{memberId}
+		AND displayStatus = 1
+	</select>
+	
 	<resultMap type="Member" id="member">
 		<id property="id" column="id"/>
 		<id property="regDate" column="regDate"/>

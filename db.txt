@@ -128,3 +128,21 @@ CREATE TABLE articleReply (
 
 
 
+CREATE TABLE Friend(
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	followId INT (10) UNSIGNED NOT NULL,
+	followerId  INT (10) UNSIGNED NOT NULL
+)
+
+## 친구 추가 중복 금지
+
+
+ALTER TABLE `Friend` ADD UNIQUE INDEX ( followId , followerId );
+SELECT * FROM `friend`;
+TRUNCATE friend;
+
+
+
+
+
