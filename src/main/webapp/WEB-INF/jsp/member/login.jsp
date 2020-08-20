@@ -48,7 +48,7 @@
 			type="hidden" name="loginPwReal" /> <input type="email"
 			name="email" class="login-input-box" placeholder="이메일" /> <input
 			type="password" name="loginPw" class="login-input-box"
-			placeholder="비밀번호" /> <input type="submit" class="submit" value="Go" />
+			placeholder="비밀번호" /> <input type="submit" class="submit" value="Go" onclick="loginNotify()" />
 	</form>
 
 	<div class="join-box">
@@ -63,8 +63,6 @@
 		<p>혹시 비밀번호도?</p>
 		<a href="findLoginPw"><div class="join-item">비번찾기</div></a>
 	</div>
-
-
 </div>
 
 

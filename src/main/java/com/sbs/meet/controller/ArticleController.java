@@ -49,11 +49,11 @@ public class ArticleController {
 	public String showDetail(Model model,@RequestParam Map<String, Object> param) {
 		
 		int id = Integer.parseInt((String) param.get("id"));
-		
+
 		Article article = articleService.getForPrintOneArticle(id);
-		List<ArticleReply> articleReplies = articleService.getForPrintArticleReplies();
+		
+		// 게시글
 		model.addAttribute("article",article);
-		model.addAttribute("articleReplies",articleReplies);
 		
 		return "article/detail";
 	}

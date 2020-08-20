@@ -30,7 +30,7 @@ public class AttrService {
 		return attrDao.getValue(relTypeCode, relId, typeCode, type2Code);
 	}
 
-	public Object getValue(String relTypeCode, int relId, String typeCode, String type2Code) {
+	public String getValue(String relTypeCode, int relId, String typeCode, String type2Code) {
 		return attrDao.getValue(relTypeCode, relId, typeCode, type2Code);
 	}
 

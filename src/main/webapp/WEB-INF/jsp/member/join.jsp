@@ -4,12 +4,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
-<script>
-	alert('h2');
-
-	
-</script>
-
 <style>
 h1 {
 	text-align: center;
@@ -130,6 +124,8 @@ function MemberJoinForm__submit(form) {
 		<input type="password" name="loginPw" class="login-input-box"
 			placeholder="비밀번호" /> <input type="submit" class="submit" value="Go" />
 	</form>
+	
+	
 
 
 

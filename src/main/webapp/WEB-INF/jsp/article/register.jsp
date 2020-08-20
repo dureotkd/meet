@@ -120,7 +120,7 @@ function ArticleWriteForm__submit(form) {
 <input type="hidden" name="memberId"  value="${loginedMemberId}"/>
 <input type="file" accept="image/*" name="file__article__0__common__attachment__3">
 <input type="file" accept="image/*" name="file__article__0__common__attachment__4">
-<input type="submit" class="submit" />
+<input type="submit" class="submit" onclick="articleWriteNotify()" />
 </form>
 </div>
 

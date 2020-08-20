@@ -105,7 +105,6 @@ public class MemberController {
 		}
 
 		model.addAttribute("redirectUri", redirectUri);
-		model.addAttribute("alertMsg", String.format("%s님 환영합니다.", member.getNickname()));
 
 		return "common/redirect";
 	}

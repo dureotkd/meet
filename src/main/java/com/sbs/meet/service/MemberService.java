@@ -142,7 +142,13 @@ public class MemberService {
 	}
 
 	public boolean isNeedToChangeaPasswordForTemp(int loginedMemberId) {
-		return attrService.getValue("member",loginedMemberId,"extra","useTempPw").equals("1");
+		String val = attrService.getValue("member",loginedMemberId,"extra","useTempPw");
+		
+		if ( val == null ) {
+			return false;
+		}
+		
+		return val.equals("1");
 	}
 
 	public int setValue(Member member) {

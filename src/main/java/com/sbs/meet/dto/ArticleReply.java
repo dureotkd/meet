@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class ArticleReply {
 	private int id;
-	private int regDate;
-	private int updateDate;
+	private String regDate;
+	private String updateDate;
 	private int articleId;
 	private int memberId;
 	private int displayStatus;

@@ -26,6 +26,81 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script>
+
+	function loginNotify() {
+		// Let's check if the browser supports notifications
+		if (!("Notification" in window)) {
+			alert("This browser does not support desktop notification");
+		}
+
+		// Let's check whether notification permissions have already been granted
+		else if (Notification.permission === "granted") {
+
+			var options = {
+				body : '로그인 되었습니다 ^^.',
+				data : 'Meet In here'
+			}
+
+			var n = new Notification('Meet In here', options);
+
+			console.log(n.data)
+
+		}
+
+		// Otherwise, we need to ask the user for permission
+		else if (Notification.permission !== "denied") {
+			Notification.requestPermission().then(function(permission) {
+				// If the user accepts, let's create a notification
+				if (permission === "granted") {
+					var notification = new Notification("Hi there!");
+				}
+			});
+		}
+
+		// At last, if the user has denied notifications, and you 
+		// want to be respectful there is no need to bother them any more.
+	}
+
+	function logOutNotify() {
+		// Let's check if the browser supports notifications
+		if (!("Notification" in window)) {
+			alert("This browser does not support desktop notification");
+		}
+
+		// Let's check whether notification permissions have already been granted
+		else if (Notification.permission === "granted") {
+			// If it's okay let's create a notification
+			var notification = new Notification("로그아웃 되었습니다.");
+		}
+
+		// Otherwise, we need to ask the user for permission
+		else if (Notification.permission !== "denied") {
+			Notification.requestPermission().then(function(permission) {
+				// If the user accepts, let's create a notification
+				if (permission === "granted") {
+					var notification = new Notification("Hi there!");
+				}
+			});
+		}
+		// At last, if the user has denied notifications, and you 
+		// want to be respectful there is no need to bother them any more.
+	}
+
+	function articleWriteNotify() {
+		// Let's check if the browser supports notifications
+		if (!("Notification" in window)) {
+			alert("This browser does not support desktop notification");
+		}
+
+		// Let's check whether notification permissions have already been granted
+		else if (Notification.permission === "granted") {
+			// If it's okay let's create a notification
+			var notification = new Notification("게시글이 등록되었습니다.");
+		}
+	}
+</script>
+
 <%="<script>"%>
 var param = ${paramJson};
 <%="</script>"%>
@@ -144,11 +219,10 @@ style>.table-box {
 
 </head>
 <body>
-
 	<h1>[Meet In here]</h1>
 	<c:if test="${isLogined}">
 		<p class="nick">${loginedMember.nickname}님로그인중</p>
-<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
+		<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">
 				현재 임시 비밀번호를 사용중입니다.<br>빠른 시일내에 변경해주세요.
 			</p>
@@ -161,5 +235,5 @@ style>.table-box {
 	</c:if>
 	<c:if test="${isLogined}">
 		<a href="../member/myInfo">회원정보</a>
-		<a href="../member/doLogout">로그아웃</a>
+		<a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a>
 	</c:if>

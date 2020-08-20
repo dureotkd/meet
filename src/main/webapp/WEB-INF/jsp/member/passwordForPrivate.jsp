@@ -29,7 +29,7 @@
 
 <form action="unlockPasswordForPrivate" method="POST" class="table-form" onsubmit="submitUnlockForm(this); return false;">
 <input type="hidden" name="loginPwReal" />
-<input type="hidden" name="redirectUri" />
+<input type="hidden" name="redirectUri"  />
 <input type="password"  name="loginPw" autofocus  />
 <input type="submit" />
 
