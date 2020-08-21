@@ -3,11 +3,14 @@ package com.sbs.meet.controller;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.WebUtils;
 
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.Member;
@@ -75,7 +79,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/doLogin")
-	public String doLogin(String email, String loginPwReal, String redirectUri, Model model, HttpSession session) {
+	public String doLogin(String email, String loginPwReal, String redirectUri, Model model, HttpSession session,
+			HttpServletResponse response,String loginChk) {
 
 		String loginPw = loginPwReal;
 		Member member = memberService.getMemberByEmail(email);
@@ -91,21 +96,65 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
+		
+		// 기존에 세션 값이 존재한다면
+		if ( session.getAttribute("logiendMemberId") != null ) {
+			// 제거해준다.
+			session.removeAttribute("loginedMemberId");
+		}
 
 		session.setAttribute("loginedMemberId", member.getId());
+		
+		String sessionId = session.getId();
 
+		// 로그인 성공시 로그인 폼에서 쿠키가 체크된 상태로 로그인 요청이 있는지 확인.
+		if ( loginChk != null) {
+			// 쿠키를 생성하고 현재 로그인 되어있을떄 세션의 id를 쿠키에 저장
+			Cookie cookie = new Cookie("loginCookie", sessionId);
+			
+			// 쿠키를 찾을 경를 컨테스트 경로로 변경해주고???
+			//이때, 사용자 PC에서 쿠키를 보내는 경로가 "/" 로 설정함으로써 
+			//contextPath 이하의 모든 요청에 대해서 쿠키를 전송할 수 있다
+			cookie.setPath("/");
+			
+			cookie.setMaxAge(60 * 60 * 24 * 7);
+			// 쿠키 적용
+			response.addCookie(cookie);
+			// 불러와주고
+			int	setMaxAge = cookie.getMaxAge();
+			// 쿠키 유효시간 7일정도
+			Date sessionLimit = new Date(System.currentTimeMillis() + (1000*setMaxAge));
+			
+			memberService.actionUpdetaSessionKey(sessionId,sessionLimit,email);
+		}
+		
+		// 로그인 된 경우 해당 세션 id와 유효시간을 Member테이블에  세팅..
+		
+		
+		//이때, 가장 중요하게 볼 부분이 쿠키에 Member 객체를 저장하는 것이 아니고!!!!
+		
+		//(사실 쿠키는 문자열만 저장되기 때문에 가능하지도 않습니다.)
+		
+		//현재 브라우저의 세션 id를 저장해 놓는 겁니다.
+
+//		이후, AuthenticationInterceptor의 preHandle() 부분에서 
+//
+//		세션에 Member 객체가 null이 아닌 경우는 로그인 되어 있는 부분이니까 그대로 처리되도록 놔두고, 세션의 UserVO 객체가
+//
+//		null이지만, 쿠키가 null이 아닌 경우 쿠키에서 sessionId를 꺼내와서 사용자 객체를 반환받도록 작업할 것이다.
+
+		
 		if (redirectUri == null || redirectUri.length() == 0) {
 			redirectUri = "home/main";
 		}
-		
+
 		int loginedMemberId = member.getId();
-		
-		
+
 		// nullPointer
-		// 
-		
+		//
+
 		boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangeaPasswordForTemp(loginedMemberId);
-		
+
 		if (isNeedToChangePasswordForTemp) {
 			model.addAttribute("redirectUri", redirectUri);
 			model.addAttribute("alertMsg", "현재 임시패스워드를 사용중입니다. 비밀번호를 변경해주세요");
@@ -118,9 +167,24 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/doLogout")
-	public String doLogout(HttpSession session, Model model, String redirectUri) {
-		session.removeAttribute("loginedMemberId");
-
+	public String doLogout(HttpSession session,HttpServletResponse response,HttpServletRequest request, Model model, String redirectUri) {
+		
+		
+		
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		System.out.println("쿠키 잘왔나 ? : " + loginCookie);
+		
+		session.invalidate();
+		
+		if ( loginCookie != null ) {
+			loginCookie.setPath("/"); 
+			loginCookie.setMaxAge(0);
+			response.addCookie(loginCookie);
+			
+			Date date = new Date(System.currentTimeMillis());
+		 //	memberService.actionUpdetaSessionKey(session.getId(),date,email);
+		}
+		
 		if (redirectUri == null || redirectUri.length() == 0) {
 			redirectUri = "../home/main";
 		}
@@ -141,26 +205,27 @@ public class MemberController {
 	public String lockPasswordForPrivate() {
 		return "member/passwordForPrivate";
 	}
-	
+
 	@RequestMapping("/member/myInfoEdit")
 	public String myInfoEdit(HttpSession session) {
-		
+
 		return "member/myInfoEdit";
 	}
-	
+
 	@RequestMapping("/member/doMyInfoEdit")
-	public String doMyInfoEdit(String email,String name,String nickname,String introduce,int id,Model model ,String redirectUri) {
-		
-		memberService.doMyInfoEdit(email,name,nickname,introduce,id);
-		
+	public String doMyInfoEdit(String email, String name, String nickname, String introduce, int id, Model model,
+			String redirectUri) {
+
+		memberService.doMyInfoEdit(email, name, nickname, introduce, id);
+
 		model.addAttribute("redirectUri", redirectUri);
 		return "common/redirect";
 	}
-	
+
 	// 비밀번호 수정전 비번 확인실행 form 전달
 
 	@RequestMapping("/member/unlockPasswordForPrivate")
-	public String unlockPasswordForPrivate(@RequestParam Map<String, Object> param, String loginPwReal, Model model,
+	public String unlockPasswordForPrivate(@RequestParam Map<String, Object> z, String loginPwReal, Model model,
 			String redirectUri, HttpServletRequest req) {
 //		String loginPw = (String) param.get("loginPwReal");
 //		
@@ -203,7 +268,7 @@ public class MemberController {
 	public String modifyPrivate() {
 		return "member/modifyPrivate";
 	}
-	
+
 	// 비밀번호 수정 실행 form 전달
 	@RequestMapping("/member/doModifyPrivate")
 	public String doModifyPrivate(@RequestParam Map<String, Object> param, HttpServletRequest req, String loginPwReal,
@@ -233,7 +298,6 @@ public class MemberController {
 	public String findLoginId() {
 		return "member/findLoginId";
 	}
-	
 
 	@RequestMapping("/member/doFindLoginId")
 	public String doFindLoginId(String nickname, String name, Model model, String redirectUri) {
@@ -301,44 +365,44 @@ public class MemberController {
 		}
 		md.update(tempPw.getBytes());
 		String loginPw = String.format("%064x", new BigInteger(1, md.digest()));
-		
+
 		// 임시패스워드 발송 !
-		memberService.sendUpdateTempLoginPw(tempPw,email);
+		memberService.sendUpdateTempLoginPw(tempPw, email);
 		// 임시패스워드를 암호화 시켜 비밀번호로 업데이트.
 		memberService.doUpdateTempLoginPw(loginPw, email);
 		// 임시패스워드 업데이트시 useTempPw value 값 1로 변경
 		memberService.setValue(member);
 
 		model.addAttribute("redirectUri", redirectUri);
-		model.addAttribute("alertMsg", String.format("%s로 임시패스워드가 발송되었습니다.",email));
+		model.addAttribute("alertMsg", String.format("%s로 임시패스워드가 발송되었습니다.", email));
 
 		return "common/redirect";
 	}
-	
+
 	// 다른 회원 화면 보여주기
-	
+
 	@RequestMapping("/member/showOther")
-	public String showOther(@RequestParam Map<String, Object> param,Model model,int id) {
-		
+	public String showOther(@RequestParam Map<String, Object> param, Model model, int id) {
+
 		Member member = memberService.getMemberById(id);
-		
+
 		int memberId = member.getId();
-		
+
 		// 회원이 쓴 게시글 카운트
 		int articleCount = memberService.getArticleCount(memberId);
-		
-		// 회원이 쓴 게시글 
+
+		// 회원이 쓴 게시글
 		List<Article> articles = articleService.getForPrintArticles2(memberId);
-		
-		if ( member == null ) {
+
+		if (member == null) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("탈퇴한 회원이거나 존재하지 않는 회원입니다."));
 			return "common/redirect";
 		}
-		model.addAttribute("articleCount",articleCount);
-		model.addAttribute("member",member);
-		model.addAttribute("articles",articles);
-		
+		model.addAttribute("articleCount", articleCount);
+		model.addAttribute("member", member);
+		model.addAttribute("articles", articles);
+
 		return "member/showOther";
 	}
 }

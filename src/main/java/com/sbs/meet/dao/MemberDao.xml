@@ -85,6 +85,21 @@
 		AND displayStatus = 1
 	</select>
 	
+	<update id="actionUpdetaSessionKey">
+	UPDATE member
+	SET sessionKey = #{sessionId},
+	sessionLimit = #{sessionLimit}
+	WHERE email =#{email}
+	</update>
+	
+	<select id="checkUseWithSessionKey" resultType="Member">
+	SELECT * FROM member
+	WHERE sessionKey = #{sessionId}
+	AND sessionLimit > NOW()
+	</select>
+	
+	
+	
 	<resultMap type="Member" id="member">
 		<id property="id" column="id"/>
 		<id property="regDate" column="regDate"/>

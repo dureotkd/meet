@@ -1,5 +1,6 @@
 package com.sbs.meet.service;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -162,6 +163,15 @@ public class MemberService {
 
 	public int getArticleCount(int memberId) {
 		return memberDao.getArticleCount(memberId);
+	}
+
+
+	public void actionUpdetaSessionKey(String sessionId, Date sessionLimit, String email) {
+		memberDao.actionUpdetaSessionKey(sessionId, sessionLimit, email);
+	}
+
+	public Member checkUseWithSessionKey(String sessionId) {
+		return memberDao.checkUseWithSessionKey(sessionId);
 	}
 
 	

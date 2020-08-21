@@ -20,6 +20,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 
 
 <!-- 제이쿼리 불러오기 -->
@@ -66,7 +67,7 @@
 		else if (Notification.permission === "granted") {
 
 			var options = {
-				icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+				icon : 'https://img1.yna.co.kr/etc/inner/KR/2018/08/29/AKR20180829033700009_02_i_P2.jpg',
 				body : '로그인 되었습니다.',
 				data : 'Meet In here'
 			}
@@ -139,7 +140,7 @@ var param = ${paramJson};
 	padding: 0px;
 	margin: 0px;
 	text-decoration: none;
-	text-align: center;
+	color:inherit;
 }
 
 ul, li {
@@ -212,11 +213,6 @@ ul, li {
 	border: 1px solid #1a237e;
 }
 
-h1 {
-	margin-top: 50px;
-}
-
-<
 style>.table-box {
 	margin-left: auto;
 	margin-right: auto;
@@ -225,7 +221,7 @@ style>.table-box {
 }
 
 .table-box>table {
-	width: 70%;
+	width: 50%;
 	border-collapse: collapse;
 	margin: 0 auto;
 }
@@ -245,21 +241,78 @@ style>.table-box {
 	height: 100px;
 	border-radius: 50%;
 }
-</style>
+.checkBox {
+	width:20px;
+	height:20px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.left {
+	text-align:left;
+}
+
+.logo {
+	font-family: 'Courgette', cursive;
+	color:#d81b60;
+	font-size:3rem;
+	margin-top:100px;
+}
+
+h1 {
+	text-align:center;
+}
+.left-bar {
+	display:flex;
+	flex-direction:column;
+	width:400px;
+	height:100vh;
+	align-items:center;
+	border-right:1px solid #ccc;
+	position:fixed;
+}
+.Myinfo-profile {
+	width:300px;
+	height:300px;
+	border-width:2px;
+    border-style:solid;
+    border-image:linear-gradient(to bottom, red, blue);
+    border-image-slice:1;
+	border-radius:50%;
+}
+
+.menu-box {
+	display:flex;
+	flex-direction:column;
+	width:100%;
+	
+}
+.menu-box > a {
+	padding:10px;
+	font-size:1.3rem;
+	font-weight:600;
+	text-align:center;	
+}
+
+.img-box,.center{
+	text-align:center;
+}
 
 </style>
 
 </head>
 <body>
-	<h1>[Meet In here]</h1>
+	<div class="left-bar">
+	<h1 class="logo">Meet In here</h1>
 	<c:if test="${isLogined}">
-		<p class="nick">${loginedMember.nickname}님로그인중</p>
-		<c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
+		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">
 				현재 임시 비밀번호를 사용중입니다.<br>빠른 시일내에 변경해주세요.
 			</p>
 		</c:if>
+		 일단 보류 !-->
 	</c:if>
+	<ul class="menu-box">
 	<a href="../article/register">글쓰기</a>
 	<a href="../article/list"> 리스트</a>
 	<c:if test="${isLogined == false }">
@@ -269,3 +322,5 @@ style>.table-box {
 		<a href="../member/myInfo">회원정보</a>
 		<a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a>
 	</c:if>
+	</ul>
+	</div>

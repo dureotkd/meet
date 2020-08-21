@@ -40,7 +40,6 @@
 
 
 
-
 <div class="login-form-box">
 	<form action="doLogin" class="login-form"
 		onsubmit="MemberLoginForm__submit(this); return false;">
@@ -48,7 +47,10 @@
 			type="hidden" name="loginPwReal" /> <input type="email"
 			name="email" class="login-input-box" placeholder="이메일" /> <input
 			type="password" name="loginPw" class="login-input-box"
-			placeholder="비밀번호" /> <input type="submit" class="submit" value="Go" onclick="loginNotify()" />
+			placeholder="비밀번호" />
+			<p class="left">자동 로그인</p><input type="checkBox" class="checkBox" name="loginChk"/>
+
+			 <input type="submit" class="submit" value="Go" onclick="loginNotify()" />
 	</form>
 
 	<div class="join-box">

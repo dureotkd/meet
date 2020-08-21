@@ -1,4 +1,4 @@
-
+﻿
 CREATE DATABASE meet;
 
 DROP TABLE `member`;
@@ -141,6 +141,29 @@ CREATE TABLE Friend(
 ALTER TABLE `Friend` ADD UNIQUE INDEX ( followId , followerId );
 SELECT * FROM `friend`;
 TRUNCATE friend;
+
+
+## DB MEMBER 테이블에 세션 ID 와 유효시간 설정 컬럼 만들기
+ALTER TABLE `member` ADD COLUMN sessionKey VARCHAR(50) NOT NULL DEFAULT 'none';
+ALTER TABLE `member` ADD COLUMN sessionLimit TIMESTAMP;
+
+SELECT * FROM `member`;
+SELECT * FROM `articleReply`;
+SELECT * FROM `file`;
+SELECT * FROM `ar
+truncate `attr`;
+select * from `attr`;
+
+SELECT * FROM member
+WHERE sessionKey = 'B7DA4F97E5101FAE151F85216DB70E9B';
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.sbs.meet.dao;
 
+import java.sql.Date;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -33,6 +34,10 @@ public interface MemberDao {
 	void doMyInfoEdit(String email, String name, String nickname, String introduce, int id);
 
 	int getArticleCount(int memberId);
+
+	void actionUpdetaSessionKey(String sessionId, Date sessionLimit, String email);
+
+	Member checkUseWithSessionKey(String sessionId);
 
 	
 }

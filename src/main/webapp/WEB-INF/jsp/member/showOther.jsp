@@ -6,20 +6,31 @@
 <h1>성명 : ${member.name}</h1>
 <h1>활동명 : ${member.nickname}</h1>
 <h1>소개 : ${member.introduce}</h1>
-<h1>
+<form action="follow" class="center">
+	<input type="hidden" name="loginedMemberId" value="${loginedMemberId}" />
+	<input type="hidden" name="memberId" value="${member.id}" />
+	<input type="submit" value="팔로우" class="submit"/>
+</form>
 	<c:forEach items="${articles}" var="article">
+	<div class="table-box">
+				<table>
+				
+					<tr>
+						<th>게시글[${article.id}]</th>
+						<td>${article.title}</td>
+					</tr>
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
-			<tr>
-				<th>첨부 파일 1</th>
-				<td>
-					<div class="z">
-						<video controls
-							src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}">video
-							not supported
-						</video>
-					</div>
-				</td>
-			</tr>
+					<tr>
+						<th>첨부 파일 1</th>
+						<td>
+							<div class="z">
+								<video controls
+									src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}">video
+									not supported
+								</video>
+							</div>
+						</td>
+					</tr>
 		</c:if>
 		<c:if test="${article.extra.file__common__attachment['2'] != null}">
 			<tr>
@@ -49,19 +60,13 @@
 		<c:if test="${article.extra.file__common__attachment['4'] != null}">
 			<tr>
 				<th>첨부 파일 4 이미지</th>
-				<td>
-					<div class="img-box">
-						<img
-							src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
-					</div>
+				<td><img
+					src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
 				</td>
 			</tr>
 		</c:if>
+		</table>
+			</div>
 	</c:forEach>
-</h1>
-<form action="follow">
-	<input type="hidden" name="loginedMemberId" value="${loginedMemberId}" />
-	<input type="hidden" name="memberId" value="${member.id}" /> <input
-		type="submit" value="팔로우" />
-</form>
+
 <%@ include file="../part/foot.jspf"%>

@@ -3,9 +3,6 @@
 <%@ include file="../part/head.jspf"%>
 
 <style>
-h1 {
-	margin-top:100px;
-}
 .search-box {
 	display:flex;
 	flex-direction:column;

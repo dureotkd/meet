@@ -5,14 +5,15 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.util.WebUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbs.meet.dto.Member;
@@ -70,6 +71,33 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 		// 설정 파일에 있는 정보를 request에 담는다.
 		HttpSession session = request.getSession();
+		
+		Object obj = session.getAttribute("logiendMemberId");
+		
+		if ( obj == null ) {
+			// 로그인 된 세션이 없는 경우.
+			// 만들어 논 쿠키를 꺼내온다..
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			// loginCookie의 값을 꺼내오고 -> 즉 , 저장해논 세션 Id를 꺼내온다
+			if ( loginCookie != null ) {
+				String sessionId = loginCookie.getValue();
+				Member member = memberService.checkUseWithSessionKey(sessionId);
+				System.out.println("쿠키확인" + member);
+				//  그런 사용자가 있다며 세션 생성
+				if ( member != null ) {
+					session.setAttribute("loginedMemberId",member.getId());
+				}
+			}
+			// 세션 Id를 checkUseWithSessionKey에 전달해 이전에 로그인한적이 있는지 체크하는 메서드 
+			// 유효시간이 > now() 인 즉 아직 유효시간이 지나지 않으면서 해당 sessionId 정보를 가지고 있는 사용자 정보를 반환해준다
+			
+		
+
+		}
+		
+
+		
+		
 
 
 		// 로그인 여부에 관련된 정보를 request에 담는다.
@@ -87,6 +115,11 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMember", loginedMember);
 		System.out.println("로그인정보 :"+loginedMember);
+		
+		
+		
+		
+		
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
