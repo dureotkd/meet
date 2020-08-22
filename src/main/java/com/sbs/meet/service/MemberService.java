@@ -174,6 +174,10 @@ public class MemberService {
 		return memberDao.checkUseWithSessionKey(sessionId);
 	}
 
+	public void applyToFollow(int memberId, int loginedMemberId) {
+		memberDao.applyToFollow(memberId,loginedMemberId);
+	}
+
 	
 
 }

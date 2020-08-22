@@ -98,6 +98,13 @@
 	AND sessionLimit > NOW()
 	</select>
 	
+	<insert id="applyToFollow">
+	INSERT INTO friend
+	SET regDate = NOW(),
+	followId = #{loginedMemberId},
+	followerId = #{memberId}
+	</insert>
+	
 	
 	
 	<resultMap type="Member" id="member">

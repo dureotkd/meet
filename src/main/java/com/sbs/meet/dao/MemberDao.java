@@ -39,5 +39,7 @@ public interface MemberDao {
 
 	Member checkUseWithSessionKey(String sessionId);
 
+	void applyToFollow(int memberId, int loginedMemberId);
+
 	
 }

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,10 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.WebUtils;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.dto.ResultData;
 import com.sbs.meet.service.ArticleService;
-import com.sbs.meet.service.FriendService;
+import com.sbs.meet.service.FileService;
 import com.sbs.meet.service.MemberService;
 import com.sbs.meet.util.Util;
 
@@ -33,10 +35,9 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	@Autowired
-	private FriendService friendService;
-	@Autowired
 	private ArticleService articleService;
-
+	@Autowired
+	private FileService fileService;
 	@RequestMapping("/member/join")
 	public String join() {
 		return "member/join";
@@ -382,27 +383,67 @@ public class MemberController {
 	// 다른 회원 화면 보여주기
 
 	@RequestMapping("/member/showOther")
-	public String showOther(@RequestParam Map<String, Object> param, Model model, int id) {
+	public String showOther(@RequestParam Map<String, Object> param, Model model, int id,HttpServletRequest req) {
 
 		Member member = memberService.getMemberById(id);
-
-		int memberId = member.getId();
-
-		// 회원이 쓴 게시글 카운트
-		int articleCount = memberService.getArticleCount(memberId);
-
-		// 회원이 쓴 게시글
-		List<Article> articles = articleService.getForPrintArticles2(memberId);
-
+	
 		if (member == null) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", String.format("탈퇴한 회원이거나 존재하지 않는 회원입니다."));
 			return "common/redirect";
 		}
+
+		int memberId = member.getId();
+		// 회원이 쓴 게시글 카운트
+		int articleCount = memberService.getArticleCount(memberId);
+
+		// 회원이 쓴 게시글
+		List<Article> articles = articleService.getForPrintArticles2(memberId);
+		
+		Article article = articleService.getForPrintOneArticle(id);
+		int articleId = article.getId();
+		// 회원이미지 불러오기
+		//Article articleForPrintOneImg = articleService.getForPrintOneArticle(memberId);
+		
+		Article articleForPrintOneImg = articleService.getForPrintUserImg(articleId,memberId);
+		
+		
+		// 팔로우 기능
+		
+			List<File> files = fileService.getFiles("member", articleForPrintOneImg.getMemberId(), "common", "attachment");
+			if ( files.size() > 0 ) {
+				File file = files.get(0);
+				
+				if ( articleForPrintOneImg.getExtra() == null ) {
+					articleForPrintOneImg.setExtra(new HashMap<>());
+				}
+				
+				articleForPrintOneImg.getExtra().put("writerAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
+			}
+			else {
+				articleForPrintOneImg.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+			}
+			
+			Map<String, File> filesMap = new HashMap<>();
+
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "", file);
+			}
 		model.addAttribute("articleCount", articleCount);
 		model.addAttribute("member", member);
 		model.addAttribute("articles", articles);
+		model.addAttribute("articleForPrintOneImg",articleForPrintOneImg);
 
 		return "member/showOther";
+	}
+	
+	@RequestMapping("/member/follow")
+	public String doActionFollow(HttpServletRequest req,int id) {
+		
+		Member member = memberService.getMemberById(id);
+		Member loginedMember = (Member) req.getAttribute("loginedMember");
+		int loginedMemberId = loginedMember.getId();
+
+		return "common/redirect";
 	}
 }

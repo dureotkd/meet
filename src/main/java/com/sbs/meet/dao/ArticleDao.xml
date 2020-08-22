@@ -22,16 +22,13 @@
 	</select>
 	
 	<select id="getForPrintArticles" resultMap="article">
-	<![CDATA[
 	SELECT A.*,
 	M.nickname  AS extra__writer
 	FROM article AS A
 	INNER JOIN member AS M
 	ON A.memberId = M.id
 	WHERE displayStatus = 1
-	AND A.id >= #{from}
 	ORDER BY A.id ASC
-	]]>
 	</select>
 	
 	
@@ -53,6 +50,16 @@
 	INNER JOIN member AS M
 	ON A.memberId = M.id
 	WHERE A.id = #{id}
+	</select>
+	
+	<select id="getForPrintOneUserImg" resultMap ="article">
+	SELECT A.*,
+	M.nickname AS extra__writer
+	FROM article AS A
+	INNER JOIN member AS M
+	ON A.memberId = M.id
+	WHERE A.memberId = #{memberId}
+	AND A.id = #{id}
 	</select>
 	
 	

@@ -11,13 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.File;
-import com.sbs.meet.dto.ResultData;
 import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FileService;
+import com.sbs.meet.util.Util;
 
 @Controller
 public class ArticleController {
@@ -43,16 +42,24 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/article/list")
-	public String showList() {
-		return "article/list";
-	}
-	
-	
-	@RequestMapping("/article/listAjax")
-	@ResponseBody
-	public ResultData showListAjax(Model model,HttpServletRequest  req,@RequestParam Map<String, Object> param) {
+	public String showList(Model model) {
+		List<Article>  articles = articleService.getForPrintArticles();
+			
 		
-		List<Article>  articles = articleService.getForPrintArticles(param);
+		for ( Article article : articles ) {
+			
+		List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
+		Map<String, File> filesMap = new HashMap<>();
+
+		for (File file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+
+		Util.putExtraVal(article, "file__common__attachment", filesMap);
+		}
+		
+
+		// 작성자
 		
 		for (Article article : articles) {
 			List<File> files = fileService.getFiles("member", article.getMemberId(), "common", "attachment");
@@ -75,13 +82,13 @@ public class ArticleController {
 				filesMap.put(file.getFileNo() + "", file);
 			}
 		}
+		
+		model.addAttribute("articles",articles);
 
-		Map<String, Object> rsDataBody = new HashMap<>();
-		rsDataBody.put("articles", articles);
-
-		return new ResultData("S-1", String.format("%s개의 게시글을 불러왔습니다.", articles.size()), rsDataBody);
-
+		return "article/list";
 	}
+	
+
 	
 	@RequestMapping("article/detail")
 	public String showDetail(Model model,@RequestParam Map<String, Object> param) {
