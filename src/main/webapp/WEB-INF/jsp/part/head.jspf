@@ -259,23 +259,126 @@ h1 {
 	width:50px;
 	height:50px;
 	border-radius:50%;
-	border:1px solid #d81b60;
 }
 
 .menu-box {
 	display:flex;	
 	align-items:center;
 }
-.menu-box > a {
-	padding:8px;
-	font-weight:600;
-	text-align:center;	
-}
+
 .center{
 	text-align:center;
 }
+.search {
+	outline:none;
+	border:solid 1px #dbdbdb;
+	width:220px;
+	height:25px;
+	text-indent:10px;
+}
+.caret {
+	border-top: 3px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    vertical-align: middle;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    transition: all.5s;
+    margin-right:5px;
+}	
+
+.dropdown-menu {
+	top:100%;
+	right:0;
+	position:absolute;
+	width:180px;
+	border:1px solid #ccc;
+	margin-top:5px;
+	box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);
+	transition:all.5s;
+	display:none;
+	background:white;
+}
+.dropdown-menu > li > a{
+	transition:all.3s;
+}
+
+.dropdown-menu > li > a:hover {
+	background:#eee;
+}
+
+
+.dropdown-menu.active {
+	display:block;
+}
+.caret.active {
+	transform:rotate(180deg);
+}
+
+.dropdown-menu > li {
+	display:flex;
+}
+.dropdown-menu > li > a{
+	padding:10px;
+	text-align:center;
+	width:100%;
+}
+.myinfo {
+	z-index:1000;
+	position:relative;
+	display:flex;
+	align-items:center;
+	cursor:pointer;
+}
+.menu-i {
+	font-size:20px;
+	padding:15px;
+}
+
+
+
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+@media ( max-width :799px ) {
+	.visible-on-sm-up {
+		display: none !important;
+	}
+}
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+
+/* 800px 이상이면 안보이게 ( pc 버전 ) */
+@media ( min-width :800px ) {
+	.visible-on-sm-down {
+		display: none !important;
+	}
+}
+
 
 </style>
+
+<script>
+function btnToggleDropMenu__init() {
+	var $btnToggleDropMenu = $('.myinfo');
+
+	$btnToggleDropMenu.click(function() {
+		if ($(this).hasClass('active')) {
+			$(this).removeClass('active');
+			$('.dropdown-menu').removeClass('active');
+			$('.caret').removeClass('active');
+		} else {
+			$(this).addClass('active');
+			$('.dropdown-menu').addClass('active');
+			$('.caret').addClass('active');
+		}	
+	});
+}
+$(function() {
+	btnToggleDropMenu__init();
+});
+
+</script>
 
 </head>
 <body>
@@ -284,19 +387,19 @@ h1 {
 	<a href="../home/main"><h1 class="logo">Meet In here</h1></a>
 	</div>
 	
-	
+	<div class="search-box visible-on-sm-up">
+	<input type="search" class="search" placeholder="검색"/>
+	</div>
 	
 	<div class="menu-box">
-	<a href="../article/register">글쓰기</a>
-	<a href="../article/list"> 리스트</a>
-	<c:if test="${isLogined == false }">
-		<a href="../member/login">로그인</a>
-	</c:if>
+	<a href="#"><i class="far fa-envelope menu-i"></i></a>
+	<a href="../article/list"><i class="far fa-compass menu-i"></i></a>
+	<a href="#"><i class="far fa-heart menu-i"></i></a>
 	<c:if test="${isLogined}">
-		<a href="../member/myInfo">회원정보</a>
-		<a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a>
+	<b class="caret"></b>
 	</c:if>
-	<c:if test="${isLogined}">
+		<div class="myinfo">
+		<c:if test="${isLogined}">
 		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">
@@ -304,6 +407,17 @@ h1 {
 			</p>
 		</c:if>
 		 일단 보류 !-->
-	</c:if>
+		</c:if>
+		<c:if test="${isLogined == false }">
+		 <li><a href="../member/login">로그인</a></li>
+		</c:if>
+		 <c:if test="${isLogined}">
+		  <ul class="dropdown-menu">
+		 <li><a href="../article/register">글쓰기</a></li>
+		 <li><a href="../member/myInfo">회원정보</a></li>
+		 <li><a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a></li>
+		 </ul>
+		 </c:if>
+		 </div>
 	</div>
 	</div>

@@ -5,11 +5,7 @@
 <style>
 .reply-body {
 	width: 100%;
-}
-
-.detail-box {
-	display: flex;
-	justify-content: center;
+	margin-left: 15px;
 }
 
 .total-wrap {
@@ -29,16 +25,12 @@
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;
-	border: 1px solid pink;
 }
 
 .reply-writer {
+	margin-left: 15px;
 	color: #262626;
 	font-weight: 600;
-}
-
-.reply-list-box {
-	width: 350px;
 }
 
 .article-user-box {
@@ -46,6 +38,9 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 15px;
+	border-bottom: 1px solid #eee;
+	font-size: 14px;
+	color: #262626;
 }
 
 .writer-center {
@@ -67,28 +62,43 @@
 	padding: 15px;
 }
 
+.article-body::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera*/
+}
+
 .article-body {
-	padding: 15px;
+	overflow: scroll;
+	height: 422px;
 }
 
 .article-img {
-	height: 550px;
+	height: 569px;
 }
 
 .abody {
 	line-height: 25px;
+	padding: 15px;
 }
 
 .reply-write-box {
 	padding: 15px;
 	display: flex;
-	flex-direction: column;
+	justify-content: space-between;
 }
 
 .textarea {
 	padding: 10px;
 	background: none;
-	border: 1px solid #000a12;
+	border: 1px solid #ccc;
+	width: 500px;
+}
+
+.articleReplies {
+	display: flex;
+	jusitfy-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+	font-size: 14px;
 }
 
 /* Slideshow container */
@@ -152,6 +162,82 @@ to {
 		font-size: 11px
 	}
 }
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+@media ( max-width :799px ) {
+	.visible-on-sm-up {
+		display: none !important;
+	}
+	.detail-box {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		
+	}
+	.reply-list-box {
+		width: 100%;
+	}
+}
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+
+/* 800px 이상이면 안보이게 ( pc 버전 ) */
+@media ( min-width :800px ) {
+	.visible-on-sm-down {
+		display: none !important;
+	}
+	.reply-list-box {
+		border: 1px solid #eee;
+	}
+	.detail-box {
+		display: flex;
+		width: 80%;
+		border: 1px solid #eee;
+		border-radius: 20px;
+		box-shadow: 3px 3px 3px #ccc;
+		align-items: center;
+		padding: 20px;
+		justify-content: center;
+		margin: 0 auto;
+		margin-bottom: 50px;
+		overflow:scroll;
+	}
+	.detail-box::-webkit-scrollbar {
+	display: none; /* Chrome, Safari, Opera*/
+}
+	
+	
+	.reply-list-box {
+		width: 350px;
+	}
+	.mySlides {
+		display: flex;
+	}
+}
+
+.reply-btn {
+	padding: 10px;
+	border: none;
+	background: none;
+	color: #d81b60;
+	font-size: 1.3rem;
+}
+
+button, submit {
+	cursor: pointer;
+}
+.recomend-box {
+	display:none;
+	width:100%;
+	justify-content:space-around;
+	height:569px;
+}
+.re-text {
+	color:#8e8e8e;
+	
+}
 </style>
 
 <script>
@@ -176,35 +262,36 @@ to {
 		form.body.value = '';
 	}
 
-
-	
 	var slideIndex = 1;
 	showSlides(slideIndex);
 
 	function plusSlides(n) {
-	  showSlides(slideIndex += n);
+		showSlides(slideIndex += n);
 	}
 
 	function currentSlide(n) {
-	  showSlides(slideIndex = n);
+		showSlides(slideIndex = n);
 	}
 
 	function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("mySlides");
-	  if (n > slides.length) {slideIndex = 1}    
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-	      slides[i].style.display = "none";  
-	  }
-	  slides[slideIndex-1].style.display = "block";  
-	  dots[slideIndex-1].className += " active";
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		if (n > slides.length) {
+			slideIndex = 1
+		}
+		if (n < 1) {
+			slideIndex = slides.length
+		}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slides[slideIndex - 1].style.display = "block";
+		dots[slideIndex - 1].className += " active";
 	}
-	
 </script>
 <div class="total-wrap">
 	<div class="detail-box">
-	
+
 		<div class="slideshow-container">
 
 			<c:if test="${article.extra.file__common__attachment['3'] != null}">
@@ -222,8 +309,9 @@ to {
 						src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
 				</div>
 			</c:if>
-	
-			<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+			<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
+				onclick="plusSlides(1)">&#10095;</a>
 		</div>
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
 			<video controls
@@ -248,10 +336,9 @@ to {
 			</div>
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
+				<div class="reply-item"></div>
 			</div>
 
-
-			<div class="reply-item"></div>
 
 			<c:if test="${isLogined}">
 				<form action=""
@@ -260,11 +347,20 @@ to {
 						<input type="hidden" name="articleId" value="${article.id}" />
 						<textarea class="textarea" name="body" cols="30" rows="1"
 							placeholder="댓글 달기"></textarea>
-						<input type="submit" class="submit" />
+						<button class="reply-btn">
+							<i class="far fa-paper-plane"></i>
+						</button>
 					</div>
 				</form>
 			</c:if>
 		</div>
+		
+		<div class="recomend-box visible-on-sm-up">
+		<p class="re-text">회원님을 위한 추천</p>
+		<a href="#">모두 보기</a>
+		</div>
+		
+
 
 		<script>
 			var ReplyList__$box = $('.reply-list-box');
@@ -302,7 +398,7 @@ to {
 
 			function ReplyList__drawReply(articleReply) {
 				var html = '';
-				html += '<tr data-id="' + articleReply.id + '">';
+				html += '<tr class="articleReplies" data-id="' + articleReply.id + '">';
 				//	html += '<td>' + articleReply.id + '</td>';
 				//	html += '<td>' + articleReply.regDate + '</td>';
 

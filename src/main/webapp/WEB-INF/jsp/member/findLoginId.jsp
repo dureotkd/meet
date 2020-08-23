@@ -10,8 +10,6 @@ h1 {
 }
 </style>
 
-<h1>아이디 찾기</h1>
-
 <script>
 	var doFindLoginIdForm__submitDone = false;
 	function doFindLoginIdForm__submit(form) {

@@ -27,5 +27,7 @@ public interface ArticleDao  {
 	List<Article> getForPrintArticles2(int memberId);
 
 	Article getForPrintOneUserImg(int id, int memberId);
+
+	int getArticleInReplyCount(int id);
 	
 }

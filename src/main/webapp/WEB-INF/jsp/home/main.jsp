@@ -2,22 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 
-<style>
-.search-box {
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-}
-.search-box {
-	margin-top:300px;
-}
-.search {
-	width:500px;
-	height:100px;
-	font-size:1.5rem;
-}
-</style>
-
 
 
 

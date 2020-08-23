@@ -3,15 +3,25 @@
 <%@ include file="../part/head.jspf"%>
 
 <style>
-.Myinfo-profile {
-	width:300px;
-	height:300px;
-	border-radius:50%;
+.total-wrap {
+	background:#fafafa;
+	width:100%;
+	height:100%;
+	padding-top:50px;
+	
+}
+
+.info-wrap {
+	border:1px solid #eee;
+	width:940px;
+	height:600px;
+	margin:0 auto;
+	background:white;
 }
 </style>
 
-<h1>${loginedMember.nickname}님 정보</h1>
-
+<div class="total-wrap">
+<div class="info-wrap">
 <!-- 회원 프로필   -->
 <c:if test="${loginedMember.extra.file__common__attachment['1'] != null}">
 	<div class="img-box">
@@ -25,5 +35,6 @@
 <p class="center">소개 : ${loginedMember.introduce}</p>
 <a class="center" href="myInfoEdit">프로필 편집</a>
 <a href="passwordForPrivate" class="center">비밀번호 수정</a>
-
+</div>
+</div>
 <%@ include file="../part/foot.jspf"%>

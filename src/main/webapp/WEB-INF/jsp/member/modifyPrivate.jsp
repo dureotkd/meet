@@ -25,9 +25,6 @@
 
 
 
-<h1>비밀번호 수정</h1>
-
-
 <form action="doModifyPrivate" method="POST" class="table-form" onsubmit="submitModifyPrivateForm(this); return false;">
 <input type="hidden" name="loginPwReal" />
 <input type="hidden" name="redirectUri" value="../home/main" />

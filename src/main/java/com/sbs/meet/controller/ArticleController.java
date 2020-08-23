@@ -42,9 +42,12 @@ public class ArticleController {
 	}
 	
 	@RequestMapping("/article/list")
-	public String showList(Model model) {
+	public String showList(Model model,@RequestParam Map<String, Object> param) {
 		List<Article>  articles = articleService.getForPrintArticles();
-			
+	
+		
+		// int ArticleInReplyCount = articleService.getArticleInReplyCount(id);
+		
 		
 		for ( Article article : articles ) {
 			
@@ -84,7 +87,7 @@ public class ArticleController {
 		}
 		
 		model.addAttribute("articles",articles);
-
+		// model.addAttribute("ArticleInReplyCount",ArticleInReplyCount);
 		return "article/list";
 	}
 	
@@ -98,7 +101,7 @@ public class ArticleController {
 		Article article = articleService.getForPrintOneArticle(id);
 		// 게시글
 		model.addAttribute("article",article);
-		
+
 		return "article/detail";
 	}
 	

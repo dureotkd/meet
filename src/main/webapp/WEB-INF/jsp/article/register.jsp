@@ -100,29 +100,86 @@ function ArticleWriteForm__submit(form) {
 </script>
 
 <style>
-.form-box {
+
+.total-wrap {
+	width:100%;
+	height:100vh;
+	background:#fafafa;
+}
+.write-wrap {
 	display:flex;
-	flex-direction:column;
+	justify-content:center;
 	align-items:center;
 }
+.form-box {
+	display:flex;
+	padding:50px;
+	border:1px solid #bdbdbd;
+	margin-top:50px;
+	flex-direction:column;
+}
+textarea {
+	background:none;
+	padding:10px;
+	font-size:1.3rem;
+	
+}
+.input-img {
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+	margin-left:15px;
+}
+
+.board-item {
+	display:flex;
+	margin-bottom:20px;
+	align-items:center;
+	jusitfy-content:center;
+	text-align:center;
+}
+.board-item > a{
+	width:100%;
+}
+
+.wrapping {
+	display:flex;
+}
+
 </style>
 
-<h1>글쓰기</h1>
-
-<div class="form-box">
+<div class="total-wrap">
+<div class="write-wrap">
 <form class="form-box" method="POST" onsubmit="ArticleWriteForm__submit(this); return false;" action="registered">
 <input type="hidden" name="redirectUri" value="detail?id=#id" />
 <input type="hidden" name="fileIdsStr">
-<input type="text" name="title" placeholder="제목" />
-<textarea name="body"  id="" cols="30" rows="10" placeholder="내용" ></textarea>
+<input type="hidden" name="title" placeholder="제목" value="1"/>
+<div class="board-item">
+<a href="#">Photo</a>
+<a href="#">Video</a>
+<a href="#">Article</a>
+</div>
+
+<div class="wrapping">
+<textarea name="body"  id="" cols="30" rows="10" placeholder="지금 무슨일이 일어나고 있나요?" autofocus ></textarea>
+
+
+
+
+<input type="hidden" name="memberId"  value="${loginedMemberId}"/>
+
+<div class="input-img">
+<label for="">Video</label>
 <input type="file" accept="video/*"  name="file__article__0__common__attachment__1" />
 <input type="file" accept="video/*"  name="file__article__0__common__attachment__2" />
-<input type="hidden" name="memberId"  value="${loginedMemberId}"/>
+<label for="">Image</label>
 <input type="file" accept="image/*" name="file__article__0__common__attachment__3">
 <input type="file" accept="image/*" name="file__article__0__common__attachment__4">
 <input type="submit" class="submit" onclick="articleWriteNotify()" />
+</div>
+</div>
 </form>
 </div>
-
+</div>
 <%@ include file="../part/foot.jspf"%>
 

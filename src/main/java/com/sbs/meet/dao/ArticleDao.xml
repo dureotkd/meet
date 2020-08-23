@@ -28,7 +28,7 @@
 	INNER JOIN member AS M
 	ON A.memberId = M.id
 	WHERE displayStatus = 1
-	ORDER BY A.id ASC
+	ORDER BY A.id DESC
 	</select>
 	
 	
@@ -60,6 +60,12 @@
 	ON A.memberId = M.id
 	WHERE A.memberId = #{memberId}
 	AND A.id = #{id}
+	</select>
+	
+	<select id="getArticleInReplyCount" resultType="int">
+	SELECT COUNT(*) AS
+	cnt FROM articleReply
+	WHERE articleId = #{id}
 	</select>
 	
 	

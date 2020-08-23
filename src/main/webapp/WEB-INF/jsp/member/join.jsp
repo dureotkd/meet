@@ -8,9 +8,12 @@
 h1 {
 	text-align: center;
 }
+.total-wrap {
+	background:#fafafa;
+	width:100%;
+	height:100%;
+}
 </style>
-
-<h1>회원가입</h1>
 
 <script>
 var MemberJoinForm__submitDone = false;
@@ -109,14 +112,14 @@ function MemberJoinForm__submit(form) {
 
 
 </script>
-
+<div class="total-wrap">
 <div class="login-form-box">
 	<form action="doJoin" methofd="POST" class="login-form"
 		onsubmit="MemberJoinForm__submit(this); return false;">
 		<input type="hidden" name="redirectUri" value="login" />
 		<input type="hidden" name="fileIdsStr">
 		<input type="hidden" name="loginPwReal" /> 
-		<input type="file" accept="image/*" name="file__member__0__common__attachment__1">
+		<input type="file" class="login-input-box" placeholder="프로필" accept="image/*" name="file__member__0__common__attachment__1">
 		<input type="text" name="email"
 			class="login-input-box" placeholder="이메일" /> <input type="text"
 			name="name" class="login-input-box" placeholder="성명" /> <input
@@ -124,8 +127,8 @@ function MemberJoinForm__submit(form) {
 		<input type="password" name="loginPw" class="login-input-box"
 			placeholder="비밀번호" /> <input type="submit" class="submit" value="Go" />
 	</form>
-	
-	
+</div>
+</div>
 
 
 
