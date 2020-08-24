@@ -20,12 +20,17 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
+<!--  구글 폰트 로고  -->
 <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
-
 
 <!-- 제이쿼리 불러오기 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 구글 폰트 불러오기 -->
+<!-- rotobo(400/700/900), notosanskr(400/600/900) -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+
+
 
 <script>
 	/* window.onload = function() {
@@ -140,8 +145,16 @@ var param = ${paramJson};
 	padding: 0px;
 	margin: 0px;
 	text-decoration: none;
-	color:inherit;
+	color:inherit;	
 }
+
+
+
+html {
+  /* 영문이면 roboto가 적용되고, 한글이면 Noto Sans KR가 적용되도록 아래와 같은 순서로 배치 */
+  font-family: "Roboto", "Noto Sans KR", sans-serif;
+}
+
 
 ul, li {
 	list-style: none;
@@ -249,11 +262,11 @@ h1 {
 }
 .top-bar {
 	display:flex;
-	width:100%;
+	max-width:1080px;
 	height:60px;
 	align-items:center;
-	justify-content:space-around;
-	border-bottom:1px solid #ccc;
+	justify-content:space-between;
+	margin: 0 auto;
 }
 .Myinfo-profile {
 	width:50px;
@@ -335,9 +348,13 @@ h1 {
 	font-size:20px;
 	padding:15px;
 }
-
-
-
+.top-line{
+	border-bottom:1px solid #ccc;
+	height:1;
+	width:100%;
+	position:absolute;
+	top:60px;
+}
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
 @media ( max-width :799px ) {
@@ -378,10 +395,28 @@ $(function() {
 	btnToggleDropMenu__init();
 });
 
+
+function btnToggleBoard__init(){
+	var $btnToggleBoard = $('.board');
+
+	$btnToggleBoard.click(function() {
+
+		if ($(this).hasClass('active')){
+			$(this).removeClass('active');
+		} else {
+			$(this).addClass('active');
+		}
+	});
+}
+$(function(){
+	btnToggleBoard__init();
+});
+
 </script>
 
 </head>
 <body>
+<div class="top-line"></div>
 	<div class="top-bar">
 	<div class="logo-box">
 	<a href="../home/main"><h1 class="logo">Meet In here</h1></a>

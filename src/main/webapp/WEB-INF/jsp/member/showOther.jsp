@@ -7,7 +7,7 @@
 	display: flex;
 	margin: 50px auto;
 	justify-content: left;
-	width:75%;
+	width:55%;
 }
 
 .other-text-box {
@@ -26,7 +26,6 @@
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;
-	border: 1px solid red;
 }
 
 .articles-box {
@@ -53,6 +52,7 @@
 .other-articleImg {
 	width:300px;
 	height:300px;
+	
 }
 .other-articleVideo{
 	width:300px;
@@ -70,7 +70,7 @@
 <nav class="other-show-box">
 	<div class="other-img-box">
 		<img class="other-img"
-			src="${articleForPrintOneImg.extra.writerAvatarImgUrl}" alt="" />
+			src="${member.extra.writerAvatarImgUrl}" alt="" />
 	</div>
 	<div class="other-text-box">
 		<div class="other-nick">${member.nickname}</div>
@@ -128,16 +128,6 @@
 		<img class="other-articleImg"
 			src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 			alt="" /></a>
-		</div>
-		</li>
-	</c:if>
-	<c:if test="${article.extra.file__common__attachment['4'] != null}">
-		<li>
-		<div class="img-wrap">
-		<a href="../article/detail?id=${article.id}">
-		<img class="other-articleImg"
-			src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
-		</a>
 		</div>
 		</li>
 	</c:if>

@@ -19,17 +19,26 @@
 @media ( min-width:901px ) {
   .articles-box > ul > li {
     margin-top:20px;
-    width:calc(100% / 3 - (20px * (3 - 1) / 3));
+    width:calc(100% / 2 - (20px * (2 - 1) / 2));
   }
-  .articles-box > ul > li:not(:nth-child(3n)) {
-  }
+  
+  .total-wrap {
+		height:100vh;
+	}
 }
+
+@media ( max-width:900px ){
+	.total-wrap {
+	height:100%;
+	}
+}
+
+
 
 
 .total-wrap {
 	background:#fafafa;
 	width:100%;
-	height:100%;
 }
 
 .articles-box > ul {
@@ -38,7 +47,6 @@
 	justify-content:center;
 }
 .other-articleImg {
-	width:300px;
 	transition:all.3s;
 }
 .img-wrap:hover .good-item{
@@ -88,6 +96,9 @@
 	transition:all.3s;
 	opacity:0;
 }
+.video {
+	width:500px;
+}
 </style>
 <div class="total-wrap">
 	<div class="board-bar">
@@ -98,67 +109,28 @@
 <div class="articles-box">
 	<ul>
 	<c:forEach items="${articles}" var="article">
-		<c:if test="${article.extra.file__common__attachment['3'] != null}">
+		<c:if test="${article.extra.file__common__attachment['1'] != null}">
 		<li>
 		<div class="img-wrap">
 		<a href="../article/detail?id=${article.id}">
-		<img class="other-articleImg" src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}" alt="" /></a>
+		<video class="video"  controls
+				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+		</a>
 		<i class="fas fa-heart good-item "></i>
 		<i class="fas fa-comment-dots"></i>
 		
-		<c:set var="articleReplyCount" value="0"/>
+		<!--<c:set var="articleReplyCount" value="0"/>
 		<c:forEach var="articleReply" items="${articleReply}" >
 		<c:if test="${articleReply.articleId == article.id}">	
 		</c:if>
 		</c:forEach>
 		</div>
-		</li>
+		</li> !-->
 	</c:if>
 	</c:forEach>
 	</ul>
 	</div>
-	<!--  
-		<c:if test="${article.extra.file__common__attachment['1'] != null}">
-		<li>
-		<div class="img-wrap">
-		<video controls class="other-articleVideo"
-			src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}">video
-			not supported
-		</video>
-		</div>
-		</li>
-	</c:if>
-	<c:if test="${article.extra.file__common__attachment['2'] != null}">
-		<li>
-		<div class="img-wrap">
-		<video controls class="other-articleVideo"
-			src="/file/streamVideo?id=${article.extra.file__common__attachment['2'].id}&updateDate=${article.extra.file__common__attachment['2'].updateDate}">video
-			not supported
-		</video>
-		</div>
-		</li>
-	</c:if>
-	 -->
-	 <!--  이미지  		<c:if test="${article.extra.file__common__attachment['3'] != null}">
-		<li>
-		<div class="img-wrap">
-		<a href="../article/detail?id=${article.id}">
-		<img class="other-articleImg"
-			src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
-			alt="" /></a>
-		</div>
-		</li>
-	</c:if>
-	<c:if test="${article.extra.file__common__attachment['4'] != null}">
-		<li>
-		<div class="img-wrap">
-		<a href="../article/detail?id=${article.id}">
-		<img class="other-articleImg"
-			src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
-		</a>
-		</div>
-		</li>
-	</c:if>
-	 -->
+
+
 </div>
 <%@ include file="../part/foot.jspf"%>

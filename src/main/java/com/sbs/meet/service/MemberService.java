@@ -178,6 +178,10 @@ public class MemberService {
 		memberDao.applyToFollow(memberId,loginedMemberId);
 	}
 
+	public File getUserAvatarImg(int memberId) {
+		return memberDao.getUserAvatarImg(memberId);
+	}
+
 	
 
 }

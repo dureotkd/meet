@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
 
 @Mapper
@@ -40,6 +41,8 @@ public interface MemberDao {
 	Member checkUseWithSessionKey(String sessionId);
 
 	void applyToFollow(int memberId, int loginedMemberId);
+
+	File getUserAvatarImg(int memberId);
 
 	
 }

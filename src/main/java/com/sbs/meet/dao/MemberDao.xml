@@ -105,6 +105,12 @@
 	followerId = #{memberId}
 	</insert>
 	
+	<select id="getUserAvatarImg" resultType="File">
+	SELECT * FROM file
+	WHERE relTypeCode = 'member'
+	AND relId = #{memberId}
+	</select>
+	
 	
 	
 	<resultMap type="Member" id="member">

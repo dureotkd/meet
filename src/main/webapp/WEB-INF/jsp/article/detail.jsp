@@ -10,7 +10,7 @@
 
 .total-wrap {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	background: #fafafa;
 	padding-top: 50px;
 }
@@ -91,6 +91,7 @@
 	background: none;
 	border: 1px solid #ccc;
 	width: 500px;
+	outline: none;
 }
 
 .articleReplies {
@@ -174,10 +175,12 @@ to {
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		
 	}
 	.reply-list-box {
 		width: 100%;
+	}
+	.total-wrap {
+		height: 100%;
 	}
 }
 
@@ -191,9 +194,12 @@ to {
 	.reply-list-box {
 		border: 1px solid #eee;
 	}
+	.total-wrap {
+		height: 100vh;
+	}
 	.detail-box {
 		display: flex;
-		width: 80%;
+		max-width: 1080px;
 		border: 1px solid #eee;
 		border-radius: 20px;
 		box-shadow: 3px 3px 3px #ccc;
@@ -202,13 +208,11 @@ to {
 		justify-content: center;
 		margin: 0 auto;
 		margin-bottom: 50px;
-		overflow:scroll;
+		overflow: scroll;
 	}
 	.detail-box::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Opera*/
-}
-	
-	
+		display: none; /* Chrome, Safari, Opera*/
+	}
 	.reply-list-box {
 		width: 350px;
 	}
@@ -228,15 +232,33 @@ to {
 button, submit {
 	cursor: pointer;
 }
+
 .recomend-box {
-	display:none;
-	width:100%;
-	justify-content:space-around;
-	height:569px;
+	display: none;
+	width: 100%;
+	justify-content: space-around;
+	height: 569px;
 }
+
 .re-text {
-	color:#8e8e8e;
-	
+	color: #8e8e8e;
+}
+
+.like-wrap {
+	display: flex;
+	padding-left: 15px;
+	align-items: baseline;
+	justify-content: space-between;
+	width: 50px;
+	margin-bottom:15px;
+}
+
+.like {
+	color: #d81b60;
+}
+
+.fa-crown {
+	color:#ffb300;
 }
 </style>
 
@@ -329,13 +351,20 @@ button, submit {
 				<a href="../member/showOther?id=${article.memberId}"
 					class="writer-center"> <img class="article-writer-Avatar"
 					src="${article.extra.writerAvatarImgUrl}"> <span
-					class="writer">${article.extra.writer}</span></a> <i
-					class="fas fa-certificate"></i>
+					class="writer">${article.extra.writer}</span></a> 
+					<i class="fas fa-crown"></i>
 				<p>팔로우</p>
 				<i class="fas fa-ellipsis-h"></i>
 			</div>
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
+				<div class="like-wrap">
+					<a
+						href="./doLike?id=${article.id}&redirectUri=/article/detail?id=${article.id}">
+						<i class="fas fa-heart like"></i>
+					</a>
+					<p>${article.extra.likePoint}개</p>
+				</div>
 				<div class="reply-item"></div>
 			</div>
 
@@ -354,12 +383,12 @@ button, submit {
 				</form>
 			</c:if>
 		</div>
-		
+
 		<div class="recomend-box visible-on-sm-up">
-		<p class="re-text">회원님을 위한 추천</p>
-		<a href="#">모두 보기</a>
+			<p class="re-text">회원님을 위한 추천</p>
+			<a href="#">모두 보기</a>
 		</div>
-		
+
 
 
 		<script>

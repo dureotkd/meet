@@ -28,6 +28,12 @@ public interface ArticleDao  {
 
 	Article getForPrintOneUserImg(int id, int memberId);
 
-	int getArticleInReplyCount(int id);
+	int getArticleReplyCount();
+
+	void likeArticle(int id, int loginedMemberId);
+
+	int getLikePointByMemberId(int id, int loginedMemberId);
+
+	int getArticleCount(int memberId);
 	
 }

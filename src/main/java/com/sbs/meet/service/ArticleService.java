@@ -119,7 +119,7 @@ public class ArticleService {
 	public Article getForPrintUserImg(int articleId, int memberId) {
 		Article article = articleDao.getForPrintOneUserImg(articleId, memberId);
 		
-		List<File> files = fileService.getFiles("article",article.getMemberId(), "common", "attachment");
+		List<File> files = fileService.getFiles("member", article.getMemberId(), "common", "attachment");
 		Map<String, File> filesMap = new HashMap<>();
 
 		for (File file : files) {
@@ -131,8 +131,56 @@ public class ArticleService {
 		return article;
 	}
 
-	public int getArticleInReplyCount(int id) {
-		return articleDao.getArticleInReplyCount(id);
+	public int getArticleReplyCount() {
+		return articleDao.getArticleReplyCount();
+	}
+
+	public Map<String, Object> getArticleLikeAvailable(int id, int loginedMemberId) {
+		
+		// 게시글 하나 가저와서
+		Article article = articleDao.getForPrintOneArticle(id);
+
+		Map<String, Object> rs = new HashMap<>();
+		
+		// article.getMemberId 랑 loginId 랑 같으면 본인 추천 x
+		if (article.getMemberId() == loginedMemberId) {
+			rs.put("resultCode", "F-1");
+			rs.put("msg", "본인은 추천 할 수 없습니다.");
+
+			return rs;
+		}
+		
+		//  좋아요 중복 방지 체크.
+		int likePoint = articleDao.getLikePointByMemberId(id, loginedMemberId);
+		
+		// likePoint 0 보다크면 이미 좋아요 누른거 . 기존은 0 좋아요 누르면 1이 되는거같음?
+		if (likePoint > 0) {
+			rs.put("resultCode", "F-2");
+			rs.put("msg", "이미 좋아요를 하셨습니다.");
+
+			return rs;
+		}
+		
+		// 가능
+		rs.put("resultCode", "S-1");
+		rs.put("msg", "가능합니다.");
+
+		return rs;
+	}
+
+	public Map<String, Object> likeArticle(int id, int loginedMemberId) {
+		
+		articleDao.likeArticle(id,loginedMemberId);
+		
+		Map<String, Object> rs = new HashMap<>();
+		
+		rs.put("resultCode","S-1");
+		rs.put("msg", String.format("추천완료"));
+		return rs;
+	}
+
+	public int getArticleCount(int memberId) {
+		return articleDao.getArticleCount(memberId);
 	}
 
 	

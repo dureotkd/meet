@@ -395,44 +395,36 @@ public class MemberController {
 
 		int memberId = member.getId();
 		// 회원이 쓴 게시글 카운트
-		int articleCount = memberService.getArticleCount(memberId);
+		int articleCount = articleService.getArticleCount(memberId);
 
 		// 회원이 쓴 게시글
 		List<Article> articles = articleService.getForPrintArticles2(memberId);
 		
-		Article article = articleService.getForPrintOneArticle(id);
-		int articleId = article.getId();
-		// 회원이미지 불러오기
-		//Article articleForPrintOneImg = articleService.getForPrintOneArticle(memberId);
+		// File userAvatarImg = memberService.getUserAvatarImg(memberId);
 		
-		Article articleForPrintOneImg = articleService.getForPrintUserImg(articleId,memberId);
-		
-		
-		// 팔로우 기능
-		
-			List<File> files = fileService.getFiles("member", articleForPrintOneImg.getMemberId(), "common", "attachment");
-			if ( files.size() > 0 ) {
-				File file = files.get(0);
-				
-				if ( articleForPrintOneImg.getExtra() == null ) {
-					articleForPrintOneImg.setExtra(new HashMap<>());
-				}
-				
-				articleForPrintOneImg.getExtra().put("writerAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
-			}
-			else {
-				articleForPrintOneImg.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+		List<File> files = fileService.getFiles("member", memberId , "common", "attachment");
+		if ( files.size() > 0 ) {
+			File file = files.get(0);
+			
+			if ( member.getExtra() == null ) {
+				member.setExtra(new HashMap<>());
 			}
 			
-			Map<String, File> filesMap = new HashMap<>();
+			member.getExtra().put("writerAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
+		}
+		else {
+			member.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+		}
+		
+		Map<String, File> filesMap = new HashMap<>();
 
-			for (File file : files) {
-				filesMap.put(file.getFileNo() + "", file);
-			}
+		for (File file : files) {
+			filesMap.put(file.getFileNo() + "", file);
+		}
+		
 		model.addAttribute("articleCount", articleCount);
 		model.addAttribute("member", member);
 		model.addAttribute("articles", articles);
-		model.addAttribute("articleForPrintOneImg",articleForPrintOneImg);
 
 		return "member/showOther";
 	}
