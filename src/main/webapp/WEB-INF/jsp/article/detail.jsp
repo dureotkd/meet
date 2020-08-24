@@ -5,7 +5,8 @@
 <style>
 .reply-body {
 	width: 100%;
-	margin-left: 15px;
+	line-break:anywhere;
+	margin-left: 5%;
 }
 
 .total-wrap {
@@ -31,6 +32,7 @@
 	margin-left: 15px;
 	color: #262626;
 	font-weight: 600;
+	width:20%;
 }
 
 .article-user-box {
@@ -232,8 +234,8 @@ to {
 button, submit {
 	cursor: pointer;
 }
-
-.recomend-box {
+	
+	.recomend-box {
 	display: none;
 	width: 100%;
 	justify-content: space-around;
@@ -248,9 +250,11 @@ button, submit {
 	display: flex;
 	padding-left: 15px;
 	align-items: baseline;
-	justify-content: space-between;
 	width: 50px;
 	margin-bottom:15px;
+}
+.like-point{
+	margin-left:15px;
 }
 
 .like {
@@ -263,6 +267,15 @@ button, submit {
 </style>
 
 <script>
+var id = parseInt('${article.id}');
+</script>
+
+<script>
+	function ViewArticle1__updateLikePoint(newLikePoint){
+		$('.like-point').empty().append(newLikePoint); 
+	}
+
+
 	function WriteReply__submitForm(form) {
 		form.body.value = form.body.value.trim();
 		if (form.body.value.length == 0) {
@@ -310,6 +323,28 @@ button, submit {
 		slides[slideIndex - 1].style.display = "block";
 		dots[slideIndex - 1].className += " active";
 	}
+	
+
+function callDoLike(){
+	$.post(
+		'./doLike',
+		{
+			id:id
+		},
+		function(data){
+			if ( data.msg ) {
+				alert(data.msg);
+			}
+			
+			if (data.resultCode.substr(0,2) == "S-"){
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		},
+		'json'
+	);
+	
+}
+	
 </script>
 <div class="total-wrap">
 	<div class="detail-box">
@@ -359,11 +394,12 @@ button, submit {
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
 				<div class="like-wrap">
-					<a
-						href="./doLike?id=${article.id}&redirectUri=/article/detail?id=${article.id}">
+					<a href="#" 
+					onclick="callDoLike();"
+					>
 						<i class="fas fa-heart like"></i>
 					</a>
-					<p>${article.extra.likePoint}개</p>
+					<p class="like-point">${article.extra.likePoint}</p>개
 				</div>
 				<div class="reply-item"></div>
 			</div>
@@ -389,6 +425,7 @@ button, submit {
 			<a href="#">모두 보기</a>
 		</div>
 
+		
 
 
 		<script>

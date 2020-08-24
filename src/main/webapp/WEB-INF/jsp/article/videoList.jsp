@@ -3,10 +3,6 @@
 
 <%@ include file="../part/head.jspf"%>
 
-
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-
 <style>
 
 .articles-box {
@@ -77,6 +73,12 @@
 	font-size:1.5rem;
 	padding:15px;
 	margin-top:20px;
+	border:1px solid #eee;
+	border-radius:50%;
+	margin:20px;
+	box-shadow:
+	0 10px 10px -12px rgba(0, 0, 0, 0.56), 0 4px 10px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	
 }
 .good-item {
 	position:absolute;
@@ -102,7 +104,7 @@
 </style>
 <div class="total-wrap">
 	<div class="board-bar">
-	<a class="board" href="list"><i class="far fa-image"></i></a>
+	<a class="board" href="list"><i class="fas fa-image"></i></a>
 	<a class="board" href="videoList"><i class="fas fa-video"></i></a>
 	<a class="board" href="#"><i class="fas fa-quote-left"></i></a>
 	</div>

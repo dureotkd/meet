@@ -106,6 +106,22 @@
 	</select>
 	
 	
+	<select id="getLikePoint" resultType="int">
+	SELECT 
+	IFNULL(SUM(AL.point), 0) AS point
+	FROM articleLike AS AL
+	WHERE AL.articleId = #{id}
+	</select>
+	
+	<select id="getArticleLikeAvailableCount" resultType="int">
+	SELECT 
+	IFNULL(SUM(AL.point), 0) AS point
+	FROM articleLike AS AL
+	WHERE AL.articleId = #{id}
+	AND AL.memberId = #{loginedMemberId}
+	</select>
+	
+	
 	<resultMap type="ArticleReply" id="articleReply">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.ArticleReply;
@@ -158,27 +159,36 @@ public class ArticleController {
 	// 좋아요 
 	
 	@RequestMapping("article/doLike")
-	public String doLike(Model model,int id,HttpServletRequest request,String redirectUri) {
+	@ResponseBody
+	public Map<String, Object> doLike(Model model,int id,HttpServletRequest request) {
 		
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+		
+		Map<String, Object> rs = new HashMap<>();
 		
 		// 중복 추천 체크
 		Map<String, Object> articleLikeAvailableRs = articleService.getArticleLikeAvailable(id,loginedMemberId);
 		
 		if (((String) articleLikeAvailableRs.get("resultCode")).startsWith("F-")) {
-			model.addAttribute("alertMsg", articleLikeAvailableRs.get("msg"));
-			model.addAttribute("historyBack", true);
-			return "common/redirect";
+			
+			rs.put("resultCode",articleLikeAvailableRs.get("resultCode"));
+			rs.put("msg",articleLikeAvailableRs.get("msg"));
+			
+			return rs;
 		}
 		
 		// 좋아요 Start
-		Map<String, Object> rs = articleService.likeArticle(id,loginedMemberId);
+		Map<String, Object> likeArticleRs = articleService.likeArticle(id,loginedMemberId);
 		
-		String msg = (String) rs.get("msg");
+		String msg = (String) likeArticleRs.get("msg");
+		String resultCode = (String) likeArticleRs.get("resultCode");
+		int likePoint = articleService.getLikePoint(id);
 		
-		model.addAttribute("alertMsg",msg);
-		model.addAttribute("redirectUri",redirectUri);
-		return "common/redirect";
+		int articleLikeAvailableCount = articleService.getArticleLikeAvailableCount(id,loginedMemberId);
+		rs.put("resultCode",resultCode);
+		rs.put("likePoint",likePoint);
+
+		return rs;
 	}
 	
 	@RequestMapping("article/textList")

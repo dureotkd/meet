@@ -265,7 +265,6 @@ h1 {
 	max-width:1080px;
 	height:60px;
 	align-items:center;
-	justify-content:space-between;
 	margin: 0 auto;
 }
 .Myinfo-profile {
@@ -361,6 +360,10 @@ h1 {
 	.visible-on-sm-up {
 		display: none !important;
 	}
+	
+	.top-bar {
+		justify-content:space-around;
+	}
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
@@ -369,6 +372,10 @@ h1 {
 @media ( min-width :800px ) {
 	.visible-on-sm-down {
 		display: none !important;
+	}
+	
+	.top-bar {
+		justify-content:space-between;
 	}
 }
 

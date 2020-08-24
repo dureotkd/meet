@@ -175,12 +175,19 @@ public class ArticleService {
 		Map<String, Object> rs = new HashMap<>();
 		
 		rs.put("resultCode","S-1");
-		rs.put("msg", String.format("추천완료"));
 		return rs;
 	}
 
 	public int getArticleCount(int memberId) {
 		return articleDao.getArticleCount(memberId);
+	}
+
+	public int getLikePoint(int id) {
+		return articleDao.getLikePoint(id);
+	}
+
+	public int getArticleLikeAvailableCount(int id, int loginedMemberId) {
+		return articleDao.getArticleLikeAvailableCount(id,loginedMemberId);
 	}
 
 	

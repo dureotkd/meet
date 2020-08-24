@@ -3,8 +3,45 @@
 
 <%@ include file="../part/head.jspf"%>
 
+<script>
+// article.id를 어떻게줘여하나..
 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+var id = parseInt('${article.id}');	
+</script>
+
+
+<script>
+
+function callDoLike(){
+	$.post(
+		'./doLike',
+		{
+			id:id
+		},
+		function(data){
+			if ( data.msg ) {
+				alert(data.msg);
+			}
+			
+			if (data.resultCode.substr(0,2) == "S-"){
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		},
+		'json'
+	);
+	
+}
+
+function showVideoListAjax(){
+	$.post(
+		'./videoList',
+		{
+
+		},
+	'json'
+	);
+}
+</script>
 
 
 <style>
@@ -69,6 +106,12 @@
 	font-size:1.5rem;
 	padding:15px;
 	margin-top:20px;
+	border:1px solid #eee;
+	border-radius:50%;
+	margin:20px;
+	box-shadow:
+	0 10px 10px -12px rgba(0, 0, 0, 0.56), 0 4px 10px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+	
 }
 .good-item {
 	position:absolute;
@@ -91,7 +134,7 @@
 </style>
 <div class="total-wrap">
 	<div class="board-bar">
-	<a class="board" href="list"><i class="far fa-image"></i></a>
+	<a class="board" href="list"><i class="fas fa-image"></i></a>
 	<a class="board" href="videoList"><i class="fas fa-video"></i></a>
 	<a class="board" href="#"><i class="fas fa-quote-left"></i></a>
 	</div>
@@ -103,7 +146,7 @@
 		<div class="img-wrap">
 		<a href="../article/detail?id=${article.id}">
 		<img class="other-articleImg" src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}" alt="" /></a>
-		<i class="fas fa-heart good-item "></i>
+		<a href="#" onclick="callDoLike();"><i class="fas fa-heart good-item "></i></a>
 		<i class="fas fa-comment-dots"></i>
 		
 		<c:set var="articleReplyCount" value="0"/>
