@@ -30,6 +30,9 @@
 <!-- rotobo(400/700/900), notosanskr(400/600/900) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
 
 
 <script>
@@ -438,7 +441,7 @@ $(function() {
 	</div>
 	
 	<div class="menu-box">
-	<a href="#"><i class="far fa-envelope menu-i"></i></a>
+	<a href="../message/list"><i class="far fa-envelope menu-i"></i></a>
 	<a href="../article/list"><i class="far fa-compass menu-i"></i></a>
 	<a href="#"><i class="far fa-heart menu-i"></i></a>
 	<c:if test="${isLogined}">

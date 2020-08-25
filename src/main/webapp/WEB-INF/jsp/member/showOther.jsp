@@ -14,9 +14,9 @@
 .other-text-box {
 	display: flex;
 	flex-direction: column;
-	justify-content:space-between;
+	justify-content: space-between;
 	margin-left: 50px;
-	width:400px;
+	width: 400px;
 }
 
 .other-follow-box {
@@ -76,38 +76,46 @@
 
 .other-followBox {
 	display: flex;
-	justify-content:space-between;
+	justify-content: space-between;
 }
 
 .other-followBox>span {
 	padding-top: 10px;
 }
+
 .other-info-box {
-	display:flex;
-	align-items:center;
-	justify-content:space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
+
 .level10 {
-	color:#ffb300;
+	color: #ffb300;
 }
+
 .level5 {
-	color:#3949ab;
+	color: #3949ab;
 }
+
 .submit-item {
-	padding:7px;
-	background:none;
-	border:1px solid #ccc;
-	cursor:pointer;
+	padding: 10px;
+	background: #0095f6;
+	border: none;
+	cursor: pointer;
+	color: white;
 }
+
 .other-recomend-box {
-	display:flex;
-	height:200px;
-	width:300px;
-	justify-content:center;
-	border:1px solid #ccc;
+	display: flex;
+	height: 200px;
+	width: 300px;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
 }
-.other-recomend-box > p {
-	padding:10px;
+
+.other-recomend-box>p {
+	padding: 10px;
 }
 </style>
 
@@ -127,13 +135,11 @@
 				<c:if test="${member.level < 5 }">
 					<i class="fas fa-user-alt level"></i>
 				</c:if>
-				
-				
-				<input type="submit" value="메세지 보내기"  class="submit-item"  />
-				
-				<input type="submit" value="팔로우" class="submit-item" />
-				
-				<i class="fas fa-ellipsis-h"></i>
+
+
+				<input type="submit" value="메세지 보내기" class="submit-item" /> <input
+					type="submit" value="팔로우" class="submit-item" /> <i
+					class="fas fa-ellipsis-h"></i>
 			</div>
 			<div class="other-followBox">
 				<span class="article-count">게시글 ${articleCount}</span> <span
@@ -147,8 +153,10 @@
 
 
 	<div class="other-recomend-box">
-		<p>테스트 중입니다</p>
-	
+		<h3>The Weeknd - I Fell it Coming</h3>
+		<audio controls autoplay loop>
+			<source src="dancing.mp3" type="audio/mp3" />
+		</audio>
 	</div>
 
 </nav>

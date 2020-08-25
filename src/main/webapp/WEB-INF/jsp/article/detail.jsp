@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
-
 <style>
 .reply-body {
 	width: 100%;
@@ -86,12 +85,16 @@
 	padding: 15px;
 	display: flex;
 	justify-content: space-between;
+	align-items:center;
 }
 
 .textarea {
 	padding: 10px;
 	background: none;
-	border: 1px solid #ccc;
+	border-top:none;
+	border-left:none;
+	border-right:none;
+	border-bottom: 1px solid #ccc;
 	width: 500px;
 	outline: none;
 }
@@ -107,6 +110,9 @@
 /* Slideshow container */
 .slideshow-container {
 	position: relative;
+	display:flex;
+	justify-content:space-between;
+		
 }
 
 /* Next & previous buttons */
@@ -122,6 +128,10 @@
 	font-size: 18px;
 	transition: 0.6s ease;
 	border-radius: 0 3px 3px 0;
+}
+
+.prev:hover,.next:hover{
+	color:#d81b60;
 }
 
 /* Position the "next button" to the right */
@@ -159,6 +169,10 @@ to {
 
 }
 
+.mySlides {
+	margin:0 auto;
+	overflow:hidden;
+}
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
 	.prev, .next, .text {
@@ -183,6 +197,10 @@ to {
 	}
 	.total-wrap {
 		height: 100%;
+	}
+	
+	.slideshow-container {
+		width:100%;
 	}
 }
 
@@ -220,6 +238,10 @@ to {
 	}
 	.mySlides {
 		display: flex;
+	}
+	
+	.slideshow-container {
+		width:50%;
 	}
 }
 
@@ -273,13 +295,43 @@ button, submit {
 }
 .article-video {
 	height:568px;
-	max-width:700px;
+	outline:none;
 	border:1px solid #eee;
 }
 .regDate {
 	color:#bdbdbd;
 	font-size:13px;
 	padding:15px;
+}
+.fa-smile {
+	color:#212121;
+	font-size:20px;
+	padding:10px;
+}
+
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+@media ( max-width :799px ) {
+	.visible-on-sm-up {
+		display: none !important;
+	}
+	
+	.article-video {
+		width:100%;
+	}
+}
+
+/* 800px 이하면 안보이게 ( 모바일 버전 ) */
+
+/* 800px 이상이면 안보이게 ( pc 버전 ) */
+@media ( min-width :800px ) {
+	.visible-on-sm-down {
+		display: none !important;
+	}
+	
+	.article-video {
+		max-width:700px;
+	}
 }
 
 </style>
@@ -365,7 +417,8 @@ function callDoLike(){
 </script>
 <div class="total-wrap">
 	<div class="detail-box">
-
+			<c:if test="${article.extra.file__common__attachment['1'] == null}">
+	
 		<div class="slideshow-container">
 
 			<c:if test="${article.extra.file__common__attachment['3'] != null}">
@@ -396,7 +449,7 @@ function callDoLike(){
 			
 		</div>
 		
-		
+		</c:if>
 		
 		
 		
@@ -427,7 +480,7 @@ function callDoLike(){
 			</div>
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
-				<p class="tag">${article.tag}</p>
+				<p class="tag">#${article.tag}</p>
 				<div class="like-wrap">
 					<a href="#" 
 					onclick="callDoLike();"
@@ -445,8 +498,9 @@ function callDoLike(){
 					onsubmit="WriteReply__submitForm(this); return false;">
 					<div class="reply-write-box">
 						<input type="hidden" name="articleId" value="${article.id}" />
+						<i class="far fa-smile"></i>
 						<textarea class="textarea" name="body" cols="30" rows="1"
-							placeholder="댓글 달기"></textarea>
+							placeholder="댓글 달기 " autofocus></textarea>
 						<button class="reply-btn">
 							<i class="far fa-paper-plane"></i>
 						</button>

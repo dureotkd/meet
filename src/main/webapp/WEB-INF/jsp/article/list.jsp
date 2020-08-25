@@ -152,8 +152,8 @@
 								src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 								alt="" /></a> <a onclick="callDoLike(this);"><i
 								class="fas fa-heart good-item "></i></a> <i
-								class="fas fa-comment-dots"></i>
-
+								class="fas fa-comment-dots " ></i>
+								<img src="#" alt="" usemap="#map" />
 							<c:set var="articleReplyCount" value="0" />
 							<c:forEach var="articleReply" items="${articleReply}">
 								<c:if test="${articleReply.articleId == article.id}">
@@ -165,6 +165,9 @@
 			</c:forEach>
 		</ul>
 	</div>
+	<map name="map">
+<area shape="rect" coords="267,321,362,346" href="#" onclick="javascript:window.open('/article/detail','','width=900,height=900,scrollbars=yes,resizable=no');return false" onfocus='this.blur()'>
+</map>
 	<!--  
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
 		<li>
