@@ -422,10 +422,10 @@ public class MemberController {
 			filesMap.put(file.getFileNo() + "", file);
 		}
 		
+	
 		model.addAttribute("articleCount", articleCount);
 		model.addAttribute("member", member);
 		model.addAttribute("articles", articles);
-
 		return "member/showOther";
 	}
 	

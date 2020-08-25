@@ -3,6 +3,27 @@
 
 <%@ include file="../part/head.jspf"%>
 
+<script>
+	function callDoLike(el) {
+		var $li = $(el).closest('li');
+
+		var id = parseInt($li.attr('data-id'));
+
+		$.post('./doLike',{
+			id : id
+		}, function(data){
+			if (data.msg){
+				alert(data.msg);
+				}
+			
+
+		if (data.resultCode.substr(0, 2) == "S-" ){
+				ViewArticle1__updateLikePoint(data.likePoint);
+				}
+			}, 'json');
+		}
+</script>
+
 <style>
 
 .articles-box {
@@ -88,6 +109,7 @@
 	font-size:25px;
 	transition:all.3s;
 	opacity:0;
+	cursor:pointer;
 }
 .fa-comment-dots {
 	position:absolute;
@@ -97,30 +119,40 @@
 	font-size:25px;
 	transition:all.3s;
 	opacity:0;
+	cursor:pointer;
 }
 .video {
 	width:500px;
+}
+.action {
+	color:#d81b60;
+}
+.cursor1 {
+	cursor:zoom-in;
 }
 </style>
 <div class="total-wrap">
 	<div class="board-bar">
 	<a class="board" href="list"><i class="fas fa-image"></i></a>
-	<a class="board" href="videoList"><i class="fas fa-video"></i></a>
+	<a class="board action " href="videoList"><i class="fas fa-video"></i></a>
 	<a class="board" href="#"><i class="fas fa-quote-left"></i></a>
 	</div>
 <div class="articles-box">
 	<ul>
 	<c:forEach items="${articles}" var="article">
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
-		<li>
+		<li data-id="${article.id}">
 		<div class="img-wrap">
-		<a href="../article/detail?id=${article.id}">
+		<a class="cursor1"  href="../article/detail?id=${article.id}">
 		<video class="video"  controls
 				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
 		</a>
+		<a onclick="callDoLike(this);">
 		<i class="fas fa-heart good-item "></i>
+		</a>
 		<i class="fas fa-comment-dots"></i>
-		
+		</div>
+		</li>
 		<!--<c:set var="articleReplyCount" value="0"/>
 		<c:forEach var="articleReply" items="${articleReply}" >
 		<c:if test="${articleReply.articleId == article.id}">	

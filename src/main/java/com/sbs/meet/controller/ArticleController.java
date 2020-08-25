@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.dto.File;
+import com.sbs.meet.dto.Member;
 import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FileService;
+import com.sbs.meet.service.MemberService;
 import com.sbs.meet.util.Util;
 
 
@@ -27,6 +29,8 @@ public class ArticleController {
 	private ArticleService  articleService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping("article/register")
 	public String register() {
@@ -52,9 +56,6 @@ public class ArticleController {
 		
 		
 		List<ArticleReply> articleReply = articleService.getForPrintArticleReplies();
-		
-		
-		
 		
 		for ( Article article : articles ) {
 			
@@ -151,8 +152,21 @@ public class ArticleController {
 
 		Article article = articleService.getForPrintOneArticle(id);
 		// 게시글
+		int memberId = article.getMemberId();
+		Member member = memberService.getMemberById(memberId);
+		
+		int articleCount = articleService.getArticleCount(memberId);
+		
+		if ( articleCount >= 5 ) {
+			if ( member.getNickname().equals("관리자") == false ) {
+				memberService.doUpdateLevel(memberId);
+			}
+		}
+		
+		
+		
 		model.addAttribute("article",article);
-
+		model.addAttribute("member",member);
 		return "article/detail";
 	}
 	
@@ -179,8 +193,6 @@ public class ArticleController {
 		
 		// 좋아요 Start
 		Map<String, Object> likeArticleRs = articleService.likeArticle(id,loginedMemberId);
-		
-		String msg = (String) likeArticleRs.get("msg");
 		String resultCode = (String) likeArticleRs.get("resultCode");
 		int likePoint = articleService.getLikePoint(id);
 		
@@ -190,6 +202,8 @@ public class ArticleController {
 
 		return rs;
 	}
+	
+	// text 만 할지 안할지 고민중.
 	
 	@RequestMapping("article/textList")
 	public String showTextList(Model model) {
@@ -201,6 +215,7 @@ public class ArticleController {
 		
 		return "article/textList";
 	}
+	
 	
 	
 	

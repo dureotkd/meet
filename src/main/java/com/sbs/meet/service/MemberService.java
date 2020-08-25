@@ -182,6 +182,14 @@ public class MemberService {
 		return memberDao.getUserAvatarImg(memberId);
 	}
 
+	public void doUpdateLevel(int memberId) {
+		memberDao.doUpdateLevel(memberId);
+	}
+
+	public List<Member> getAllMember() {
+		return memberDao.getAllMember();
+	}
+
 	
 
 }

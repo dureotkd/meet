@@ -15,6 +15,7 @@
 		name = #{name},
 		nickname = #{nickname},
 		loginPw = #{loginPw},
+		level = 1,
 		introduce = ""
 	</insert>
 
@@ -111,6 +112,19 @@
 	AND relId = #{memberId}
 	</select>
 	
+	<update id="doUpdateLevel">
+	UPDATE member
+	SET updateDate = NOW(),
+	level = 5
+	WHERE id = #{memberId}
+	</update>
+	
+	<select id="getAllMember" resultMap="member">
+	SELECT * FROM member
+	ORDER BY id DESC
+	LIMIT 3;
+	</select>
+	
 	
 	
 	<resultMap type="Member" id="member">
@@ -120,6 +134,7 @@
 		<id property="email" column="email"/>
 		<id property="name" column="name"/>
 		<id property="nickname" column="nickname"/>
+		<id property="level" column="level"></id>
 		<id property="introduce" column="introduce"/>
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />

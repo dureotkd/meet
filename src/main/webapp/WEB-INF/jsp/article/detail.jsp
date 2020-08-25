@@ -32,7 +32,7 @@
 	margin-left: 15px;
 	color: #262626;
 	font-weight: 600;
-	width:20%;
+	width:30%;
 }
 
 .article-user-box {
@@ -261,9 +261,27 @@ button, submit {
 	color: #d81b60;
 }
 
-.fa-crown {
+.level10 {
 	color:#ffb300;
 }
+.level5 {
+	color:#3949ab;
+}
+.tag {
+	color:#00376b;
+	padding:15px;
+}
+.article-video {
+	height:568px;
+	max-width:700px;
+	border:1px solid #eee;
+}
+.regDate {
+	color:#bdbdbd;
+	font-size:13px;
+	padding:15px;
+}
+
 </style>
 
 <script>
@@ -344,7 +362,6 @@ function callDoLike(){
 	);
 	
 }
-	
 </script>
 <div class="total-wrap">
 	<div class="detail-box">
@@ -365,21 +382,29 @@ function callDoLike(){
 					<img class="article-img"
 						src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
 				</div>
-			</c:if>
-
-			<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
+				
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
 				onclick="plusSlides(1)">&#10095;</a>
+			</c:if>
+			
+			<c:if test="${article.extra.file__common__attachment['5'] != null}">
+				<div class="mySlides fade" style="display: none;">
+					<img class="article-img"
+						src="/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
+				</div>
+			</c:if>
+			
 		</div>
+		
+		
+		
+		
+		
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
 			<video controls
-				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"  class="article-video"></video>
 		</c:if>
-		<c:if test="${article.extra.file__common__attachment['2'] != null}">
-			<div class="video-box">
-				<video controls
-					src="/file/streamVideo?id=${article.extra.file__common__attachment['2'].id}&updateDate=${article.extra.file__common__attachment['2'].updateDate}"></video>
-			</div>
-		</c:if>
+	
 
 		<div class="table-box reply-list-box">
 			<div class="article-user-box">
@@ -387,12 +412,22 @@ function callDoLike(){
 					class="writer-center"> <img class="article-writer-Avatar"
 					src="${article.extra.writerAvatarImgUrl}"> <span
 					class="writer">${article.extra.writer}</span></a> 
-					<i class="fas fa-crown"></i>
+					<c:if test="${member.level == 10 }">
+					<i class="fas fa-crown level10"></i>
+					</c:if>
+					<c:if test="${member.level == 5 }">
+					<i class="fas fa-certificate level5"></i>
+					</c:if>
+					<c:if test="${member.level < 5 }">
+					<i class="fas fa-user-alt level"></i>
+					</c:if>
+					
 				<p>팔로우</p>
 				<i class="fas fa-ellipsis-h"></i>
 			</div>
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
+				<p class="tag">${article.tag}</p>
 				<div class="like-wrap">
 					<a href="#" 
 					onclick="callDoLike();"

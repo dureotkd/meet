@@ -12,6 +12,7 @@
 	updateDate = NOW(),
 	title = #{title},
 	body = #{body},
+	tag = #{tag},
 	memberId = #{memberId},
 	displayStatus = 1
 	</insert>
@@ -142,11 +143,13 @@
 		<id property="regDate" column="regDate" />
 		<id property="updateDate" column="updateDate" />
 		<id property="title" column="title" />
+		<id property="tag" column="tag"></id>
 		<id property="body" column="body" />
 		<id property="memberId" column="memberId"/>
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
 			<id property="likePoint" column="extra__likePoint" />
+			<id property="tag" column="extra__tag"></id>
 		</association>
 	</resultMap>
 	

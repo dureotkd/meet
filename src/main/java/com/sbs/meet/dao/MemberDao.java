@@ -1,6 +1,7 @@
 package com.sbs.meet.dao;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -43,6 +44,10 @@ public interface MemberDao {
 	void applyToFollow(int memberId, int loginedMemberId);
 
 	File getUserAvatarImg(int memberId);
+
+	void doUpdateLevel(int memberId);
+
+	List<Member> getAllMember();
 
 	
 }

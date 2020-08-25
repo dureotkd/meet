@@ -346,7 +346,9 @@ h1 {
 .menu-i {
 	font-size:20px;
 	padding:15px;
+	color:
 }
+
 .top-line{
 	border-bottom:1px solid #ccc;
 	height:1;
@@ -402,22 +404,24 @@ $(function() {
 	btnToggleDropMenu__init();
 });
 
+function btnToggleMenu__init(){
+	var $btnToggleMenu = $('.menu-i');
 
-function btnToggleBoard__init(){
-	var $btnToggleBoard = $('.board');
-
-	$btnToggleBoard.click(function() {
-
+	$btnToggleMenu.click(function() {
 		if ($(this).hasClass('active')){
 			$(this).removeClass('active');
 		} else {
 			$(this).addClass('active');
-		}
+			}
+
+
 	});
 }
-$(function(){
-	btnToggleBoard__init();
+
+$(function() {
+	btnToggleMenu__init();
 });
+
 
 </script>
 

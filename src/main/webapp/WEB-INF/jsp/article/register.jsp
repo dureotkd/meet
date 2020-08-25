@@ -58,11 +58,18 @@ function ArticleWriteForm__submit(form) {
 		} 
 	}
 
+	if (form.file__article__0__common__attachment__5.value) {
+		if ( form.file__article__0__common__attachment__5.files[0].size > maxSize ) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		} 
+	}
+
 
 	var startUploadFiles = function(onSuccess) {
 		if ( form.file__article__0__common__attachment__1.value.length == 0
 			&& form.file__article__0__common__attachment__2.value.length == 0 && form.file__article__0__common__attachment__3.value.length == 0
-			&&  form.file__article__0__common__attachment__4.value.length == 0
+			&&  form.file__article__0__common__attachment__4.value.length == 0 && form.file__article__0__common__attachment__5.value.length == 0
 			) {
 			onSuccess();
 			return;
@@ -94,6 +101,7 @@ function ArticleWriteForm__submit(form) {
 		form.file__article__0__common__attachment__2.value = '';
 		form.file__article__0__common__attachment__3.value = '';
 		form.file__article__0__common__attachment__4.vlaue = '';
+		form.file__article__0__common__attachment__5.value = '';
 		form.submit();
 	});
 }
@@ -162,19 +170,16 @@ textarea {
 
 <div class="wrapping">
 <textarea name="body"  id="" cols="30" rows="10" placeholder="지금 무슨일이 일어나고 있나요?" autofocus ></textarea>
-
-
-
-
 <input type="hidden" name="memberId"  value="${loginedMemberId}"/>
-
+<input type="text" name="tag"  />
 <div class="input-img">
 <label for="">Video</label>
 <input type="file" accept="video/*"  name="file__article__0__common__attachment__1" />
-<input type="file" accept="video/*"  name="file__article__0__common__attachment__2" />
+<input type="hidden" accept="video/*"  name="file__article__0__common__attachment__2" />
 <label for="">Image</label>
 <input type="file" accept="image/*" name="file__article__0__common__attachment__3">
 <input type="file" accept="image/*" name="file__article__0__common__attachment__4">
+<input type="file" accept="image/*" name="file__article__0__common__attachment__5">
 <input type="submit" class="submit" onclick="articleWriteNotify()" />
 </div>
 </div>

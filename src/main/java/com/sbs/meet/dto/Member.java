@@ -18,6 +18,7 @@ public class Member {
 	private String nickname;
 	private String name;
 	private String loginPw;
-	private String introduce; 	
+	private String introduce;
+	private String level;
 	private Map<String, Object> extra;
 }
