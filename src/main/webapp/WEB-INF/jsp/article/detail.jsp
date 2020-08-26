@@ -8,8 +8,6 @@ html, body {
     margin: 0;
 
     height: 100%;
-	
-	overflow:hidden;
 
 }
 
@@ -22,7 +20,6 @@ html, body {
 .total-wrap {
 	width: 100%;
 	background: #fafafa;
-	padding-top: 50px;
 }
 
 .reply-img-Avatar {
@@ -79,12 +76,9 @@ html, body {
 
 .article-body {
 	overflow: scroll;
-	height: 422px;
+	height: 380px;
 }
 
-.article-img {
-	height: 569px;
-}
 
 .abody {
 	line-height: 25px;
@@ -203,15 +197,23 @@ to {
 	.reply-list-box {
 		width: 100%;
 	}
-	.total-wrap {
-		height: 100%;
-	}
 	.slideshow-container {
 		width: 100%;
 	}
+	.reply-write-box {
+		border-top:1px solid #eee;
+	}
+	.article-video {
+		height:270px;
+	}
+	
+	.article-img {
+	height: 500px;
+	margin-top:20px;
+	}
+	
 }
 
-/* 800px 이하면 안보이게 ( 모바일 버전 ) */
 
 /* 800px 이상이면 안보이게 ( pc 버전 ) */
 @media ( min-width :800px ) {
@@ -223,6 +225,11 @@ to {
 	}
 	.total-wrap {
 		height: 100vh;
+		padding-top: 20px;
+	
+	}
+	.total-wrap {
+		padding-top: 20px;
 	}
 	.detail-box {
 		display: flex;
@@ -249,6 +256,14 @@ to {
 	.slideshow-container {
 		width: 50%;
 	}
+	
+	.article-video {
+		height:525px;
+	}
+	.article-img {
+	height: 525px;
+}
+	
 }
 
 .reply-btn {
@@ -304,7 +319,6 @@ button, submit {
 }
 
 .article-video {
-	height: 568px;
 	outline: none;
 	border: 1px solid #eee;
 }
@@ -437,6 +451,21 @@ button, submit {
 		}, 'json');
 
 	}
+
+
+
+
+	function doFollowSubmit__form() {
+		$.post('../frined/doFollowAjax', {
+			followId : form.followId.value,
+			followerId : form.followerId.value
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+		}, 'json');
+
+	}
 </script>
 <div class="total-wrap">
 	<div class="detail-box">
@@ -518,7 +547,11 @@ button, submit {
 					<i class="fas fa-user-alt level"></i>
 				</c:if>
 
-				<p>팔로우</p>
+				<form action="" onsubmit="doFollowSubmit__form(this); return false;">
+				<input type="hidden" name="followerId" value="${member.id}" />
+				<input type="hidden" name="followId" value="${loginedMemberId}" />
+				<input type="submit" value="팔로우" />
+				</form>
 				<i class="fas fa-ellipsis-h"></i>
 			</div>
 			<div class="article-body">

@@ -25,7 +25,7 @@
 	FROM message AS MSG
 	INNER JOIN `member` AS SND
 	ON MSG.fromId = SND.id
-	WHERE MSG.toId = #{loginedMemberId}
+	WHERE MSG.toId = #{toId}
 	AND MSG.delStatus = 0
 	AND MSG.id >= #{from}
 	ORDER BY id ASC

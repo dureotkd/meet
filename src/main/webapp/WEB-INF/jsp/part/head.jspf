@@ -381,6 +381,10 @@ h1 {
 	.top-bar {
 		justify-content:space-around;
 	}
+	
+	.logo {
+		font-size:25px;
+	}
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */

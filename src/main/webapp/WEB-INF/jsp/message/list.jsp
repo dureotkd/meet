@@ -44,6 +44,7 @@
 <style>
 .msg-con {
 	max-width: 1080px;
+	background:#fff;
 	border: 1px solid #eee;
 	display: flex;
 	max-width: 1080px;
@@ -58,8 +59,9 @@
 
 .msg-box {
 	display: flex;
-	height: 600px;
+	height: 500px;
 	border-right: 1px solid #eee;
+	flex-direction:column;
 }
 
 .msg-title {
@@ -136,7 +138,6 @@
 
 html, body {
 	width: 100%;
-	overflow:hidden;
 }
 
 html {
@@ -454,6 +455,33 @@ textarea[readonly], textarea[disabled] {
 	transition: all 0.5s;
 }
 
+.message-list-box {
+	padding:15px;
+	height:100%;
+	overflow:scroll;
+}
+
+.data {
+	vertical-align:middle;
+	margin-bottom:15px;
+	height:60px;
+}
+.-writer {
+	width:20%;
+}
+
+.-avatar {
+	width:50px;
+	height:50px;
+	border-radius:50%;
+	margin-bottom:15px;
+}
+
+.message-list-box::-webkit-scrollbar {
+	display:none; /* Chrome, Safari, Opera*/
+}
+
+
 .skip:focus {
 	top: 0;
 }
@@ -472,6 +500,9 @@ textarea[readonly], textarea[disabled] {
 			
 			</div>
 			
+			<script>
+			var loginedMemberId = parseInt('${loginedMemberId}');
+			</script>
 			
 				<script>
 			var MessageList__$box = $('.message-list-box');
@@ -496,7 +527,7 @@ textarea[readonly], textarea[disabled] {
 
 				$.get('../message/getForPrintMessagesAjax', {
 					// 일단 냅둬보자.
-					toId : param.id,
+					toId : loginedMemberId,
 					from : MessageList__lastLodedId + 1
 				}, MessageList__loadMoreCallback, 'json');
 			}
@@ -510,12 +541,18 @@ textarea[readonly], textarea[disabled] {
 
 			function MessageList__drawMessage(message) {
 				var html = '';
-				html += '<tr class="" data-id="' + message.id + '">';
+				html += '<tr class="data" data-id="' + message.id + '">';
 				//	html += '<td>' + articleReply.id + '</td>';
 				//	html += '<td>' + articleReply.regDate + '</td>';
 
-
-				html += '<td class="-writer">' + message.extra.fromMemberName
+				html += '<td>';
+				// 회원가입시 
+				html += '<a href="../member/showOther?id='
+						+ message.fromId
+						+ '"><img class="-avatar" src="' + message.extra.writerAvatarImgUrl + '"></a>';
+				html += '</td>';
+				
+				html += '<td class="-writer">' + message.extra.writer
 						+ '</td>';
 
 			
