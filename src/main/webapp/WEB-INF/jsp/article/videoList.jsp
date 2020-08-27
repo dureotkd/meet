@@ -53,7 +53,7 @@
         opacity:1!important;
     }
 .articles-box {
-	max-width:1080px;
+	max-width: 1108px;
 	margin:0 auto;
 	border:1px solid #ccc;
 	box-shadow:3px 3px 3px #ccc;

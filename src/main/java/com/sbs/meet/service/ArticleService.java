@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.meet.dao.ArticleDao;
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.util.Util;
 import com.sbs.meet.dto.File;
@@ -188,6 +189,12 @@ public class ArticleService {
 
 	public int getArticleLikeAvailableCount(int id, int loginedMemberId) {
 		return articleDao.getArticleLikeAvailableCount(id,loginedMemberId);
+	}
+
+
+
+	public List<ArticleLike> getForPrintArticleLikesByMyArticle(int loginedMemberId) {
+		return articleDao.getForPrintArticleLikesByMyArticle(loginedMemberId);
 	}
 
 	

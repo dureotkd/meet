@@ -49,4 +49,14 @@ public interface MemberDao {
 
 	List<Member> getAllMember();
 
+	int getMsgNoticeCount(int loginedMemberId);
+
+	int getLikePointCount(int id);
+
+	int getRepliesCount(int loginedMemberId);
+
+	int getMyLikePoint(int loginedMemberId);
+
+	int getRepliesCountByMe(int loginedMemberId);
+
 }

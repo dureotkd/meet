@@ -17,9 +17,15 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.WebUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sbs.meet.dto.ArticleLike;
+import com.sbs.meet.dto.ArticleReply;
+import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.service.ArticleService;
+import com.sbs.meet.service.FileService;
 import com.sbs.meet.service.MemberService;
+import com.sbs.meet.service.MessageService;
+import com.sbs.meet.service.ReplyService;
 
 @Component("beforeActionInterceptor") // 컴포넌트 이름 설정
 public class BeforeActionInterceptor implements HandlerInterceptor {
@@ -28,7 +34,13 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 	private MemberService memberService;
 	@Autowired
 	private ArticleService articleService;
-
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+	private ReplyService replyService;
+	@Autowired
+	private FileService fileService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -112,6 +124,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			}
 		}
 		
+		
+		
 		// 로그인 여부에 관련된 정보를 request에 담는다.
 		boolean isLogined = false;
 		int loginedMemberId = 0;
@@ -122,16 +136,62 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			isLogined = true;
 			loginedMember = memberService.getMemberById(loginedMemberId);
 		}
+		
+		// 댓글 카운트
+		int myReplyCount = memberService.getRepliesCount(loginedMemberId);
+		
+		// 메시지 카운트
+		int myMsgCount = memberService.getMsgNoticeCount(loginedMemberId);
+		
+		// 내 게시글에 내가  댓글쓴거 빼야함
+		int myRepliesInMyArticle = memberService.getRepliesCountByMe(loginedMemberId);
+		
+		// 좋아요 카운트
+		int myLikePointCount = memberService.getMyLikePoint(loginedMemberId);
+		// replyCount articleId
+		
+		// 좋아요 받은거 카운트
+		// 0개 뜨는 이유 -> int article.getId()가 하나밖에 담지못한다 내가 슨글은 여러개인데
+		
+		//  나의 게시글 댓글 카운트 + 좋아요 카운트 + 내 게시글에 내가 댓글쓴건 카운트x
+		int myActivityCount = myReplyCount + myLikePointCount - myRepliesInMyArticle;
+		
+		// 댓글  
+		List<ArticleReply> articleReplies = replyService.getForPrintArticleRepliesByMyArticle(loginedMemberId);
+		// 좋아요
+		List<ArticleLike> articleLikes = articleService.getForPrintArticleLikesByMyArticle(loginedMemberId);
+		
+		
+		
+		// 왜 사진이 안뜨찌?
+		for (ArticleReply articleReply : articleReplies) {
+			List<File> files = fileService.getFiles("member", articleReply.getMemberId(), "common", "attachment");
+			if ( files.size() > 0 ) {
+				File file = files.get(0);
+				
+				if ( articleReply.getExtra() == null ) {
+					articleReply.setExtra(new HashMap<>());
+				}
+				
+				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
+			}
+			else {
+				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/resource/img/avatar_no.jpg");
+			}
+			
+			Map<String, File> filesMap = new HashMap<>();
 
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "", file);
+			}
+		}
+		request.setAttribute("articleLikes",articleLikes);
+		request.setAttribute("articleReplies",articleReplies);
+		request.setAttribute("myActivityCount",myActivityCount);	
+		request.setAttribute("myMsgCount",myMsgCount);
 		request.setAttribute("loginedMemberId", loginedMemberId);
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("loginedMember", loginedMember);
-		System.out.println("로그인정보 :"+loginedMember);
-		
-		
-		
-		
-		
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}

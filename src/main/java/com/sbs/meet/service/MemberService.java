@@ -178,6 +178,27 @@ public class MemberService {
 		return memberDao.getAllMember();
 	}
 
+	public int getMsgNoticeCount(int loginedMemberId) {
+		return memberDao.getMsgNoticeCount(loginedMemberId);
+	}
+
+	public int getLikePointCount(int id) {
+		return memberDao.getLikePointCount(id);
+	}
+
+	public int getRepliesCount(int loginedMemberId) {
+		return memberDao.getRepliesCount(loginedMemberId);
+	}
+
+	public int getMyLikePoint(int loginedMemberId) {
+		return memberDao.getMyLikePoint(loginedMemberId);
+	}
+
+	public int getRepliesCountByMe(int loginedMemberId) {
+		return memberDao.getRepliesCountByMe(loginedMemberId);
+	}
+
+
 	
 
 }

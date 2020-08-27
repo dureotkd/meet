@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +27,31 @@ public class MessageControrller {
 	private FileService fileService;
 
 	@RequestMapping("/message/list")
-	public String showList() { 
+	public String showList(HttpSession session) { 
+		
+		int loginedMemberId;
+		loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		
+		messageService.doUpdateReadStatus(loginedMemberId);
+		
 		return "message/list";
+	}
+	
+	@RequestMapping("/message/getMsgNoticeCount")
+	@ResponseBody
+	public ResultData getMsgNoticeCount(HttpSession session,Model model) {
+		
+		int loginedMemberId;
+		loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		
+		int msgNoticeCount = messageService.getMsgNoticeCount(loginedMemberId);
+		
+		Map<String, Object> rsDataBody = new HashMap<>();
+		
+		rsDataBody.put("msgNoticeCount", msgNoticeCount);
+		model.addAttribute("msgNoticeCount",msgNoticeCount);
+		
+		return new ResultData("S-1", String.format("%s개의 메세지를 불러왔습니다.", msgNoticeCount), rsDataBody);
 	}
 
 	@RequestMapping("/message/doWriteMessageAjax")

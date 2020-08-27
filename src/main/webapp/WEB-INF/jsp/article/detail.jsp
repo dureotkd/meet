@@ -2,25 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../part/head.jspf"%>
 <style>
-
 html, body {
-
-    margin: 0;
-
-    height: 100%;
-
+	margin: 0;
+	height: 100%;
 }
 
 .reply-body {
 	width: 100%;
 	line-break: anywhere;
 	margin-left: 5%;
-}
-
-.total-wrap {
-	width: 100%;
-	height:100%;
-	background: #fafafa;
 }
 
 .reply-img-Avatar {
@@ -79,7 +69,6 @@ html, body {
 	overflow: scroll;
 	height: 380px;
 }
-
 
 .abody {
 	line-height: 25px;
@@ -202,19 +191,16 @@ to {
 		width: 100%;
 	}
 	.reply-write-box {
-		border-top:1px solid #eee;
+		border-top: 1px solid #eee;
 	}
 	.article-video {
-		height:270px;
+		height: 270px;
 	}
-	
 	.article-img {
-	height: 500px;
-	margin-top:20px;
+		height: 500px;
+		margin-top: 20px;
 	}
-	
 }
-
 
 /* 800px 이상이면 안보이게 ( pc 버전 ) */
 @media ( min-width :800px ) {
@@ -226,7 +212,6 @@ to {
 	}
 	.total-wrap {
 		padding-top: 20px;
-	
 	}
 	.detail-box {
 		display: flex;
@@ -253,14 +238,12 @@ to {
 	.slideshow-container {
 		width: 50%;
 	}
-	
 	.article-video {
-		height:525px;
+		height: 525px;
 	}
 	.article-img {
-	height: 525px;
-}
-	
+		height: 525px;
+	}
 }
 
 .reply-btn {
@@ -304,12 +287,12 @@ button, submit {
 
 .level10 {
 	color: #ffb300;
-	font-size:17px;
+	font-size: 17px;
 }
 
 .level5 {
 	color: #d81b60;
-	font-size:17px;
+	font-size: 17px;
 }
 
 .tag {
@@ -346,14 +329,14 @@ button, submit {
 }
 
 .dot-box {
-	position:absolute;
-	bottom:0;
-	left:50%;
-	transform:translate(-50%,-50%);
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .active, .dot:hover {
-  background-color: #d81b60;
+	background-color: #d81b60;
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
@@ -363,6 +346,9 @@ button, submit {
 	}
 	.article-video {
 		width: 100%;
+	}
+	.total-wrap {
+		background: #fafafa;
 	}
 }
 
@@ -376,14 +362,19 @@ button, submit {
 	.article-video {
 		max-width: 700px;
 	}
+	.total-wrap {
+		width: 100%;
+		height: 100%;
+		background: #fafafa;
+	}
 }
 
 .follow-btn {
-	background:none;
-	border:none;
-	color:#0d47a1;
-	cursor:pointer;
-	font-weight:600;
+	background: none;
+	border: none;
+	color: #0d47a1;
+	cursor: pointer;
+	font-weight: 600;
 }
 </style>
 
@@ -456,7 +447,6 @@ button, submit {
 				ViewArticle1__updateLikePoint(data.likePoint);
 			}
 		}, 'json');
-
 	}
 
 
@@ -505,24 +495,26 @@ button, submit {
 						<img class="article-img"
 							src="/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
 					</div>
-					
-					
+
+
 				</c:if>
-				
+
 				<c:if test="${article.extra.file__common__attachment['4'] != null}">
-				
-				
-				<div class="dot-box">
-					
-				<span class="dot active"  onclick="currentSlide(1)"></span>
-				<c:if test="${article.extra.file__common__attachment['4'] != null}">
-						<span class="dot" onclick="currentSlide(2)"></span> 
-					</c:if>
-				<c:if test="${article.extra.file__common__attachment['5'] != null}">
-				<span class="dot" onclick="currentSlide(3)"></span>
-				</c:if>		
-				</div>
-				
+
+
+					<div class="dot-box">
+
+						<span class="dot active" onclick="currentSlide(1)"></span>
+						<c:if
+							test="${article.extra.file__common__attachment['4'] != null}">
+							<span class="dot" onclick="currentSlide(2)"></span>
+						</c:if>
+						<c:if
+							test="${article.extra.file__common__attachment['5'] != null}">
+							<span class="dot" onclick="currentSlide(3)"></span>
+						</c:if>
+					</div>
+
 				</c:if>
 
 			</div>
@@ -548,16 +540,16 @@ button, submit {
 					<i class="fas fa-crown level10"></i>
 				</c:if>
 				<c:if test="${member.level == 5 }">
-				<i class="far fa-gem level5" ></i>
+					<i class="far fa-gem level5"></i>
 				</c:if>
 				<c:if test="${member.level < 5 }">
 					<i class="fas fa-user-alt level"></i>
 				</c:if>
 
 				<form action="" onsubmit="doFollowSubmit__form(this); return false;">
-				<input type="hidden" name="followerId" value="${member.id}" />
-				<input type="hidden" name="followId" value="${loginedMemberId}" />
-				<input type="submit" value="팔로우" class="follow-btn" />
+					<input type="hidden" name="followerId" value="${member.id}" /> <input
+						type="hidden" name="followId" value="${loginedMemberId}" /> <input
+						type="submit" value="팔로우" class="follow-btn" />
 				</form>
 				<i class="fas fa-ellipsis-h"></i>
 			</div>

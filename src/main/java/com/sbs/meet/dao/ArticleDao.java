@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
 
 @Mapper
@@ -40,5 +41,7 @@ public interface ArticleDao  {
 	int getLikePoint(@Param("id") int id);
 
 	int getArticleLikeAvailableCount(int id, int loginedMemberId);
+
+	List<ArticleLike> getForPrintArticleLikesByMyArticle(int loginedMemberId);
 	
 }

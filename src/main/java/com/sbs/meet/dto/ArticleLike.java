@@ -10,14 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ArticleLike {
-	private String body;
 	private String regDate;
 	private int id;
 	private int articleId;
 	private int memberId;
 	private int point;
 	private int readStatus;
-	
 	private Map<String, Object> extra;
 	
 }
