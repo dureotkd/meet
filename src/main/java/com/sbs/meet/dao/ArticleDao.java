@@ -13,7 +13,7 @@ import com.sbs.meet.dto.ArticleReply;
 @Mapper
 public interface ArticleDao  {
 
-	void register(Map<String, Object> param);
+	void doWriteArticle(Map<String, Object> param);
 
 	Article getForPrintPrison(String searchKeyword);
 

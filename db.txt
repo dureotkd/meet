@@ -204,7 +204,91 @@ SELECT * FROM `message`;
 
 
 
+ALTER TABLE `member` ADD COLUMN delStatus TINYINT(1) NOT NULL;
 
+ALTER TABLE `member` ADD COLUMN delRegDate DATETIME;
+
+
+CREATE TABLE message (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    delStatus TINYINT(1) UNSIGNED NOT NULL,
+    displayStatus TINYINT(1) UNSIGNED NOT NULL,
+    delRegDate DATETIME,
+    fromId INT(10) UNSIGNED NOT NULL,
+    toId INT(10) UNSIGNED NOT NULL,
+    `body` TEXT NOT NULL
+);
+
+
+
+SELECT MSG.*,
+SND.nickname AS extra__fromMemberName
+FROM message AS MSG
+INNER JOIN `member` AS SND
+ON MSG.fromId = SND.id
+WHERE MSG.toId = 10
+AND MSG.delStatus = 0
+ORDER BY id ASC
+
+ALTER TABLE message ADD COLUMN readStatus TINYINT(1) UNSIGNED NOT NULL;
+
+readStatus
+
+SELECT *
+FROM `member`
+
+SELECT * FROM `message`;
+
+
+
+SELECT * FROM `member`;
+SELECT * FROM `message`;
+ALTER TABLE friend ADD COLUMN readStatus TINYINT(1) NOT NULL;
+
+
+WHERE toId ? -> 받은이가 = 10 번 인거
+WHERE `from` ? -> 보낸이가 = ~인거 
+
+
+
+	SELECT MSG.*,
+	SND.nickname AS extra__fromMemberName,
+	REC.nickname AS extra__toMemberName
+	FROM message AS MSG
+	INNER JOIN `member` AS SND
+	ON MSG.fromId = SND.id
+	INNER JOIN `member` AS `REC`
+	ON MSG.toId = `REC`.id
+	WHERE (MSG.toId = 7 OR MSG.fromId = 7)
+	AND MSG.delStatus = 0
+	AND MSG.id >= 1
+	ORDER BY id ASC
+	
+	
+	SELECT MSG.*,
+	SND.ni
+	
+	
+    SELECT MSG.*,
+	SND.nickname AS extra__fromMemberName
+	FROM message AS MSG
+	INNER JOIN `member` AS SND
+	ON MSG.fromId = SND.id
+	WHERE MSG.toId = #{toId}
+	AND MSG.delStatus = 0
+	AND MSG.id >= #{from}
+	ORDER BY id ASC
+
+SELECT * FROM message;
+
+TRUNCATE message;
+
+    ALTER TABLE articleLike ADD COLUMN readStatus TINYINT(1) NOT NULL;
+    ALTER TABLE articleReply  ADD COLUMN readStatus TINYINT(1) NOT NULL;
+    
+    
+    
 
 
 

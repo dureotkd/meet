@@ -3,6 +3,7 @@ package com.sbs.meet.intercepter;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +18,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sbs.meet.dto.Member;
+import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.MemberService;
 
 @Component("beforeActionInterceptor") // 컴포넌트 이름 설정
@@ -24,6 +26,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private ArticleService articleService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -66,6 +70,8 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				isAjax = true;
 			}
 		}
+		
+		
 
 		request.setAttribute("isAjax", isAjax);
 
@@ -90,16 +96,22 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			}
 			// 세션 Id를 checkUseWithSessionKey에 전달해 이전에 로그인한적이 있는지 체크하는 메서드 
 			// 유효시간이 > now() 인 즉 아직 유효시간이 지나지 않으면서 해당 sessionId 정보를 가지고 있는 사용자 정보를 반환해준다
-			
-		
-
 		}
 		
-
+		// 시작전에 모든 유저들 레벨 업데이트 !
+		List<Member> members = memberService.getAllMember();
 		
+		for ( Member member : members ) {
+			int memberId = member.getId();
+			int articleCount = articleService.getArticleCount(memberId);
+			
+			if ( articleCount >= 5) {
+				if ( member.getNickname().equals("관리자") == false ) {
+					memberService.doUpdateLevel(memberId);
+				}
+			}
+		}
 		
-
-
 		// 로그인 여부에 관련된 정보를 request에 담는다.
 		boolean isLogined = false;
 		int loginedMemberId = 0;

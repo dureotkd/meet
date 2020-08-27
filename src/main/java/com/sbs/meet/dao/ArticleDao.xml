@@ -6,7 +6,7 @@
 
 <mapper namespace="com.sbs.meet.dao.ArticleDao">
 	
-	<insert id="register" useGeneratedKeys="true" keyProperty="id">
+	<insert id="doWriteArticle" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO article
 	SET regDate = NOW(),
 	updateDate = NOW(),
@@ -96,6 +96,7 @@
 	SET regDate = NOW(),
 	articleId = #{id},
 	memberId = #{loginedMemberId},
+	readStatus = 0,
 	point = 1
 	</insert>
 	

@@ -12,7 +12,8 @@
 		body = #{body},
 		memberId = #{memberId},
 		articleId = #{articleId},
-		displayStatus = 1
+		displayStatus = 1,
+		readStatus = 0
 	</insert>
 	
 	

@@ -19,6 +19,7 @@ html, body {
 
 .total-wrap {
 	width: 100%;
+	height:100%;
 	background: #fafafa;
 }
 
@@ -224,12 +225,8 @@ to {
 		border: 1px solid #eee;
 	}
 	.total-wrap {
-		height: 100vh;
 		padding-top: 20px;
 	
-	}
-	.total-wrap {
-		padding-top: 20px;
 	}
 	.detail-box {
 		display: flex;
@@ -307,10 +304,12 @@ button, submit {
 
 .level10 {
 	color: #ffb300;
+	font-size:17px;
 }
 
 .level5 {
-	color: #3949ab;
+	color: #d81b60;
+	font-size:17px;
 }
 
 .tag {
@@ -377,6 +376,14 @@ button, submit {
 	.article-video {
 		max-width: 700px;
 	}
+}
+
+.follow-btn {
+	background:none;
+	border:none;
+	color:#0d47a1;
+	cursor:pointer;
+	font-weight:600;
 }
 </style>
 
@@ -541,7 +548,7 @@ button, submit {
 					<i class="fas fa-crown level10"></i>
 				</c:if>
 				<c:if test="${member.level == 5 }">
-					<i class="fas fa-certificate level5"></i>
+				<i class="far fa-gem level5" ></i>
 				</c:if>
 				<c:if test="${member.level < 5 }">
 					<i class="fas fa-user-alt level"></i>
@@ -550,7 +557,7 @@ button, submit {
 				<form action="" onsubmit="doFollowSubmit__form(this); return false;">
 				<input type="hidden" name="followerId" value="${member.id}" />
 				<input type="hidden" name="followId" value="${loginedMemberId}" />
-				<input type="submit" value="팔로우" />
+				<input type="submit" value="팔로우" class="follow-btn" />
 				</form>
 				<i class="fas fa-ellipsis-h"></i>
 			</div>
@@ -597,7 +604,7 @@ button, submit {
 			var ReplyList__$tbody = ReplyList__$box.find('.reply-item');
 			var ReplyList__lastLodedId = 0;
 
-			// 1초댓글불러오기
+			// 6초댓글불러오기
 			ReplyList__loadMoreInterval = 1 * 1000
 
 			function ReplyList__loadMoreCallback(data) {

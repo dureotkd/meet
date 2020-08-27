@@ -20,9 +20,8 @@
 		delStatus = 0
 	</insert>
 
-	<select id="getNicknameDupCount" resultType="int">
-		SELECT COUNT(*) AS
-		cnt
+	<select id="getNicknameDupCount" resultType="boolean">
+		SELECT COUNT(*)
 		FROM member
 		WHERE nickname = #{nickname}
 	</select>
@@ -52,8 +51,8 @@
 	AND name = #{name}
 	</select>
 	
-	<select id="getEmailDupCount" resultType="int">
-	SELECT COUNT(*) AS cnt 
+	<select id="getEmailDupCount" resultType="boolean">
+	SELECT COUNT(*) 
 	FROM member
 	WHERE email = #{email}
 	</select>	

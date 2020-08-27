@@ -44,10 +44,12 @@ public class MessageControrller {
 
 	@RequestMapping("/message/getForPrintMessagesAjax")
 	@ResponseBody
-	public ResultData getForPrintRepliesAjax(@RequestParam Map<String, Object> param) {
+	public ResultData getForPrintRepliesAjax(@RequestParam Map<String, Object> param,Model model) {
 
 		List<Message> messages = messageService.getForPrintMessagesAjax(param);
-
+		
+		// 상대방이 보낸거 이미지 뜨게하기
+		
 		for (Message message : messages) {
 			List<File> files = fileService.getFiles("member", message.getFromId(), "common", "attachment");
 			if (files.size() > 0) {
@@ -71,12 +73,80 @@ public class MessageControrller {
 			}
 
 		}
+	
+		// 내가보낸거 이미지 뜨게하기 
+		
+//		for (Message message : messages) {
+//			List<File> files = fileService.getFiles("member", message.getToId(), "common", "attachment");
+//			if (files.size() > 0) {
+//				File file = files.get(0);
+//
+//				if (message.getExtra() == null) {
+//					message.setExtra(new HashMap<>());
+//				}
+//
+//				message.getExtra().put("writerAvatarImgUrlByUser",
+//						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+//
+//			} else {
+//				message.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+//			}
+//
+//			Map<String, File> filesMap = new HashMap<>();
+//
+//			for (File file : files) {
+//				filesMap.put(file.getFileNo() + "", file);
+//			}
+//		}
 
 		Map<String, Object> rsDataBody = new HashMap<>();
 		rsDataBody.put("messages", messages);
-
+		
 		return new ResultData("S-1", String.format("%s개의 메세지를 불러왔습니다.", messages.size()), rsDataBody);
 
 	}
+	
+	@RequestMapping("/message/getForPrintMessageDetailAjax")
+	@ResponseBody
+	public ResultData getForPrintMessageDetailAjax(@RequestParam Map<String, Object> param,Model model) {
+
+		List<Message> messages = messageService.getForPrintMessagesAjax(param);
+		// 걔가 보낸거 떠야함
+		// 내가 보낸것도 떠야함
+		// 상대방이 보낸거 이미지 뜨게하기
+		
+		for (Message message : messages) {
+			List<File> files = fileService.getFiles("member", message.getFromId(), "common", "attachment");
+			if (files.size() > 0) {
+				File file = files.get(0);
+
+				if (message.getExtra() == null) {
+					message.setExtra(new HashMap<>());
+				}
+
+				message.getExtra().put("writerAvatarImgUrl",
+						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+
+			} else {
+				message.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+			}
+
+			Map<String, File> filesMap = new HashMap<>();
+
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "", file);
+			}
+
+		}
+		Map<String, Object> rsDataBody = new HashMap<>();
+		rsDataBody.put("messages", messages);
+		
+		return new ResultData("S-1", String.format("%s개의 메세지를 불러왔습니다.", messages.size()), rsDataBody);
+
+	}
+	
+	
+	
+	
 
 }

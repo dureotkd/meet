@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Friend {
 	private int id;
+	private int readStatus;
 	private int followId;
 	private int followerId;
 	private String regDate;

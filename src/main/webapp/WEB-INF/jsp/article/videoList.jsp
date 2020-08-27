@@ -4,6 +4,7 @@
 <%@ include file="../part/head.jspf"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="../resource/css/" />
 <script>
 	function callDoLike(el) {
 		var $li = $(el).closest('li');
@@ -159,7 +160,7 @@
 </style>
 <div class="total-wrap">
 	<div class="board-bar">
-	<a class="board" href="list"><i class="fas fa-image"></i></a>
+	<a class="board" href="imgList"><i class="fas fa-image"></i></a>
 	<a class="board action " href="videoList"><i class="fas fa-video"></i></a>
 	<a class="board" href="#"><i class="fas fa-quote-left"></i></a>
 	</div>

@@ -12,9 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
-	rel="stylesheet">
+
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -23,6 +21,7 @@
 <!--  구글 폰트 로고  -->
 <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 
+
 <!-- 제이쿼리 불러오기 -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -30,41 +29,10 @@
 <!-- rotobo(400/700/900), notosanskr(400/600/900) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 
 
 <script>
-	/* window.onload = function() {
-		if (window.Notification) {
-			Notification.requestPermission();
-		}
-	}
-
-	function calculate() {
-		setTimeout(function() {
-			notify();
-		}, 4000);
-	}
-
-	function notify() {
-		if (Notification.permission !== 'granted') {
-			alert('notification is disabled');
-		} else {
-			var notification = new Notification(
-					'Notification title',
-					{
-						icon : 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-						body : 'Notification text',
-					});
-
-			notification.onclick = function() {
-				window.open('http://google.com');
-			};
-		}
-	} */
-
 	function loginNotify() {
 		// Let's check if the browser supports notifications
 		if (!("Notification" in window)) {
@@ -134,6 +102,44 @@
 			var notification = new Notification("게시글이 등록되었습니다.");
 		}
 	}
+
+	function btnToggleDropMenu__init() {
+		var $btnToggleDropMenu = $('.myinfo');
+
+		$btnToggleDropMenu.click(function() {
+			if ($(this).hasClass('open')) {
+				$(this).removeClass('open');
+				$('.dropdown-menu').removeClass('open');
+				$('.caret').removeClass('open');
+			} else {
+				$(this).addClass('open');
+				$('.dropdown-menu').addClass('open');
+				$('.caret').addClass('open');
+			}	
+		});
+	}
+	$(function() {
+		btnToggleDropMenu__init();
+	});
+
+
+function btnToggleDropMenu2__init(){
+	var $btnToggleDropMenu2 = $('.heartM');
+
+	$btnToggleDropMenu2.click(function(){
+		if ($(this).hasClass('drop')){
+			$(this).removeClass('drop');
+			$('.dropdown-menu2').removeClass('drop');
+			} else {
+				$(this).addClass('drop');
+				$('.dropdown-menu2').addClass('drop');
+			}
+		});
+}
+$(function(){
+	btnToggleDropMenu2__init();
+});
+		
 </script>
 
 <%="<script>"%>
@@ -192,7 +198,6 @@ ul, li {
 	height: 400px;
 	width: 400px;
 	margin: 0 auto;
-	margin-top: 50px;
 	box-shadow: 3px 3px 3px #ccc;
 }
 
@@ -361,7 +366,12 @@ h1 {
 .menu-i {
 	font-size:20px;
 	padding:15px;
-	color:
+}
+
+.down-box {
+	position:relative;
+	cursor:pointer;
+	z-index:100;
 }
 
 .top-line{
@@ -370,6 +380,37 @@ h1 {
 	width:100%;
 	position:absolute;
 	top:60px;
+}
+
+.dropdown-menu2 {
+	display:none;
+}
+
+.dropdown-menu2.drop {
+	display:flex;
+	flex-direction:column;
+	position:absolute;
+	top:56px;
+	align-items:center;
+	justify-content:center;
+	right:0px;
+	width:500px;
+	height:240px;
+	box-shadow:1px 1px 1px 1px #eee;
+	background:#fff;
+	padding:15px;
+	font-weight:normal;
+	font-size:15px;
+	border-radius:5px;
+}
+
+.fa-gratipay  {
+	font-size:3.5rem;
+	color:#d81b60;
+}
+
+.dropdown-menu2.drop > li {
+	margin-bottom:15px;
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
@@ -403,27 +444,6 @@ h1 {
 
 </style>
 
-<script>
-function btnToggleDropMenu__init() {
-	var $btnToggleDropMenu = $('.myinfo');
-
-	$btnToggleDropMenu.click(function() {
-		if ($(this).hasClass('open')) {
-			$(this).removeClass('open');
-			$('.dropdown-menu').removeClass('open');
-			$('.caret').removeClass('open');
-		} else {
-			$(this).addClass('open');
-			$('.dropdown-menu').addClass('open');
-			$('.caret').addClass('open');
-		}	
-	});
-}
-$(function() {
-	btnToggleDropMenu__init();
-});
-
-</script>
 
 </head>
 <body>
@@ -439,8 +459,16 @@ $(function() {
 	
 	<div class="menu-box">
 	<a href="../message/list"><i class="far fa-envelope menu-i"></i></a>
-	<a href="../article/list"><i class="far fa-compass menu-i"></i></a>
-	<a href="#"><i class="far fa-heart menu-i"></i></a>
+	<a href="../article/imgList"><i class="far fa-compass menu-i"></i></a>
+	<div class="down-box">
+	<i class="far fa-heart menu-i  heartM"></i>
+	<ul class="dropdown-menu2">
+		<li><i class="fab fa-gratipay"></i></li>
+		<li>게시물 활동</li>
+		<li>다른 사람이 회원님의 게시물을 좋아하거나 댓글을 남기면 여기에 표시됩니다.</li>
+	</ul>
+	</div>
+
 	<c:if test="${isLogined}">
 	<b class="caret"></b>
 	</c:if>
@@ -459,7 +487,7 @@ $(function() {
 		</c:if>
 		 <c:if test="${isLogined}">
 		  <ul class="dropdown-menu">
-		 <li><a href="../article/register">글쓰기</a></li>
+		 <li><a href="../article/write">글쓰기</a></li>
 		 <li><a href="../member/showOther?id=${loginedMemberId}">프로필</a></li>
 		 <li><a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a></li>
 		 </ul>
