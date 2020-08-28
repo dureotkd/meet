@@ -59,4 +59,6 @@ public interface MemberDao {
 
 	int getRepliesCountByMe(int loginedMemberId);
 
+	String isNeedToChangePwPass3Months(int loginedMemberId);
+
 }

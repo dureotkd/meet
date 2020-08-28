@@ -53,7 +53,7 @@
 	box-shadow: 3px 3px 3px #ccc;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto;
+	margin: 100px auto;
 	margin-bottom: 50px;
 }
 

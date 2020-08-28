@@ -43,5 +43,7 @@ public interface ArticleDao  {
 	int getArticleLikeAvailableCount(int id, int loginedMemberId);
 
 	List<ArticleLike> getForPrintArticleLikesByMyArticle(int loginedMemberId);
+
+	int getArticlesLikeCount(int id);
 	
 }

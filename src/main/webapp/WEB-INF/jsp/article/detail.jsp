@@ -183,6 +183,7 @@ to {
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
+		margin-top:60px;
 	}
 	.reply-list-box {
 		width: 100%;
@@ -198,7 +199,6 @@ to {
 	}
 	.article-img {
 		height: 500px;
-		margin-top: 20px;
 	}
 }
 
@@ -222,7 +222,7 @@ to {
 		align-items: center;
 		padding: 20px;
 		justify-content: center;
-		margin: 0 auto;
+		margin: 100px auto;
 		margin-bottom: 50px;
 		overflow: scroll;
 	}
@@ -346,6 +346,7 @@ button, submit {
 	}
 	.article-video {
 		width: 100%;
+		margin-right:13px;
 	}
 	.total-wrap {
 		background: #fafafa;
@@ -364,7 +365,7 @@ button, submit {
 	}
 	.total-wrap {
 		width: 100%;
-		height: 100%;
+		height:100%;
 		background: #fafafa;
 	}
 }

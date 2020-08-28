@@ -123,7 +123,7 @@ function ArticleWriteForm__submit(form) {
 	display:flex;
 	padding:50px;
 	border:1px solid #bdbdbd;
-	margin-top:50px;
+	margin-top:100px;
 	flex-direction:column;
 }
 textarea {

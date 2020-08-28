@@ -152,6 +152,17 @@ public class ArticleController {
 		return rs;
 	}
 	
+	@RequestMapping("article/getLikeCount")
+	@ResponseBody
+	public Map<String, Object> getLikeCount(Model model,int id){
+		
+		int articlesLikeCount = articleService.getArticlesLikeCount(id);
+		
+		Map<String, Object> rs = new HashMap<>();
+		rs.put("articleLikeCount", articlesLikeCount);
+		return rs;
+	}
+	
 	// text 만 할지 안할지 고민중.
 	
 	@RequestMapping("article/textList")

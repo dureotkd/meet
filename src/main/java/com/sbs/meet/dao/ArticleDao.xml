@@ -139,6 +139,13 @@
 		ORDER BY AL.id DESC
 	</select>
 	
+	<select id="getArticlesLikeCount" resultType="int">
+	SELECT
+	IFNULL(SUM(AL.point), 0) AS point
+	FROM articleLike AS AL
+	WHERE AL.articleId = #{id}
+	</select>
+	
 	<resultMap type="ArticleLike" id="articleLike">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />

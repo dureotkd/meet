@@ -49,8 +49,9 @@
 <style>
 .other-show-box {
 	display: flex;
-	margin: 50px auto;
+	margin: 100px auto;
 	max-width: 1080px;
+	margin-bottom:60px;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -521,6 +522,8 @@ textarea[readonly], textarea[disabled] {
 .img-wrap2>span {
 	color: #bdbdbd;
 }
+
+
 </style>
 
 
@@ -542,8 +545,11 @@ textarea[readonly], textarea[disabled] {
 
 				<c:if test="${loginedMemberId != member.id }">
 					<a href="#" class="msgSubmit">메시지 보내기</a>
-
 					<input type="submit" value="팔로우" class="submit-item" />
+				</c:if>
+				
+				<c:if test="${isLogined}">
+				<a href="./myInfoEdit" class="msgSubmit">프로필 편집</a>
 				</c:if>
 
 				<i class="fas fa-ellipsis-h"></i>

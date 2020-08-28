@@ -115,6 +115,7 @@
 	display:flex;
 	justify-content:center;
 	align-items:center;
+	margin-top:60px;
 }
 .board {
 	font-size:1.5rem;

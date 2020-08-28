@@ -45,6 +45,7 @@
 	height:100%;
 	padding-top:50px;
 }
+
 </style>
 
 <div class="total-wrap">
@@ -75,5 +76,6 @@
 	</div>
 </div>
 </div>
+
 
 <%@ include file="../part/foot.jspf"%>

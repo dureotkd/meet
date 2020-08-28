@@ -198,6 +198,17 @@ public class MemberService {
 		return memberDao.getRepliesCountByMe(loginedMemberId);
 	}
 
+	public boolean isNeedToChangePwPass3Months(int loginedMemberId) {
+		
+		String test =memberDao.isNeedToChangePwPass3Months(loginedMemberId); 
+		
+		if ( test == null ) {
+			return false;
+		}
+		
+		return test != null;
+	}
+
 
 	
 

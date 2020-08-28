@@ -93,8 +93,7 @@ public class MemberController {
 			return "json:{\"msg\":\"이미 사용중인 이메일 입니다.\", \"resultCode\": \"F-1\", \"Email\":\"" + email + "\"}";
 		}
 	}
-	
-	
+
 	@RequestMapping("/member/getNicknameDup")
 	@ResponseBody
 	private String actionGetNicknameDup(HttpServletRequest req, HttpServletResponse resp) {
@@ -183,7 +182,17 @@ public class MemberController {
 
 		// nullPointer
 		//
-
+		boolean isNeedToChangePwPass3Months =  memberService.isNeedToChangePwPass3Months(loginedMemberId);
+		
+	
+		// boolean int 는 null 을 담을수 없다. 그러니 Strng으로 담아주자..
+		
+		if (isNeedToChangePwPass3Months) {
+			model.addAttribute("redirectUri",redirectUri);
+			model.addAttribute("alertMsg","비밀번호를 변경안한지 3개월이 되었습니다. 변경해주세요^^");
+			return "common/redirect";
+		}
+		
 		boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangeaPasswordForTemp(loginedMemberId);
 
 		if (isNeedToChangePasswordForTemp) {
