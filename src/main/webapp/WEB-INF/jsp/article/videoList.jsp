@@ -53,7 +53,7 @@
         opacity:1!important;
     }
 .articles-box {
-	max-width: 1108px;
+	max-width: 940px;
 	margin:0 auto;
 	border:1px solid #ccc;
 	box-shadow:3px 3px 3px #ccc;
@@ -149,7 +149,7 @@
 	cursor:pointer;
 }
 .video {
-	width:500px;
+	width:450px;
 	outline:none;
 }
 .action {

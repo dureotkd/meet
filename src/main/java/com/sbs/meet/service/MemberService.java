@@ -209,6 +209,14 @@ public class MemberService {
 		return test != null;
 	}
 
+	public void updateActReadStatus(int loginedMemberId) {
+		 memberDao.updateActReadStatus(loginedMemberId);
+	}
+
+	public void updateActReadStatusInReply(int loginedMemberId) {
+		 memberDao.updateActReadStatusInReply(loginedMemberId);
+	}
+
 
 	
 

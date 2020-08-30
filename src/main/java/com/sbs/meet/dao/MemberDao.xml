@@ -163,8 +163,8 @@
 		ON
 		AR.articleId = A.id
 		WHERE A.memberId = #{loginedMemberId}
-		AND
-		AR.displayStatus = 1
+		AND AR.memberId != #{loginedMemberId}
+		AND AR.displayStatus = 1
 		AND AR.readStatus = 0
 	</select>
 
@@ -201,6 +201,27 @@
 		AND updateDate <= DATE_ADD(NOW(), INTERVAL -3 MONTH);
 	]]>
 	</select>
+	
+	<update id="updateActReadStatus">
+	UPDATE articleLike AS AL
+	INNER JOIN article AS A
+	ON AL.articleId = A.id 
+	INNER JOIN member AS M
+	ON M.id = AL.memberId
+	SET AL.readStatus = 1
+	WHERE A.memberId = #{loginedMemberId}
+	</update>
+	
+	<update id="updateActReadStatusInReply">
+	UPDATE articleReply AS AR
+	INNER JOIN article AS A
+	ON AR.articleId = A.id
+	INNER JOIN member AS M
+	ON M.id = AR.memberId
+	SET AR.readStatus = 1
+	WHERE A.memberId = #{loginedMemberId}
+	</update>
+	
 
 
 	<resultMap type="Member" id="member">

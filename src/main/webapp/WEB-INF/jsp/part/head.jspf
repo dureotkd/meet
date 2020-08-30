@@ -140,7 +140,36 @@ $(function(){
 	btnToggleDropMenu2__init();
 });
 
+function ViewActivity__updateAct(newAct) {
+	$('.msg-notice').empty().append(newAct);
+}
 
+function btnToggleDot__init(){
+	var $btnToggleDot = $('.fa-ellipsis-h');
+
+	$btnToggleDot.click(function(){
+		if ($(this).hasClass('opnbox')){
+			$(this).removeClass('opnbox');
+			$('.setting-items').removeClass('opnbox');
+			} else {
+				$(this).addClass('opnbox');
+				$('.setting-items').addClass('opnbox');
+				}
+		});
+}
+
+$(function(){
+	btnToggleDot__init();
+});
+
+function readAct(){
+	$.post('../article/readAct',{
+	
+	}, function (data) {
+		
+	},
+	'json');
+}
 
 
 </script>
@@ -166,17 +195,10 @@ html {
   /* 영문이면 roboto가 적용되고, 한글이면 Noto Sans KR가 적용되도록 아래와 같은 순서로 배치 */
   font-family: "Roboto", "Noto Sans KR", sans-serif;
 }
-
-
-
-
 html, body {
-
     margin: 0;
-
     height: 100%;
-
-
+    background:#fafafa;
 }
 
 ul, li {
@@ -200,7 +222,7 @@ ul, li {
 	border: 1px solid #ccc;
 	height: 400px;
 	width: 400px;
-	margin: 100px auto;
+	margin: 50px auto;
 	box-shadow: 3px 3px 3px #ccc;
 }
 
@@ -221,8 +243,9 @@ ul, li {
 
 .submit {
 	background: none;
-	border: 1px solid #f50057;
-	color: #f50057;
+	background:#f50057;;
+	border: 1px solid #ccc;
+	color: #fff;
 	font-size: 13px;
 	padding: 10px;
 	cursor: pointer;
@@ -288,7 +311,7 @@ h1 {
 	height:60px;
 	align-items:center;
 	width:100%;
-	max-width:1080px;
+	max-width:940px;
 	position:fixed;
 	background:#fff;
 	top:0;
@@ -297,8 +320,9 @@ h1 {
 	transform:translate(-50%,0px);
 }
 .Myinfo-profile {
-	width:50px;
-	height:50px;
+	width:100%;
+	height:100%;
+	object-fit:cover;
 	border-radius:50%;
 }
 
@@ -346,8 +370,9 @@ h1 {
 }
 
 .dropdown-menu > li > a:hover {
-	background:#ccc;
+	background:#eee;
 }
+
 
 
 .dropdown-menu.open {
@@ -523,6 +548,15 @@ h1 {
 	
 }
 
+.fa-ellipsis-h {
+	cursor:pointer;
+}
+.profile-box {
+	width:50px;
+	height:50px;
+	border-radius:50%;	
+	over-flow:hidden;
+}
 </style>
 
 
@@ -550,7 +584,7 @@ h1 {
 	
 	<a href="../article/imgList"><i class="far fa-compass menu-i"></i></a>
 	<div class="down-box">
-	<i class="far fa-heart menu-i  heartM"></i>
+	<a href="#" onclick="readAct();"><i class="far fa-heart menu-i  heartM"></i></a>
 	<c:if test="${isLogined}">
 	<c:if test="${myActivityCount > 0 }">
 	<p class="msg-notice">${myActivityCount}</p>
@@ -600,7 +634,9 @@ h1 {
 	</c:if>
 		<div class="myinfo">
 		<c:if test="${isLogined}">
+		<div class="profile-box">
 		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+		</div>
 		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">
 				현재 임시 비밀번호를 사용중입니다.<br>빠른 시일내에 변경해주세요.

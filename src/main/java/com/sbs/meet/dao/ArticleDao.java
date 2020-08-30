@@ -45,5 +45,11 @@ public interface ArticleDao  {
 	List<ArticleLike> getForPrintArticleLikesByMyArticle(int loginedMemberId);
 
 	int getArticlesLikeCount(int id);
+
+	Article getLikeKing();
+
+	List<Article> getLikeKingLimitFive();
+
+	Map<String, Object> updateReadStatus(int loginedMemberId);
 	
 }

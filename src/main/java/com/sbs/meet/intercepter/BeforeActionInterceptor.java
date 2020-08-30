@@ -154,7 +154,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		// 0개 뜨는 이유 -> int article.getId()가 하나밖에 담지못한다 내가 슨글은 여러개인데
 		
 		//  나의 게시글 댓글 카운트 + 좋아요 카운트 + 내 게시글에 내가 댓글쓴건 카운트x
-		int myActivityCount = myReplyCount + myLikePointCount - myRepliesInMyArticle;
+		int myActivityCount = myReplyCount + myLikePointCount;
 		
 		// 댓글  
 		List<ArticleReply> articleReplies = replyService.getForPrintArticleRepliesByMyArticle(loginedMemberId);

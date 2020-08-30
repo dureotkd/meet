@@ -61,4 +61,10 @@ public interface MemberDao {
 
 	String isNeedToChangePwPass3Months(int loginedMemberId);
 
+	void updateActReadStatus(int loginedMemberId);
+
+	void updateActReadStatusInReply(int loginedMemberId);
+
+	void doChangeProfile(int loginedMemberId);
+
 }

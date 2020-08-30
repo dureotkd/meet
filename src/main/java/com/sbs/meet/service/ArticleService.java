@@ -203,6 +203,24 @@ public class ArticleService {
 		return articleDao.getArticlesLikeCount(id);
 	}
 
+
+
+	public Article getLikeKing() {
+		return articleDao.getLikeKing();
+	}
+
+
+
+	public List<Article> getLikeKingLimitFive() {
+		return articleDao.getLikeKingLimitFive();
+	}
+
+
+
+	public Map<String, Object> updateReadStatus(int id) {
+		return articleDao.updateReadStatus(id);
+	}
+
 	
 	
 }
