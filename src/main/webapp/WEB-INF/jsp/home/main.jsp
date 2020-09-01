@@ -73,6 +73,14 @@ $(document).ready(function() {
 	});
 });
 
+function blockWhoClickedUser(){
+	if (confirm('사용자를 차단하시겠습니까? \n차단하면 팔로우가 끊기며 피드를 접할 수 없습니다.') == true ){
+	}
+	else {
+		return;
+	}
+}
+
 </script>
 
 <style>
@@ -437,7 +445,11 @@ textarea[readonly], textarea[disabled] {
 .recomend-text > a {
 	padding:15px;
 }
-
+	.video {
+	width:483px;
+	height:500px;
+	outline:none;
+}
 @media ( max-width:800px ){
 	.articles-item {
 		display:flex;
@@ -476,6 +488,7 @@ textarea[readonly], textarea[disabled] {
 	height:500px;
 	overflow:hidden;
 	}
+	
 }
 </style>
 
@@ -492,7 +505,7 @@ textarea[readonly], textarea[disabled] {
 				</c:if>
 				<c:if test="${article.extra.file__common__attachment['1'] != null}">
 				<div class="article-img-box">
-				<video controls
+				<video class="video" controls
 				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
 				class="article-video"></video>
 				</div>
@@ -512,7 +525,7 @@ textarea[readonly], textarea[disabled] {
 				<ul class="setting-box">
 					<li><i class="fas fa-ellipsis-h"></i></li>
 					<ul class="setting-items">
-						<li><a href="#" class="red">사용자 차단</a></li>
+						<li><a href="#" class="red" onclick="blockWhoClickedUser(this);">사용자 차단</a></li>
 						<li><a href="../article/detail?id=${article.id}" class="msgSubmit">게시물로 이동하기</a></li>
 						<li><a href="#">공유하기</a></li>
 					</ul>

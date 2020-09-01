@@ -258,5 +258,26 @@ public class MemberService {
 		return memberDao.getForPrintNotFollow(loginedMemberId);
 	}
 
+	
+	public boolean usePrivateAccount(int memberId) {
+		String val = attrService.getValue("member",memberId,"extra","usePrivateMode");
+		
+		if ( val == null ) {
+			return false;
+		}
+		
+		return val.equals("1");
+	}
 
+	public int setValueForPrivateMode(int loginedMemberId) {
+		return attrService.setValue("member", loginedMemberId,"extra","usePrivateMode","1");
+	}
+
+	public void disAblePrivateMode(int loginedMemberId) {
+		 attrService.remove("member",loginedMemberId, "extra","usePrivateMode");
+	}
+
+	public int getFollowCross(int memberId, int loginedMemberId) {
+		return memberDao.getFollowCross(memberId,loginedMemberId);
+	}
 }

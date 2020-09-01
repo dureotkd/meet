@@ -90,4 +90,6 @@ public interface MemberDao {
 
 	List<Member> getForPrintNotFollow(int loginedMemberId);
 
+	int getFollowCross(int memberId, int loginedMemberId);
+
 }

@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
@@ -136,7 +136,7 @@ function btnToggleDropMenu2__init(){
 			} else {
 				$(this).addClass('drop');
 				$('.dropdown-menu2').addClass('drop');
-				$('.msg-notice').addClass('none');	
+				$('.msg-notice2').addClass('none');	
 			}
 		});
 }
@@ -476,7 +476,17 @@ h1 {
 	position:absolute;
 	top:0;
 }
+
 .msg-notice.none {
+	display:none;
+}
+
+.msg-notice2 {
+	color:red;
+	position:absolute;
+	top:0;
+}
+.msg-notice2.none {
 	display:none;
 }
 
@@ -523,6 +533,7 @@ h1 {
 .setting-items.opnbox {
 	position: absolute;
 	border-radius: 10px;
+	font-size:14px;
 	width: 150px;
 	margin-top: 10px;
 	left: 50%;
@@ -645,7 +656,7 @@ h1 {
 	<a href="#" onclick="readAct();"><i class="far fa-heart menu-i  heartM"></i></a>
 	<c:if test="${isLogined}">
 	<c:if test="${myActivityCount > 0 }">
-	<p class="msg-notice">${myActivityCount}</p>
+	<p class="msg-notice2">${myActivityCount}</p>
 	</c:if>
 	</c:if>
 	<ul class="dropdown-menu2">

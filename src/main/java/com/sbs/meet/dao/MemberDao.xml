@@ -298,6 +298,12 @@
 		FROM friend WHERE followerId = #{loginedMemberId}
 		AND followId = #{memberId}
 	</select>
+	
+	<select id="getFollowCross" resultType="int">
+		SELECT COUNT(*) AS cnt
+		FROM friend WHERE followerId = #{memberId}
+		AND followId = #{loginedMemberId} 
+	</select>
 
 	<resultMap type="Friend" id="friend">
 		<id property="id" column="id" />
