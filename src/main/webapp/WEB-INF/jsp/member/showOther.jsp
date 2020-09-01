@@ -147,6 +147,23 @@
 			reader.readAsDataURL(f);
 		});
 	}
+
+	function doDeleteFollow(el) 	{
+		if ( confirm ("팔로우를 취소하시겠습니까 ?") == true ){
+		
+		$.post('../member/doDeleteFollow', {
+			followId : followId,
+			followerId : followerId
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+
+			}, 'json');
+		} else {
+			return;
+		}
+	}
 </script>
 
 
@@ -166,7 +183,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 400px;
+	width: 500px;
 }
 
 .other-follow-box {
@@ -667,6 +684,8 @@ input[type="file"] {
 	}
 	.articles-box {
 		box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+		padding-bottom:20px;
+		box-sizing:border-box;
 	}
 	.images-wrap {
 		width: 90%;
@@ -759,7 +778,13 @@ input[type="file"] {
 
 				<c:if test="${loginedMemberId != member.id }">
 					<a href="#" class="msgSubmit">메시지 보내기</a>
+					<c:if test="${following == 0 }">
 					<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
+					</c:if>
+					
+					<c:if test="${following == 1 }">
+					<a href="#" class="submit-item" onclick="doDeleteFollow(this);">언팔로우</a>
+					</c:if>
 				</c:if>
 
 				<c:if test="${loginedMemberId == member.id }">
@@ -775,7 +800,7 @@ input[type="file"] {
 			</div>
 			<div class="other-followBox">
 				<span class="article-count">게시글 ${articleCount}</span> <span
-					class="">팔로워 ${followerCount}</span> <span> 팔로우 ${followCount}</span>
+					class="">팔로워 ${followCount}</span> <span> 팔로우 ${followerCount}</span>
 			</div>
 			<div class="other-introduce">
 				<p>${member.introduce}</p>

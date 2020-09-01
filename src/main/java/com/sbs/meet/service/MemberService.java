@@ -171,10 +171,6 @@ public class MemberService {
 		return memberDao.getUserAvatarImg(memberId);
 	}
 
-	public void doUpdateLevel(int memberId) {
-		memberDao.doUpdateLevel(memberId);
-	}
-
 	public List<Member> getAllMember() {
 		return memberDao.getAllMember();
 	}
@@ -248,6 +244,18 @@ public class MemberService {
 
 	public int getFollowingConfirm(int memberId,int loginedMemberId) {
 		return memberDao.getFollowingConfirm(memberId,loginedMemberId);
+	}
+
+	public void doUpdateLevel5(int memberId) {
+		memberDao.doUpdateLevel5(memberId);
+	}
+	
+	public void doUpdateLevel10(int memberId) {
+		memberDao.doUpdateLevel10(memberId);
+	}
+
+	public List<Member> getForPrintNotFollow(int loginedMemberId) {
+		return memberDao.getForPrintNotFollow(loginedMemberId);
 	}
 
 

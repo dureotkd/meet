@@ -106,6 +106,7 @@ html, body {
 	display: flex;
 	jusitfy-content: space-between;
 	align-items: center;
+	position:relative;
 	margin-bottom: 15px;
 	font-size: 14px;
 }
@@ -174,6 +175,7 @@ to {
 	margin: 0 auto;
 	overflow: hidden;
 }
+
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
 	.prev, .next, .text {
@@ -228,6 +230,7 @@ to {
 		border: 1px solid #eee;
 		border-radius: 20px;
 		box-shadow: 3px 3px 3px #ccc;
+		box-sizing:border-box;
 		align-items: center;
 		padding: 20px;
 		justify-content: center;
@@ -239,7 +242,7 @@ to {
 		display: none; /* Chrome, Safari, Opera*/
 	}
 	.reply-list-box {
-		width: 350px;
+		width: 400px;
 	}
 	.mySlides {
 		display: flex;
@@ -318,6 +321,14 @@ button, submit {
 	color: #bdbdbd;
 	font-size: 13px;
 	padding: 15px;
+}
+
+.replyRegDate {
+	color: #bdbdbd;
+	font-size:13px;
+	left:55px;
+	position:absolute;
+	
 }
 
 .fa-smile {
@@ -860,7 +871,9 @@ textarea[readonly], textarea[disabled] {
 				</c:if>
 				
 				<c:if test="${following == 0}">
+				<c:if test="${loginedMemberId != member.id }">
 				<a href="#" class="follow-btn" onclick="doFollow(this);">팔로우</a>
+				</c:if>
 				</c:if>
 				<c:if test="${following == 1}">
 				<a href="#" class="follow-btn" onclick="doDeleteFollow(this);">언팔로우</a>
@@ -877,6 +890,7 @@ textarea[readonly], textarea[disabled] {
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
 				<p class="tag">#${article.tag}</p>
+				<p class="regDate">${article.regDateFormat}</p>
 				<div class="like-wrap">
 					<a href="#" onclick="callDoLike();"> <i
 						class="fas fa-heart like"></i>
@@ -985,16 +999,22 @@ textarea[readonly], textarea[disabled] {
 				html += '</div>';
 				html += '</td>';
 
+				html += '<td>';
+				html += '</td>';
+
 				html += '<td class="reply-writer">' + articleReply.extra.writer
-						+ '</td></a>';
+						+ '</td></a>';						
 
 				html += '<td>';
-				html += '<div class="reply-body">' + articleReply.body
-						+ '</div>';
-				//	html += '<button type="button" onclick="ReplyList__delete(this);">삭제</button>';
+				html += '<div class="reply-body">' + articleReply.body +  '</div>';
 
+				html += '<p class="replyRegDate">' + articleReply.regDateFormat + '</p>';
+				
+				
+				//	html += '<button type="button" onclick="ReplyList__delete(this);">삭제</button>';
 				//	html += '<button type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
 				html += '</td>';
+				
 				html += '</tr>';
 				var $tr = $(html);
 				ReplyList__$tbody.prepend($tr);

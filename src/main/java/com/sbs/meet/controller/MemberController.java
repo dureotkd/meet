@@ -435,6 +435,12 @@ public class MemberController {
 	public String showOther(@RequestParam Map<String, Object> param, Model model, int id, HttpServletRequest req) {
 
 		Member member = memberService.getMemberById(id);
+		
+		int memberId = member.getId();
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		
+		int following = memberService.getFollowingConfirm(memberId,loginedMemberId);
+		
 
 		if (member == null) {
 			model.addAttribute("historyBack", true);
@@ -442,7 +448,6 @@ public class MemberController {
 			return "common/redirect";
 		}
 
-		int memberId = member.getId();
 		// 회원이 쓴 게시글 카운트
 		int articleCount = articleService.getArticleCount(memberId);
 		// 회원 팔로우 카운트
@@ -474,7 +479,7 @@ public class MemberController {
 		for (File file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
-
+		model.addAttribute("following",following);
 		model.addAttribute("followerCount",followerCount);
 		model.addAttribute("followCount",followCount);
 		model.addAttribute("articleCount", articleCount);
