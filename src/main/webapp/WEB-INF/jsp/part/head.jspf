@@ -148,24 +148,6 @@ function ViewActivity__updateAct(newAct) {
 	$('.msg-notice').empty().append(newAct);
 }
 
-function btnToggleDot__init(){
-	var $btnToggleDot = $('.fa-ellipsis-h');
-
-	$btnToggleDot.click(function(){
-		if ($(this).hasClass('opnbox')){
-			$(this).removeClass('opnbox');
-			$('.setting-items').removeClass('opnbox');
-			} else {
-				$(this).addClass('opnbox');
-				$('.setting-items').addClass('opnbox');
-				}
-	});
-}
-
-$(function(){
-	btnToggleDot__init();
-});
-
 function readAct(){
 	$.post('../member/readAct',{
 	
@@ -174,6 +156,35 @@ function readAct(){
 	},
 	'json');
 }
+
+
+function btnToggleDot__init() {
+	var $btnToggleDot = $('.fa-ellipsis-h');
+
+	$btnToggleDot
+			.click(function() {
+				if ($(this).hasClass('opnbox')) {
+					
+				} else {
+					$('.opnbox').removeClass('opnbox');
+					$(this).addClass('opnbox');
+					var $settingItems = $(this).parent().siblings(
+							'.setting-items');
+					$settingItems.addClass('opnbox');
+
+					return false;
+				}
+			});
+
+	$('body').click(function() {
+		$('.opnbox').removeClass('opnbox');
+	});
+}
+
+$(function() {
+	btnToggleDot__init();
+});
+
 </script>
 
 <%="<script>"%>

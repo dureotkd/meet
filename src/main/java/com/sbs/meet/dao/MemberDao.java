@@ -68,7 +68,7 @@ public interface MemberDao {
 
 	void doChangeProfile(int loginedMemberId);
 
-	void doActionFollow(int followId, int followerId);
+	Map<String, Object> doActionFollow(int followId, int followerId);
 
 	void doDeleteFollow(int followId, int followerId);
 

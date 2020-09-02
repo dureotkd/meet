@@ -437,11 +437,14 @@ public class MemberController {
 
 		int memberId = member.getId();
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
-
+		
+		
+		// 로그인 한 본인이 팔로우 중.
 		int following = memberService.getFollowingConfirm(memberId, loginedMemberId);
 		
+		// 상대방이 날 팔로우 한걸 확인
 		int followCross = memberService.getFollowCross(memberId,loginedMemberId);
-
+				
 		// 회원이 쓴 게시글 카운트
 		int articleCount = articleService.getArticleCount(memberId);
 		// 회원 팔로우 카운트
@@ -488,8 +491,17 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/doActionFollow")
-	public void doActionFollow(HttpServletRequest req, int followId, int followerId) {
-		memberService.doActionFollow(followId, followerId);
+	public Map<String, Object> doActionFollow(HttpServletRequest req, int followId, int followerId) {
+		
+		Map<String, Object> rs = new HashMap<>();
+	
+		Map<String,Object> followRs = memberService.doActionFollow(followId, followerId);
+		
+		
+		String resultCode = (String) followRs.get("resultCode");
+		rs.put("resultCode",resultCode);
+		
+		return rs;
 	}
 
 	@RequestMapping("/member/doDeleteFollow")

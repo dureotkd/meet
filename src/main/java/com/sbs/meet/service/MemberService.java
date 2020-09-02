@@ -214,8 +214,17 @@ public class MemberService {
 		 memberDao.updateActReadStatusInReply(loginedMemberId);
 	}
 
-	public void doActionFollow(int followId, int followerId) {
+	public Map<String, Object> doActionFollow(int followId, int followerId) {
+		
+		
 		memberDao.doActionFollow(followId,followerId);
+		
+		Map<String, Object> rs = new HashMap<>();
+		
+		rs.put("resultCode","S-1");
+		rs.put("msg", "팔로우 성공");
+		
+		return rs;
 	}
 
 	public void doDeleteFollow(int followId, int followerId) {
