@@ -289,4 +289,8 @@ public class MemberService {
 	public int getFollowCross(int memberId, int loginedMemberId) {
 		return memberDao.getFollowCross(memberId,loginedMemberId);
 	}
+
+	public List<Member> getMemberBySearch(String nickname) {
+		return memberDao.getMemberBySearch(nickname);
+	}
 }

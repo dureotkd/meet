@@ -427,14 +427,26 @@ public class MemberController {
 
 		return "common/redirect";
 	}
-
+	
+	@RequestMapping("/member/registory")
+	@ResponseBody
+	public Map<String, Object> showRegistory(String nickname) {
+		
+		List<Member> members = memberService.getMemberBySearch(nickname);
+		Map<String, Object> rs = new HashMap<>();
+		for ( Member member : members ) {
+			rs.put("members",member);
+		}
+		
+		return rs;
+	} 	
 	// 다른 회원 화면 보여주기
 
 	@RequestMapping("/member/showOther")
 	public String showOther(@RequestParam Map<String, Object> param, Model model, int id, HttpServletRequest req) {
-
+		
 		Member member = memberService.getMemberById(id);
-
+		
 		int memberId = member.getId();
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		

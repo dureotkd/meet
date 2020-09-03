@@ -21,90 +21,25 @@
 <!--  구글 폰트 로고  -->
 <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 
+<!--  toast 메시지 라이브러리 -->
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	
 
 <!-- 제이쿼리 불러오기 -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		
 <!-- 구글 폰트 불러오기 -->
 <!-- rotobo(400/700/900), notosanskr(400/600/900) -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<script
-	src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
+<!--  이미지 슬라이더 라이브러리  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
 <script>
-	function loginNotify() {
-		// Let's check if the browser supports notifications
-		if (!("Notification" in window)) {
-			alert("This browser does not support desktop notification");
-		}
+	
 
-		// Let's check whether notification permissions have already been granted
-		else if (Notification.permission === "granted") {
-
-			var options = {
-				icon : 'https://img1.yna.co.kr/etc/inner/KR/2018/08/29/AKR20180829033700009_02_i_P2.jpg',
-				body : '로그인 되었습니다.',
-				data : 'Meet In here'
-			}
-
-			var n = new Notification('Meet In here', options);
-
-			console.log(n.data)
-
-		}
-
-		// Otherwise, we need to ask the user for permission
-		else if (Notification.permission !== "denied") {
-			Notification.requestPermission().then(function(permission) {
-				// If the user accepts, let's create a notification
-				if (permission === "granted") {
-					var notification = new Notification("Hi there!");
-				}
-			});
-		}
-	}
-
-	function logOutNotify() {
-		// Let's check if the browser supports notifications
-		if (!("Notification" in window)) {
-			alert("This browser does not support desktop notification");
-		}
-
-		// Let's check whether notification permissions have already been granted
-		else if (Notification.permission === "granted") {
-			// If it's okay let's create a notification
-			var notification = new Notification("로그아웃 되었습니다.");
-		}
-
-		// Otherwise, we need to ask the user for permission
-		else if (Notification.permission !== "denied") {
-			Notification.requestPermission().then(function(permission) {
-				// If the user accepts, let's create a notification
-				if (permission === "granted") {
-					var notification = new Notification("Hi there!");
-				}
-			});
-		}
-		// At last, if the user has denied notifications, and you 
-		// want to be respectful there is no need to bother them any more.
-	}
-
-	function articleWriteNotify() {
-		// Let's check if the browser supports notifications
-		if (!("Notification" in window)) {
-			alert("This browser does not support desktop notification");
-		}
-
-		// Let's check whether notification permissions have already been granted
-		else if (Notification.permission === "granted") {
-			// If it's okay let's create a notification
-			var notification = new Notification("게시글이 등록되었습니다.");
-		}
-	}
 
 	function btnToggleDropMenu__init() {
 		var $btnToggleDropMenu = $('.myinfo');
@@ -645,9 +580,9 @@ h1 {
 	<div class="logo-box">
 	<a href="../home/main"><h1 class="logo">Meet In here</h1></a>
 	</div>
-	
+
 	<div class="search-box visible-on-sm-up">
-	<input type="search" class="search" placeholder="검색"/>
+	<input type="search" class="search" name="searchKeyword" placeholder="검색" value="${param.searchKeyword}"/>
 	</div>
 	
 	<div class="menu-box">

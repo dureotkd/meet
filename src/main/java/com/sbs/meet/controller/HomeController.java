@@ -110,6 +110,14 @@ public class HomeController {
 		return "home/main";
 	}
 	
+	@RequestMapping("home/test")
+	public String showTest(String nickname) {
+		
+		
+		
+		return "home/test";
+	}
+	
 	
 		
 }

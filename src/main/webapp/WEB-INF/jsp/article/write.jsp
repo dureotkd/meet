@@ -3,6 +3,86 @@
 <%@ include file="../part/head.jspf"%>
 
 <script>
+	var sel_file;
+
+$(document).ready(function() {
+	$("#ex_file").on("change", handleImgFileSelect);
+});
+
+function handleImgFileSelect(e1) {
+	var files1 = e.target.files;
+	var filesArr1 = Array.prototype.slice.call(files1);
+
+	filesArr1.forEach(function(f1) {
+		if (!f1.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file = f1;
+
+		var reader1 = new FileReader();
+
+		reader1.onload = function(e1) {
+			$("#img").attr("src", e1.target.result);
+		}
+		reader.readAsDataURL(f1);
+	});
+}
+
+
+var sel_file2;
+
+$(document).ready(function() {
+	$("#ex_file2").on("change", handleImgFileSelect);
+});
+
+function handleImgFileSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file2 = f;
+
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#img2").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
+var sel_file3;
+
+$(document).ready(function() {
+	$("#ex_file3").on("change", handleImgFileSelect);
+});
+
+function handleImgFileSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+		sel_file3 = f;
+
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#img3").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
 	var ArticleWriteForm__submitDone = false;
 	function ArticleWriteForm__submit(form) {
 		if (ArticleWriteForm__submitDone) {
@@ -118,6 +198,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top:100px;
 }
 
 .form-box {
@@ -156,6 +237,30 @@ textarea {
 .wrapping {
 	display: flex;
 }
+
+.file-upload {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
+}
+.file-con {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	magin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
 </style>
 
 <div class="total-wrap">
@@ -166,27 +271,40 @@ textarea {
 			<input type="hidden" name="redirectUri" value="detail?id=#id" /> <input
 				type="hidden" name="fileIdsStr"> <input type="hidden"
 				name="title" placeholder="제목" value="1" />
-			<div class="board-item">
-				<a href="#">Photo</a> <a href="#">Video</a> <a href="#">Article</a>
-			</div>
-
 			<div class="wrapping">
 				<textarea name="body" id="" cols="30" rows="10"
 					placeholder="지금 무슨일이 일어나고 있나요?" autofocus></textarea>
 				<input type="hidden" name="memberId" value="${loginedMemberId}" /> <input
-					type="text" name="tag" />
+					type="hidden" name="tag" />
 				<div class="input-img">
-					<label for="">Video</label> <input type="file" accept="video/*"
-						name="file__article__0__common__attachment__1" /> <input
-						type="hidden" accept="video/*"
-						name="file__article__0__common__attachment__2" /> <label for="">Image</label>
-					<input type="file" accept="image/*"
-						name="file__article__0__common__attachment__3"> <input
-						type="file" accept="image/*"
-						name="file__article__0__common__attachment__4"> <input
-						type="file" accept="image/*"
-						name="file__article__0__common__attachment__5"> <input
-						type="submit" class="submit" onclick="articleWriteNotify()" />
+					<label for="">Video</label> 
+					<input type="file" accept="video/*"  name="file__article__0__common__attachment__1" />
+					<input type="hidden" accept="video/*"  name="file__article__0__common__attachment__2" />				
+					<label for="">Image</label>
+					
+					<div class="file-con">
+					<label for="ex_file">
+					<img src="https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2"
+					 id="img" class="file-upload" />
+					</label>
+					</div>
+					
+					<div class="file-con">
+					<label for="ex_file2">
+					<img src="https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2"
+					id="img2" class="file-upload"  />
+					</label>				
+					</div>
+					
+					<div class="file-con">
+					<label for="ex_file3">
+					<img id="img3" class="file-upload" src="https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" />
+					</label>
+					</div>
+					<input type="file" accept="image/*" id="ex_file" name="file__article__0__common__attachment__3"> 
+					<input type="file" accept="image/*" id="ex_file2" name="file__article__0__common__attachment__4">
+					<input type="file" accept="image/*" id="ex_file3" name="file__article__0__common__attachment__5">
+					<input type="submit" class="submit" onclick="articleWriteNotify()" />
 				</div>
 			</div>
 		</form>

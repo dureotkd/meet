@@ -36,7 +36,7 @@
 	<select id="getMemberById" resultMap="member">
 		SELECT * FROM member
 		WHERE
-		id = #{id}
+		id = #{id} 
 	</select>
 
 	<update id="doModifyPrivate">
@@ -136,7 +136,11 @@
 		SELECT * FROM member
 		ORDER BY
 		id DESC
-		LIMIT 3;
+	</select>
+	
+	<select id="getMemberBySearch" resultMap="member">
+		SELECT * FROM member
+		WHERE nickname LIKE CONCAT('%',#{nickname},'%')
 	</select>
 
 	<select id="getMsgNoticeCount" resultType="int">
