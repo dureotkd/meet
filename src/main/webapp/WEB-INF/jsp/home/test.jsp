@@ -14,20 +14,10 @@
 	
 
 <script>
-function imagepreview(input){
-    if(input.files && input.files[0]){
-        var filerd = new FileReader();
-        filerd.onload=function(e){
-            $('#imgpreview' + $(input).attr('id').slice(-1)).attr('src', e.target.result);
-        };
-        filerd.readAsDataURL(input.files[0]);
-    }
-  }
-
 
 $(document).ready(function(){
 	$('.form-control').select2({
-		placeholder : '선택하여 주십시오.',
+		placeholder: '선택하여 주십시오.',
 		minimumInputLength: 1,
 		ajax: {
 			type: "GET",
@@ -38,16 +28,15 @@ $(document).ready(function(){
 			// 검색 쿼리
 			data: function (params) {
 				return {
-					nickname:params.term
+					searchKeyword:params.term
 					};
 				},
 				 processResults: function (data) {
 				        return {
-				            results: data.members
+				            results: data.itmes
 				        };
 				    },
 			}
-	
 	});
 });
 </script>
@@ -74,10 +63,6 @@ border:0px solid;
 width:40%;
 margin:10px auto;
 }
-
-input{
-    display:none;
-}
 .input-label{
     background-color:#009688;
     color:#fff;
@@ -91,16 +76,6 @@ input{
 	<!-- 속성에 multiple를 추가합시다. -->
 	<select class="form-control" multiple="multiple">
 	</select>
-</div>
-
-
-<div class="wrap">
-<img id="imgpreview1" src="" width="100" height="100">
-<img id="imgpreview2" src="" width="100" height="100"> 
-<img id="imgpreview3" src="" width="100" height="100">
- <label for="idupload-1" class="input-label"><i class="fa fa-arrow-up"></i>upload</label><input type="file" id="idupload-1" onchange="imagepreview(this);" />
- <label for="idupload-2" class="input-label"><i class="fa fa-arrow-up"></i>upload</label><input type="file" id="idupload-2" onchange="imagepreview(this);" />
-<label for="idupload-3" class="input-label"><i class="fa fa-arrow-up"></i>upload</label><input type="file" id="idupload-3" onchange="imagepreview(this);" />
 </div>
 
 

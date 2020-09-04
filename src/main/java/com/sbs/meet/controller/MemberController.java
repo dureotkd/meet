@@ -430,16 +430,22 @@ public class MemberController {
 	
 	@RequestMapping("/member/registory")
 	@ResponseBody
-	public Map<String, Object> showRegistory(String nickname) {
+	public Map<String, Object> showRegistory(String searchKeyword) {
 		
-		List<Member> members = memberService.getMemberBySearch(nickname);
+		List<Member> members = memberService.getMemberBySearch(searchKeyword);
+		
 		Map<String, Object> rs = new HashMap<>();
+		
 		for ( Member member : members ) {
-			rs.put("members",member);
+			rs.put("pagination",false);
+			rs.put("results",member);
+			rs.put("total_count",members.size());
 		}
 		
 		return rs;
-	} 	
+	} 
+	
+	
 	// 다른 회원 화면 보여주기
 
 	@RequestMapping("/member/showOther")

@@ -140,7 +140,7 @@
 	
 	<select id="getMemberBySearch" resultMap="member">
 		SELECT * FROM member
-		WHERE nickname LIKE CONCAT('%',#{nickname},'%')
+		WHERE nickname LIKE CONCAT('%',#{searchKeyword},'%')
 	</select>
 
 	<select id="getMsgNoticeCount" resultType="int">

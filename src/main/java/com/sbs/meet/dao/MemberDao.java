@@ -92,6 +92,6 @@ public interface MemberDao {
 
 	int getFollowCross(int memberId, int loginedMemberId);
 
-	List<Member> getMemberBySearch(@Param("nickname") String nickname);
+	List<Member> getMemberBySearch(@Param("searchKeyword") String searchKeyword);
 
 }
