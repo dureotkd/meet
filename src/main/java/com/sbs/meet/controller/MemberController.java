@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.File;
+import com.sbs.meet.dto.Friend;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FileService;
@@ -198,17 +200,13 @@ public class MemberController {
 		// boolean int 는 null 을 담을수 없다. 그러니 Strng으로 담아주자..
 
 		if (isNeedToChangePwPass3Months) {
-			model.addAttribute("redirectUri", redirectUri);
-			model.addAttribute("alertMsg", "비밀번호를 변경안한지 3개월이 되었습니다. 변경해주세요^^");
-			return "common/redirect";
+			return "../member/changePassword";
 		}
 
 		boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangeaPasswordForTemp(loginedMemberId);
 
 		if (isNeedToChangePasswordForTemp) {
-			model.addAttribute("redirectUri", redirectUri);
-			model.addAttribute("alertMsg", "현재 임시패스워드를 사용중입니다. 비밀번호를 변경해주세요");
-			return "common/redirect";
+			return "../member/changePassword";
 		}
 
 		model.addAttribute("redirectUri", redirectUri);
@@ -456,6 +454,7 @@ public class MemberController {
 		int memberId = member.getId();
 		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		
+		System.out.println("확인 : " + member.getId());
 		
 		// 로그인 한 본인이 팔로우 중.
 		int following = memberService.getFollowingConfirm(memberId, loginedMemberId);
@@ -562,8 +561,149 @@ public class MemberController {
 		//memberService.blockWhoClickUsers(id,loginedMemberId);
 	}
 	
+	@RequestMapping("/member/mystatistics")
+	public String showMystatistics(@RequestParam Map<String, Object> param, Model model, int id, HttpServletRequest req) {
+		
+			Member member = memberService.getMemberById(id);
+			
+			int memberId = member.getId();
+			int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+			
+			// 이전 게시글로 인한 팔로우 증가 숫자
+			int beforeFollowCount = memberService.getBeforeFollowCount(memberId);
+			
+			// 총 댓글 받은 숫자
+			int totalReplyCount = memberService.getTotalReplyCount(memberId);
+			// 총 좋아요 숫자
+			int totalLikeCount = memberService.getTotalLikeCount(memberId);
+			//	하루 게시글
+			int articleCountBeforeDay = memberService.getArticleCountBeforeDay(memberId);
+			// 일주일 게시글
+			int articleCountBeforeWeek = memberService.getArticleCountBeforeWeek(memberId);
+			// 한달 게시글
+			int articleCountBeforeMonth = memberService.getArticleCountBeforeMonth(memberId);
+			
+			// 팔로우 확인
+			
+
+			// 나의 최고로 많이받은 좋아요 숫자 + article
+			List<Article> articles = articleService.getForPrintArticleByLikeKing(memberId);
+			
 	
+			for ( Article article : articles ) {
+				List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
+				Map<String, File> filesMap = new HashMap<>();
+
+				for (File file : files) {
+					filesMap.put(file.getFileNo() + "", file);
+				}
+				Util.putExtraVal(article, "file__common__attachment", filesMap);
+			}
+			
+			for ( Article article : articles ) {	
+				int articleId = article.getId();
+				ArticleLike articleLike = memberService.getArticleKingLikeCount(articleId);
+				
+				model.addAttribute("articleLike",articleLike);
+			}
+			
+			// 가장 오래된 팔로우들
+			List<Friend> friends = memberService.getMemberByOldFriend(memberId);
+			
+			for ( Friend oldFriend : friends) {
+				
+				// 로그인 한 본인이 팔로우 중.
+				
+				int following = memberService.getFollowingConfirm(oldFriend.getFollowerId(), loginedMemberId);
+				
+				System.out.println("확인좀하자 : " + oldFriend.getFollowerId());
+				
+				// 상대방이 날 팔로우 한걸 확인
+				int followCross = memberService.getFollowCross(oldFriend.getFollowerId(),loginedMemberId);
+				
+				System.out.println("확인좀하자2 : " + oldFriend.getFollowId());
+				
+				model.addAttribute("following",following);
+				model.addAttribute("followCross",followCross);
+
+				
+				System.out.println("확인 좀 : " + oldFriend.getId() + oldFriend.getRegDate() );
+				
+				List<File> files = fileService.getFiles("member",oldFriend.getFollowerId(), "common", "attachment");
+				
+				if (files.size() > 0) {
+					File file = files.get(0);
+
+					if (oldFriend.getExtra() == null) {
+						oldFriend.setExtra(new HashMap<>());
+					}
+
+					oldFriend.getExtra().put("writerAvatarImgUrl",
+							"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+				} else {
+					oldFriend.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				}
+
+				Map<String, File> filesMap = new HashMap<>();
+
+				for (File file : files) {
+					filesMap.put(file.getFileNo() + "", file);
+				}
+
+			}
+			
+			model.addAttribute("articleCountBeforeMonth",articleCountBeforeMonth);
+			model.addAttribute("articleCountBeforeWeek",articleCountBeforeWeek);
+			model.addAttribute("articleCountBeforeDay",articleCountBeforeDay);
+			model.addAttribute("totalReplyCount",totalReplyCount);
+			model.addAttribute("totalLikeCount",totalLikeCount);
+			model.addAttribute("beforeFollowCount",beforeFollowCount);
+			model.addAttribute("member", member);
+			model.addAttribute("friends",friends);
+			model.addAttribute("articles", articles);
+		return "member/mystatistics";
+	}
 	
+	@RequestMapping("/member/showDisAbledForm")
+	public String showDisAbledForm() {
+		return "member/showDisAbledForm";
+	}
+	
+	@RequestMapping("/member/disAbledAccount")
+	public String disAbledAccount(int id,HttpServletRequest req,String loginPwReal,Model model) {
+		
+		String loginPw = loginPwReal;
+		
+		Member member = memberService.getMemberById(id);
+		
+		
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		
+		if (member.getLoginPw().equals(loginPw) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
+			return "common/redirect";
+		}
+		return "common/redirect";
+	}
+	
+	@RequestMapping("/member/doChangePassword")
+	public String doChangePassword(Model model ,String loginPwReal,HttpServletRequest req ,int id ) {
+		
+		String loginPw = loginPwReal;
+		
+		Member member = memberService.getMemberById(id);
+		
+		if (member.getLoginPw().equals(loginPw) == false) {
+			model.addAttribute("historyBack", true);
+			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
+			return "common/redirect";
+		}
+		
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		
+		"common/redirect";
+	}
 	
 	@RequestMapping("/member/changeProfile")
 	@ResponseBody
@@ -572,6 +712,5 @@ public class MemberController {
 		Map<String, Object> newParam = Util.getNewMapOf(param, "fileIdsStr", "id");
 
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-
 	}
 }

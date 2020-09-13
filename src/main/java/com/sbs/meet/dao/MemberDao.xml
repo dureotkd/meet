@@ -17,7 +17,7 @@
 		loginPw =
 		#{loginPw},
 		level = 1,
-		introduce = "",
+		introduce = "안녕하세요 처음뵙겠습니다.",
 		delStatus = 0
 	</insert>
 
@@ -36,7 +36,7 @@
 	<select id="getMemberById" resultMap="member">
 		SELECT * FROM member
 		WHERE
-		id = #{id} 
+		id = #{id}
 	</select>
 
 	<update id="doModifyPrivate">
@@ -78,8 +78,7 @@
 
 	<update id="doMyInfoEdit">
 		UPDATE member
-		SET updateDate = NOW(),
-		name = #{name},
+		SET name = #{name},
 		email = #{email},
 		nickname = #{nickname},
 		introduce = #{introduce}
@@ -117,16 +116,14 @@
 
 	<update id="doUpdateLevel5">
 		UPDATE member
-		SET updateDate = NOW(),
-		level = 5
+		SET level = 5
 		WHERE id
 		= #{memberId}
 	</update>
 
 	<update id="doUpdateLevel10">
 		UPDATE member
-		SET updateDate = NOW(),
-		level = 10
+		SET level = 10
 		WHERE
 		id
 		= #{memberId}
@@ -137,7 +134,7 @@
 		ORDER BY
 		id DESC
 	</select>
-	
+
 	<select id="getMemberBySearch" resultMap="member">
 		SELECT * FROM member
 		WHERE nickname LIKE CONCAT('%',#{searchKeyword},'%')
@@ -192,10 +189,9 @@
 		SELECT M.*,
 		M.nickname AS extra__writer
 		FROM `member` AS M
-		INNER JOIN friend AS F
-		ON M.id = F.followerId
-		WHERE F.followerId != #{loginedMemberId}
-		AND M.delStatus = 0
+		WHERE M.id != ${loginedMemberId}
+		AND
+		M.delStatus = 0
 		ORDER BY M.id DESC
 		LIMIT 5;
 	</select>
@@ -284,7 +280,8 @@
 	<update id="updateActReadStatusInFollow">
 		UPDATE friend
 		SET readStatus = 1
-		WHERE followId = #{loginedMemberId}
+		WHERE followId =
+		#{loginedMemberId}
 	</update>
 
 	<select id="getFollowCount" resultType="int">
@@ -298,16 +295,147 @@
 	</select>
 
 	<select id="getFollowingConfirm" resultType="int">
-		SELECT COUNT(*) AS cnt
+		SELECT COUNT(*) AS
+		cnt
 		FROM friend WHERE followerId = #{loginedMemberId}
-		AND followId = #{memberId}
+		AND followId =
+		#{memberId}
 	</select>
-	
+
 	<select id="getFollowCross" resultType="int">
 		SELECT COUNT(*) AS cnt
 		FROM friend WHERE followerId = #{memberId}
-		AND followId = #{loginedMemberId} 
+		AND followId =
+		#{loginedMemberId}
 	</select>
+
+	<select id="getBeforeFollowCount" resultType="int">
+	<![CDATA[
+	SELECT COUNT(*),
+	A.body AS extra__body
+	FROM friend AS F
+	INNER JOIN article AS A
+	ON A.id = F.id
+	WHERE F.followId = #{memberId}
+	AND  
+	(SELECT MAX(regDate) FROM article WHERE memberId = #{memberId}) < 
+	(SELECT F.regDate WHERE followId = #{memberId})
+	]]>
+	</select>
+
+	<select id="getTotalReplyCount" resultType="int">
+		SELECT COUNT(*),
+		A.body AS extra__body
+		FROM articleReply AS AR
+		INNER JOIN article AS A
+		ON
+		A.id = AR.articleId
+		WHERE A.displayStatus = 1
+		AND AR.displayStatus = 1
+		AND
+		A.memberId = #{memberId}
+	</select>
+
+	<select id="getTotalLikeCount" resultType="int">
+		SELECT
+		IFNULL(SUM(POINT), 0) AS extra__point
+		FROM articleLike AS AL
+		INNER JOIN
+		article AS A
+		ON A.id = AL.articleId
+		WHERE A.displayStatus = 1
+		AND
+		A.memberId = #{memberId}
+	</select>
+
+	<select id="getArticleKingLikeCount" resultType="ArticleLike">
+		SELECT * FROM
+		articleLike
+		WHERE articleId = #{articleId}
+	</select>
+
+	<select id="getArticleCountBeforeDay" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		AS cnt
+		FROM article
+		WHERE memberId = #{memberId}
+		AND DATE_SUB(NOW(), INTERVAL 1 DAY) <= regDate
+		]]>
+	</select>
+
+	<select id="getArticleCountBeforeWeek" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		AS cnt
+		FROM article
+		WHERE memberId = #{memberId}
+		AND DATE_SUB(NOW(), INTERVAL 7 DAY) <= regDate
+		]]>
+	</select>
+
+	<select id="getArticleCountBeforeMonth" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		AS cnt
+		FROM article
+		WHERE memberId = #{memberId}
+		AND DATE_SUB(NOW(), INTERVAL 1 MONTH) <= regDate
+		]]>
+	</select>
+
+	<select id="getMemberByOldFriend" resultMap="friend">
+		SELECT F.*,
+		M.nickname AS extra__writer
+		FROM friend AS F
+		INNER JOIN `member` AS M
+		ON
+		M.id = F.followerId
+		WHERE F.followId = #{memberId}
+		ORDER BY F.regDate
+		ASC
+		LIMIT 3;
+	</select>
+
+	<update id="disAbleAccount">
+		UPDATE article,articleReply,`member`
+		INNER JOIN
+		`article` AS A
+		ON member.id = A.memberId
+		INNER JOIN articleReply AS AR
+		ON member.id = AR.memberId
+		SET A.displayStatus = 0,
+		AR.displayStatus =
+		0,
+		`member`.delStatus = 1
+		WHERE member.id = #{memberId}
+	</update>
+
+	<update id="ableAccount">
+		UPDATE article,articleReply,`member`
+		INNER JOIN
+		`article` AS A
+		ON member.id =
+		A.memberId
+		INNER JOIN articleReply AS AR
+		ON
+		member.id = AR.memberId
+		SET
+		A.displayStatus = 1,
+		AR.displayStatus = 1,
+		`member`.delStatus = 0
+		WHERE
+		member.id = #{memberId}
+	</update>
+
+	<update id="doChangePassword">
+		UPDATE member
+		SET updateDate = NOW(),
+		loginPw =
+		#{loginPw}
+		WHERE id = #{memberId}
+	</update>
+
 
 	<resultMap type="Friend" id="friend">
 		<id property="id" column="id" />
@@ -327,8 +455,11 @@
 		<id property="updateDate" column="updateDate" />
 		<id property="email" column="email" />
 		<id property="name" column="name" />
+		<id property="loginPw" column="loginPw"></id>
 		<id property="nickname" column="nickname" />
 		<id property="level" column="level"></id>
+		<id property="delStatus" column="delStatus"></id>
+		<id property="displayStatus" column="displayStatus"></id>
 		<id property="introduce" column="introduce" />
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />

@@ -55,5 +55,16 @@ public interface ArticleDao  {
 	List<Article> getForPrintArticlesInFollow(int loginedMemberId);
 
 	void doDeleteReplyAjax(int id);
-	
+
+	List<Article> getForPrintArticleByLikeKing(int memberId);
+
+	void doDeleteArticleAjax(int id);
+
+	List<Article> getForPrintArticles3(int memberId);
+
+	void cancleLikeAction(int id, int loginedMemberId);
+
+	List<Integer> getLikePointByMemberIdAndList(int id, int loginedMemberId);
+
+
 }

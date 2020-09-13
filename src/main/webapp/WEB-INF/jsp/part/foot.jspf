@@ -1,3 +1,100 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+<!--  구글 폰트 로고  -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Courgette&display=swap"
+	rel="stylesheet">
+
+<!-- 제이쿼리 불러오기 -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- 구글 폰트 불러오기 -->
+<!-- rotobo(400/700/900), notosanskr(400/600/900) -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
+	rel="stylesheet">
+
+<style>
+@media ( min-width :800px ) {
+	.visible-off-pc {
+		display: none;
+	}
+}
+
+@media ( max-width :799px) {
+	.footbar {
+		display: flex;
+	}
+	.menu-i {
+		font-size: 20px;
+		color:#9e9e9e;
+	}
+	.heartM {
+		font-size: 20px;
+	}
+}
+
+.footline {
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+	position: fixed;
+	bottom: 0;
+	z-index: 50;
+	height: 40px;
+	background: #fff;
+}
+
+.direct-m {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	position: relative;
+}
+
+.footbar {
+	align-items: center;
+	width: 100%;
+	position: fixed;
+	background: #fff;
+	bottom: 0;
+	z-index: 50;
+	left: 50%;
+	height: 40px;
+	justify-content: space-between;
+	transform: translate(-50%, 0px);
+}
+
+.direct-m {
+	margin-right: 10px;
+}
+
+.footbar>a {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>
+
+<div class="footline visible-off-pc"></div>
+<div class="footbar visible-off-pc">
+	<a href="../home/main"><i class="fas fa-home menu-i"></i></a> <a
+		href="../article/imgList"><i class="fas fa-search menu-i"></i></a> <a
+		href="../article/write"><i class="fas fa-plus menu-i"></i></a> <a
+		href="#"><i class="far fa-user menu-i"></i></a> <a
+		href="../message/list"><i class="far fa-envelope menu-i"></i></a>
+</div>
+
+
 
 </body>
 </html>

@@ -39,12 +39,15 @@
 		M.nickname AS extra__writer
 		FROM article AS A
 		INNER JOIN member AS M
-		ON M.id = A.memberId
+		ON
+		M.id = A.memberId
 		INNER JOIN friend AS F
 		ON F.followId = M.id
-		WHERE F.followerId = #{loginedMemberId}
+		WHERE
+		F.followerId = #{loginedMemberId}
 		AND A.displayStatus = 1
-		ORDER BY A.id DESC
+		ORDER BY A.id
+		DESC
 		LIMIT 10
 	</select>
 
@@ -107,6 +110,15 @@
 	</select>
 
 	<select id="getLikePointByMemberId" resultType="int">
+		SELECT
+		IFNULL(SUM(AL.point), 0) AS point
+		FROM articleLike AS AL
+		WHERE
+		AL.articleId = #{id}
+		AND AL.memberId = #{loginedMemberId}
+	</select>
+	
+	<select id="getLikePointByMemberIdAndList" resultType="integer">
 		SELECT
 		IFNULL(SUM(AL.point), 0) AS point
 		FROM articleLike AS AL
@@ -209,11 +221,62 @@
 		SET readStatus = 1
 		WHERE id = #{id}
 	</update>
-	
+
 	<delete id="doDeleteReplyAjax">
 		DELETE FROM articleReply
 		WHERE id = #{id}
 	</delete>
+
+	<select id="getForPrintArticleByLikeKing" resultMap="article">
+		SELECT A.*,
+		A.body AS
+		extra__body
+		FROM article AS A
+		INNER JOIN
+		articleLike AS AL
+		ON
+		A.id =
+		AL.articleId
+		WHERE A.displayStatus = 1
+		AND A.memberId =
+		#{memberId}
+		ORDER BY AL.point DESC
+		LIMIT 1;
+	</select>
+
+	<delete id="doDeleteArticleAjax">
+		DELETE a,f,ar,al FROM article a
+		LEFT JOIN `file` f
+		ON
+		a.id = f.relId
+		LEFT JOIN articleReply ar
+		ON a.id = ar.articleId
+		LEFT JOIN articleLike al
+		ON a.id = al.articleId
+		WHERE a.id = #{id}
+		AND f.relTypeCode = 'article';
+	</delete>
+	
+	<select id="getForPrintArticles3" resultMap="article">
+		SELECT A.*,
+		M.nickname AS extra__writer
+		FROM article AS A
+		INNER JOIN member AS M
+		ON
+		A.memberId = M.id
+		WHERE displayStatus = 1
+		AND A.memberId = #{memberId}
+		ORDER BY A.id DESC
+		LIMIT 7
+	</select>
+	
+	<delete id="cancleLikeAction">
+	DELETE FROM articleLike
+	WHERE articleId = #{id}
+	AND memberId = #{loginedMemberId}
+	</delete>
+
+
 
 	<resultMap type="ArticleLike" id="articleLike">
 		<id property="id" column="id" />

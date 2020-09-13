@@ -12,12 +12,11 @@ html, body {
 	line-break: anywhere;
 }
 
-
 .delete-btn {
-	position:absolute;
-	border:none;
-	background:none;
-	color:#bdbdbd;
+	position: absolute;
+	border: none;
+	background: none;
+	color: #bdbdbd;
 }
 
 .reply-img-Avatar {
@@ -113,7 +112,7 @@ html, body {
 	display: flex;
 	jusitfy-content: space-between;
 	align-items: center;
-	position:relative;
+	position: relative;
 	margin-bottom: 15px;
 	font-size: 14px;
 }
@@ -218,6 +217,14 @@ to {
 	.article-img {
 		height: 500px;
 	}
+	.articles-box>ul>li {
+		width: calc(100%/ 3 - ( 0px * ( 3 - 1)/3));
+		height: 200px;
+	}
+	.img-wrap {
+		width: 99%;
+		height: 99%;
+	}
 }
 
 /* 800px 이상이면 안보이게 ( pc 버전 ) */
@@ -226,7 +233,7 @@ to {
 		display: none !important;
 	}
 	.reply-list-box {
-		border: 1px solid #eee;
+		border: 1px solid #e0e0e0;
 	}
 	.total-wrap {
 		padding-top: 20px;
@@ -234,10 +241,9 @@ to {
 	.detail-box {
 		display: flex;
 		max-width: 940px;
-		border: 1px solid #eee;
-		border-radius: 20px;
-		box-shadow: 3px 3px 3px #ccc;
-		box-sizing:border-box;
+		border: 1px solid #e0e0e0;
+		border-radius: 3px;
+		box-sizing: border-box;
 		align-items: center;
 		padding: 20px;
 		justify-content: center;
@@ -262,6 +268,15 @@ to {
 	}
 	.article-img {
 		height: 525px;
+	}
+	.articles-box>ul>li {
+		margin-top: 20px;
+		width: calc(100%/ 3 - ( 20px * ( 3 - 1)/3));
+		height: 300px;
+	}
+	.img-wrap {
+		width: 90%;
+		height: 100%;
 	}
 }
 
@@ -321,7 +336,7 @@ button, submit {
 
 .article-video {
 	outline: none;
-	border: 1px solid #eee;
+	border: 1px solid #e0e0e0;
 }
 
 .regDate {
@@ -332,10 +347,9 @@ button, submit {
 
 .replyRegDate {
 	color: #bdbdbd;
-	font-size:13px;
-	left:55px;
-	position:absolute;
-	
+	font-size: 13px;
+	left: 55px;
+	position: absolute;
 }
 
 .fa-smile {
@@ -364,6 +378,17 @@ button, submit {
 
 .active, .dot:hover {
 	background-color: #d81b60;
+}
+
+.other-articleImg {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: all.3s;
+}
+
+.cursor1 {
+	cursor: zoom-in;
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
@@ -647,6 +672,97 @@ textarea[readonly], textarea[disabled] {
 	font-size: 14px;
 	transition: all 0.5s;
 }
+
+.con {
+	max-width: 940px;
+	margin: 0px auto;
+}
+
+.articles-box>ul {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.articles-box {
+	border: 1px solid #e0e0e0;
+	box-sizing: border-box;
+	border-radius: 3px;
+	margin-top: 50px;
+}
+
+.silver {
+	color: #8e8e8e;
+}
+
+.margin10 {
+	margin-left: 10px;
+}
+
+.blue {
+	color: #0d47a1;
+}
+
+.heart {
+	cursor: pointer;
+	color: #aaa;
+	transition: .2s;
+}
+
+.heart:hover {
+	color: #666;
+}
+
+.heart.press {
+	color: #e23b3b;
+}
+
+@
+keyframes fade { 0% {
+	color: #transparent;
+}
+
+50
+%
+{
+color
+:
+#e23b3b;
+}
+100
+%
+{
+color
+:
+#transparent;
+}
+}
+@
+keyframes size { 0% {
+	padding: 10px 12px 8px;
+}
+50
+%
+{
+padding
+:
+14px
+16px
+12px;
+margin-top
+:
+-4px;
+}
+100
+%
+{
+padding
+:
+10px
+12px
+8px;
+}
+}
 </style>
 
 <script>
@@ -656,6 +772,36 @@ textarea[readonly], textarea[disabled] {
 </script>
 
 <script>
+	$(function() {
+		$(".heart").click(function() {
+			$(".heart").toggleClass("press", 1000);
+			if ($(".heart").hasClass('press')) {
+				callDoLike();
+				
+			} else {
+				cancleLike();
+			}
+		});
+	});
+
+	function btnToggleDropMenu2__init() {
+		var $btnToggleDropMenu2 = $('.heartM');
+
+		$btnToggleDropMenu2.click(function() {
+			if ($(this).hasClass('drop')) {
+				$(this).removeClass('drop');
+				$('.dropdown-menu2').removeClass('drop');
+			} else {
+				$(this).addClass('drop');
+				$('.dropdown-menu2').addClass('drop');
+				$('.msg-notice2').addClass('none');
+			}
+		});
+	}
+	$(function() {
+		btnToggleDropMenu2__init();
+	});
+
 	function doFollow() {
 		$.post('../member/doActionFollow', {
 			followId : followId,
@@ -731,21 +877,6 @@ textarea[readonly], textarea[disabled] {
 		slides[slideIndex - 1].style.display = "block";
 		dots[slideIndex - 1].className += " active";
 	}
-
-	function callDoLike() {
-		$.post('./doLike', {
-			id : id
-		}, function(data) {
-			if (data.msg) {
-				alert(data.msg);
-			}
-
-			if (data.resultCode.substr(0, 2) == "S-") {
-				ViewArticle1__updateLikePoint(data.likePoint);
-			}
-		}, 'json');
-	}
-
 	function WriteMessage__submitForm(form) {
 		form.body.value = form.body.value.trim();
 		if (form.body.value.length == 0) {
@@ -768,40 +899,86 @@ textarea[readonly], textarea[disabled] {
 		form.body.value = '';
 	}
 
+	function doDeleteFollow(el) {
+		if (confirm("팔로우를 취소하시겠습니까 ?") == true) {
+			var $div = $(el).closest('.detail-box');
+			// 가장 가까운 li를 찾아라
+			var followId = parseInt($div.attr('data-id'));
+			// 정수화 -> data-id
 
-
-	function doDeleteFollow(el) 	{
-		if ( confirm ("팔로우를 취소하시겠습니까 ?") == true ){
-		var $div = $(el).closest('.detail-box');
-		// 가장 가까운 li를 찾아라
-		var followId = parseInt($div.attr('data-id'));
-		// 정수화 -> data-id
-		
-		$.post('../member/doDeleteFollow', {
-			followId : followId,
-			followerId : followerId
-		},'json');
-		location.reload();
+			$.post('../member/doDeleteFollow', {
+				followId : followId,
+				followerId : followerId
+			}, 'json');
+			location.reload();
 		} else {
 			return;
 		}
 	}
 
-	function ArticleReply__delete(obj) 	{
-		if ( confirm ("댓글을 삭제하시겠습니까 ?") == true ){
+	function ArticleReply__delete(obj) {
+		if (confirm("댓글을 삭제하시겠습니까 ?") == true) {
 			var $clickedBtn = $(obj);
 			var $tr = $clickedBtn.closest('tr');
 			var id = parseInt($tr.attr('data-id'));
 			$tr.remove();
-		$.post('../article/doDeleteReplyAjax', {
-			id : id
-		}, 'json');
+			$.post('../article/doDeleteReplyAjax', {
+				id : id
+			}, 'json');
 		} else {
 			return;
 		}
 	}
 
+	function Article__Delete() {
+		if (confirm("게시글을 삭제하시겠습니까 ?") == true) {
+			var id = parseInt('${article.id}');
+			$.post('../article/doDeleteArticleAjax', {
+				id : id
+			}, 'json');
+			alert('삭제가 완료되었습니다.')
+			// reload 후 -> 전페이지로 이동
+			window.location = document.referrer;
+		} else {
+			return;
+		}
+	}
+
+	function callDoLike(el) {
+
+		var id = parseInt('${article.id}');
+
+		$.post('./doLike', {
+			id : id
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+
+			if (data.resultCode.substr(0, 2) == "S-") {
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		}, 'json');
+	}
+
+	function cancleLike(el) {
+
+		var id = parseInt('${article.id}');
+
+		$.post('./cancleLike', {
+			id : id
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+
+			if (data.resultCode.substr(0, 2) == "S-") {
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		}, 'json');
+	}
 </script>
+
 <div class="total-wrap">
 	<div class="detail-box" data-id="${article.memberId}">
 		<c:if test="${article.extra.file__common__attachment['1'] == null}">
@@ -884,53 +1061,59 @@ textarea[readonly], textarea[disabled] {
 				<c:if test="${member.level < 5 }">
 					<i class="fas fa-user-alt level"></i>
 				</c:if>
-				
+
 				<c:if test="${following == 0}">
-				<c:if test="${followCross == 0 }">
-				<c:if test="${loginedMemberId != member.id }">
-				<a href="#" class="follow-btn" onclick="doFollow(this);">팔로우</a>
-				</c:if>
-				</c:if>
-				</c:if>
-				
-				<c:if test="${following == 0 }">
-				<c:if test="${followCross == 1 }">
-				<c:if test="${loginedMemberId != member.id }">
-						<a href="#" class="follow-btn" onclick="doFollow(this);">맞팔로우</a>
+					<c:if test="${followCross == 0 }">
+						<c:if test="${loginedMemberId != member.id }">
+							<a href="#" class="follow-btn" onclick="doFollow(this);">팔로우</a>
 						</c:if>
 					</c:if>
+				</c:if>
+
+				<c:if test="${following == 0 }">
+					<c:if test="${followCross == 1 }">
+						<c:if test="${loginedMemberId != member.id }">
+							<a href="#" class="follow-btn" onclick="doFollow(this);">맞팔로우</a>
+						</c:if>
 					</c:if>
-					
-					
+				</c:if>
+
+
 				<c:if test="${following == 1}">
-				<a href="#" class="follow-btn" onclick="doDeleteFollow(this);">언팔로우</a>
-				</c:if>		
-				
-					<ul class="setting-box">
-						<li><i class="fas fa-ellipsis-h"></i></li>
-						<c:if test="${loginedMemberId != article.memberId }">
+					<a href="#" class="follow-btn" onclick="doDeleteFollow(this);">언팔로우</a>
+				</c:if>
+
+				<ul class="setting-box">
+					<li><i class="fas fa-ellipsis-h"></i></li>
+					<c:if test="${loginedMemberId != article.memberId }">
 						<ul class="setting-items">
 							<li><a href="#" class="red">사용자 차단</a></li>
 							<li><a href="#" class="msgSubmit">메시지 보내기</a></li>
 							<li><a href="#">공유하기</a></li>
 						</ul>
-						</c:if>
-						<c:if test="${loginedMemberId == article.memberId }">
+					</c:if>
+					<c:if test="${loginedMemberId == article.memberId }">
 						<ul class="setting-items">
-							<li><a href="#" class="red">게시글 삭제</a></li>
+							<li><a href="#" class="red" onclick="Article__Delete(this);">게시글
+									삭제</a></li>
 							<li><a href="#" class="msgSubmit">게시글 수정</a></li>
 						</ul>
-						</c:if>
-					</ul>
+					</c:if>
+				</ul>
 			</div>
 			<div class="article-body">
 				<p class="abody">${article.body}</p>
 				<p class="tag">#${article.tag}</p>
 				<p class="regDate">${article.regDateFormat}</p>
 				<div class="like-wrap">
-					<a href="#" onclick="callDoLike();"> <i
-						class="fas fa-heart like"></i>
-					</a>
+					<c:if test="${confirmLikePoint == 1}">
+					 <i
+						class="fas fa-heart heart press"></i>
+					</c:if>
+					<c:if test="${confirmLikePoint == 0}">
+					<i
+						class="fas fa-heart heart"></i>
+					</c:if>
 					<p class="like-point">${article.extra.likePoint}</p>
 					개
 				</div>
@@ -953,6 +1136,7 @@ textarea[readonly], textarea[disabled] {
 				</form>
 			</c:if>
 		</div>
+
 
 		<!--  메시지 팝업  -->
 		<div class="popup">
@@ -985,17 +1169,16 @@ textarea[readonly], textarea[disabled] {
 
 
 
-
-
 		<script>
-			
 			var id = parseInt('${loginedMemberId}');
 			var ReplyList__$box = $('.reply-list-box');
 			var ReplyList__$tbody = ReplyList__$box.find('.reply-item');
 			var ReplyList__lastLodedId = 0;
 
 			// 6초댓글불러오기
-			ReplyList__loadMoreInterval = 1 * 1000
+			ReplyList__loadMoreInterval = 1 * 1000;
+
+			ReplyList__loadMoreInterval = 10 * 1000; // 임시
 
 			function ReplyList__loadMoreCallback(data) {
 				if (data.body.articleReplies
@@ -1041,18 +1224,20 @@ textarea[readonly], textarea[disabled] {
 				html += '</td>';
 
 				html += '<td class="reply-writer">' + articleReply.extra.writer
-						+ '</td></a>';						
+						+ '</td></a>';
 
 				html += '<td>';
-				html += '<div class="reply-body">' + articleReply.body +  '</div>';
+				html += '<div class="reply-body">' + articleReply.body
+						+ '</div>';
 
-				html += '<p class="replyRegDate">' + articleReply.regDateFormat + '</p>';
+				html += '<p class="replyRegDate">' + articleReply.regDateFormat
+						+ '</p>';
 
-				if ( id == articleReply.memberId ){
-				html += '<button class="delete-btn" type="button" onclick="ArticleReply__delete(this);">삭제</button>';
+				if (id == articleReply.memberId) {
+					html += '<button class="delete-btn" type="button" onclick="ArticleReply__delete(this);">삭제</button>';
 				}
 				html += '</td>';
-				
+
 				html += '</tr>';
 				var $tr = $(html);
 				ReplyList__$tbody.prepend($tr);
@@ -1064,11 +1249,47 @@ textarea[readonly], textarea[disabled] {
 
 
 	</div>
+
+
+	<div class="con">
+		<span class="silver">${member.nickname}</span><span class="silver">님의
+			게시글 더보기</span><i class="fas fa-plus margin10 blue"></i>
+		<div class="articles-box">
+			<ul>
+				<c:forEach items="${articles}" var="article">
+					<c:if test="${article.extra.file__common__attachment['3'] != null}">
+						<li data-id="${article.id}">
+							<div class="img-wrap">
+								<a class="cursor1" href="../article/detail?id=${article.id}">
+									<img class="other-articleImg"
+									src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									alt="" />
+								</a>
+								<c:set var="articleReplyCount" value="0" />
+								<c:forEach var="articleReply" items="${articleReply}">
+									<c:if test="${articleReply.articleId == article.id}">
+									</c:if>
+								</c:forEach>
+							</div>
+						</li>
+					</c:if>
+				</c:forEach>
+			</ul>
+		</div>
+	</div>
+
 </div>
 
 
 
-
+<script>
+$(".textarea").keypress(function(e) { 
+    if (e.keyCode == 13){
+    	WriteReply__submitForm(this); 
+    	return false;
+    }    
+});
+</script>
 
 
 <%@ include file="../part/foot.jspf"%>

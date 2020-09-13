@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbs.meet.dto.Article;
-import com.sbs.meet.dto.ArticleLike;
-import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.service.ArticleService;
@@ -46,7 +44,6 @@ public class ArticleController {
 		
 		int articleIdCount = articleService.getArticleCount(memberId);
 		
-		
 		model.addAttribute("articleIdCount",articleIdCount);
 		return "article/write";
 	}
@@ -67,9 +64,12 @@ public class ArticleController {
 	// 
 	
 	@RequestMapping("/article/imgList")
-	public String showImgList(Model model,@RequestParam Map<String, Object> param) {
+	public String showImgList(Model model,HttpServletRequest request,@RequestParam Map<String, Object> param) {
 		
 		List<Article>  articles = articleService.getForPrintArticles();
+		
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+			
 		
 		// 게시글 사진 불러오기 relid = article.getId()  
 		
@@ -81,6 +81,14 @@ public class ArticleController {
 		for (File file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
+		
+		int id = article.getId();
+		
+		List<Integer> confirmLikePointList = articleService.getLikePointByMeAndList(id,loginedMemberId);
+		
+		System.out.println("제발 " + confirmLikePointList);
+		
+		model.addAttribute("confirmLikePointList",confirmLikePointList);
 
 		Util.putExtraVal(article, "file__common__attachment", filesMap);
 		}
@@ -121,22 +129,30 @@ public class ArticleController {
 		
 		
 		Article article = articleService.getForPrintOneArticle(id);
+		
+		int memberId = article.getMemberId();
+		
+		List<Article> articles = articleService.getForPrintArticles3(memberId);
 	
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
-		// 게시글
-		int memberId = article.getMemberId();
+	
 		
 		// 팔로잉중인지 확인
 		int following = memberService.getFollowingConfirm(memberId,loginedMemberId);
 		int followCross = memberService.getFollowCross(memberId,loginedMemberId);
-
+		
+		int confirmLikePoint = articleService.getLikePointByMe(id,loginedMemberId);
+		
+		model.addAttribute("confirmLikePoint",confirmLikePoint);
 		
 		Member member = memberService.getMemberById(memberId);
 		
 		model.addAttribute("followCross",followCross);
 		model.addAttribute("following",following);
 		model.addAttribute("article",article);
+		model.addAttribute("articles",articles);
 		model.addAttribute("member",member);
+		
 		return "article/detail";
 	}
 	
@@ -172,6 +188,38 @@ public class ArticleController {
 		return rs;
 	}
 	
+	@RequestMapping("article/cancleLike")
+	@ResponseBody
+	public Map<String, Object> cancleLike(int id,HttpServletRequest request) {
+		
+		Map<String, Object> rs = new HashMap<>();
+		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
+
+		Map<String, Object> articleCancelLikeAvailableRs = articleService.getArticleCancelLikeAvailable(id,
+				loginedMemberId);
+
+		if (((String) articleCancelLikeAvailableRs.get("resultCode")).startsWith("F-")) {
+			rs.put("resultCode", articleCancelLikeAvailableRs.get("resultCode"));
+			rs.put("msg", articleCancelLikeAvailableRs.get("msg"));
+
+			return rs;
+		}
+
+		Map<String, Object> cancelLikeArticleRs = articleService.cancleLike(id, loginedMemberId);
+
+		String resultCode = (String) cancelLikeArticleRs.get("resultCode");
+		String msg = (String) cancelLikeArticleRs.get("msg");
+
+		int likePoint = articleService.getLikePoint(id);
+
+		rs.put("resultCode", resultCode);
+		rs.put("msg", msg);
+		rs.put("likePoint", likePoint);
+
+		return rs;
+	}
+	
+	
 	@RequestMapping("article/getLikeCount")
 	@ResponseBody
 	public Map<String, Object> getLikeCount(Model model,int id){
@@ -188,6 +236,10 @@ public class ArticleController {
 		articleService.doDeleteReplyAjax(id);
 	}
 	
+	@RequestMapping("article/doDeleteArticleAjax")
+	public void doDeleteArticleAjax(int id){
+		articleService.doDeleteArticleAjax(id);
+	}
 	
 	
 	// text 만 할지 안할지 고민중.

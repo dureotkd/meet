@@ -266,8 +266,16 @@ input[type="file"] {
 	height: 100%;
 	object-fit: cover;
 }
-.margin {
+
+.login-reco {
+	display:flex;
+	flex-direction:column;
 	margin-left:20px;
+}
+.small-font {
+	font-size:18px;
+	color:#bdbdbd;
+	line-height:35px;
 }
 </style>
 
@@ -278,7 +286,9 @@ input[type="file"] {
 			<img class="login-profile"
 				src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
-		<h2 class="font3 margin">${loginedMember.nickname}님의 ${articleIdCount+1}번째 글입니다 .</h2>
+		<div class="login-reco">
+		<h2 class="font3">${loginedMember.nickname}님의 ${articleIdCount+1}번째 글입니다 .</h2>
+		</div>
 	</div>
 
 	<div class="write-wrap">

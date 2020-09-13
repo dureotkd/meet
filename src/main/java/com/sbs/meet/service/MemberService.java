@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.sbs.meet.dao.MemberDao;
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Friend;
 import com.sbs.meet.dto.Member;
@@ -292,5 +293,49 @@ public class MemberService {
 
 	public List<Member> getMemberBySearch(String searchKeyword) {
 		return memberDao.getMemberBySearch(searchKeyword);
+	}
+
+	public int getBeforeFollowCount(int memberId) {
+		return memberDao.getBeforeFollowCount(memberId);
+	}
+
+	public int getTotalReplyCount(int memberId) {
+		return memberDao.getTotalReplyCount(memberId);
+	}
+
+	public int getTotalLikeCount(int memberId) {
+		return memberDao.getTotalLikeCount(memberId);
+	}
+
+	public ArticleLike getArticleKingLikeCount(int articleId) {
+		return memberDao.getArticleKingLikeCount(articleId);
+	}
+
+	public int getArticleCountBeforeDay(int memberId) {
+		return memberDao.getArticleCountBeforeDay(memberId);
+	}
+
+	public int getArticleCountBeforeWeek(int memberId) {
+		return memberDao.getArticleCountBeforeWeek(memberId);
+	}
+
+	public int getArticleCountBeforeMonth(int memberId) {
+		return memberDao.getArticleCountBeforeMonth(memberId);
+	}
+
+	public List<Friend> getMemberByOldFriend(int memberId) {
+		return memberDao.getMemberByOldFriend(memberId);
+	}
+
+	public void disAbleAccount(int memberId) {
+		memberDao.disAbleAccount(memberId);
+	}
+
+	public void ableAccount(int memberId) {
+		memberDao.ableAccount(memberId);
+	}
+
+	public void doChangePassword(String loginPw,int memberId) {
+		memberDao.doChangePassword(loginPw,memberId);
 	}
 }

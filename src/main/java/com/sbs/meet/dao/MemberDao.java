@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Friend;
 import com.sbs.meet.dto.Member;
@@ -93,5 +94,27 @@ public interface MemberDao {
 	int getFollowCross(int memberId, int loginedMemberId);
 
 	List<Member> getMemberBySearch(@Param("searchKeyword") String searchKeyword);
+
+	int getBeforeFollowCount(int memberId);
+
+	int getTotalReplyCount(int memberId);
+
+	int getTotalLikeCount(int memberId);
+
+	ArticleLike getArticleKingLikeCount(int articleId);
+
+	int getArticleCountBeforeDay(int memberId);
+
+	int getArticleCountBeforeWeek(int memberId);
+
+	int getArticleCountBeforeMonth(int memberId);
+
+	List<Friend> getMemberByOldFriend(int memberId);
+
+	void disAbleAccount(int memberId);
+
+	void ableAccount(int memberId);
+
+	void doChangePassword(String loginPw,int memberId);
 
 }

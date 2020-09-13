@@ -433,6 +433,16 @@ textarea[readonly], textarea[disabled] {
 	font-size: 12px;
 }
 
+.recomend-box {
+	max-width:940px;
+	width:100%;
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin-bottom:15px;
+	flex-direction:column;
+}
+
 .recomend-con {
 	display: flex;
 	flex-direction: column;
@@ -462,6 +472,65 @@ textarea[readonly], textarea[disabled] {
 	outline: none;
 }
 
+.recomend-item {
+		display:flex;
+		width:100%;
+		margin-bottom:25px;
+		align-items:center;
+}
+.reco-img {
+	width:100%;
+	height:100%;
+	object-fit:cover;
+	border-radius:50%;
+}
+h4 {
+	font-size:20px;
+	color:#484848;
+	font-weight:normal;
+}
+.reco-column {
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	margin-left:15px;
+	width:300px;
+}
+.intro-hdn {
+	color:#9e9e9e;
+	font-size:14px;
+	overflow:hidden;
+	height:18px;
+	white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.submit-item, .msgSubmit {
+	padding: 5px;
+	background: #0095f6;
+	border-radius: 3px;
+	border: none;
+	cursor: pointer;
+	color: white;
+	font-size: 15px;
+	height:20px;
+	margin-right:15px;
+}
+.reco-img-wrap {
+		width:50px;
+		height:50px;
+		overflow:hidden;
+		text-align:center;
+	}
+	
+.fa-check {
+	color:#0095f6;
+}
+.blue {
+	color:#0095f6;
+}
+.p13 {
+	font-size:13px;
+}
 @media ( max-width :800px ) {
 	.articles-item {
 		display: flex;
@@ -479,6 +548,23 @@ textarea[readonly], textarea[disabled] {
 		width: 500px;
 		overflow: hidden;
 	}
+	
+	h4 {
+	margin-left:15px;
+	}
+	.reco-img-wrap {
+		margin-left:15px;
+	}
+	
+	.mal {
+	margin-left:15px;
+	margin-bottom:15px;
+	}
+	
+	
+	
+	
+
 }
 
 @media ( min-width :801px ) {
@@ -498,6 +584,21 @@ textarea[readonly], textarea[disabled] {
 		height: 500px;
 		overflow: hidden;
 	}
+	
+	h4 {
+		margin:0 auto;
+		max-width:940px;
+	}
+	.recomend-box {
+		margin:0 auto;
+		margin-top:30px;
+	}
+	
+	.mal {
+		max-width:940px;
+		margin:0 auto;
+	}
+
 }
 </style>
 
@@ -548,13 +649,35 @@ textarea[readonly], textarea[disabled] {
 					</div>
 
 					<div class="article-sub">
-						<i class="fas fa-heart like"></i> 1개 <i
-							class="far fa-comment-dots"></i> 1개
+						<i class="fas fa-heart like"></i> 1 개 ,
+						<i class="far fa-comment-dots"></i> ${article.replyCnt} 개
 					</div>
 				</nav>
 			</div>
 		</c:forEach>
+	</div>	
+	
+	<c:if test="${followCount == 0 }">
+	<c:if test="${isLogined}">
+	<h4>회원님을 위한 추천</h4>
+	<p class="blue p13 mal">게시글이 마음에 들거나 아는 분이 있으면 팔로우를 먼저 걸어보세요.</p>
+	<div class="recomend-box">
+	<c:forEach items="${members}" var="members">
+	<div class="recomend-item" data-id="${members.id}">
+	<div class="reco-img-wrap">
+	<img src="${members.extra.recomendAvatarImgUrl}" class="reco-img" alt="" />
 	</div>
+	<div class="reco-column">
+	<p>${members.nickname}</p>
+	<span class="intro-hdn">${members.introduce}</span>
+	</div>
+	<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
+	</div>
+	</c:forEach>
+	</div>
+	</c:if>
+	</c:if>
+	
 </nav>
 
 
