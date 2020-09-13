@@ -62,10 +62,8 @@ function doDeleteFollow(el) {
 	background:#fff;
 	margin:100px auto;
 	box-sizing:border-box;
-	box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
 }
 .statBox {
-	width:230px;
 	height:130px;
 	display:flex;
 	flex-direction:column;
@@ -165,9 +163,7 @@ function doDeleteFollow(el) {
 .greenC {
 	background:#8bc34a;
 }
-.king-box {
-	display:flex;
-}
+
 .width400 {
 	width:400px;
 	height:400px;
@@ -230,6 +226,28 @@ function doDeleteFollow(el) {
 .nick {
 	width:150px;
 	margin-left:15px;
+}
+
+@media (max-width:800px){
+	.statBox {
+	width:30%;
+	}
+	.king-box {
+	display:flex;
+	flex-direction:column;
+	}
+}
+
+@media (min-width:801px){
+	.statBox {
+	width:230px;
+	}
+	.king-box {
+	display:flex;
+	}
+	.write-wrap{
+		box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+	}
 }
 
 </style>

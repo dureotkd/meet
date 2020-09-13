@@ -84,7 +84,6 @@ html, body {
 	align-items:center;
 	margin:0 auto;
 	margin-top:100px;
-	box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
 }
 .form {
 	display:flex;
@@ -157,10 +156,18 @@ html, body {
 .bold {
 	font-weight:bold;
 }
+.burlywood {
+	color:burlywood;
+}
+@media ( min-width:800px){
+	.formBox {
+		box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+	}
+}
 </style>
 
 <nav class="formBox">
-<i class="fas fa-undo-alt rel margintop"><i class="fas fa-lock"></i></i>
+<i class="fas fa-undo-alt rel margintop burlywood"><i class="fas fa-lock burlywood"></i></i>
 
 <div class="row rem2 margintop">
 <h2 class="logo">Meet In here</h2><span class="marginl">개인정보보호 캠페인</span>
@@ -190,7 +197,3 @@ html, body {
 
 
 </nav>
-
-
-
-<%@ include file="../part/foot.jspf"%>

@@ -300,10 +300,8 @@ ul, li {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid #ccc;
 	height: 500px;
 	width: 400px;
-	box-shadow: 3px 3px 3px #ccc;
 }
 
 .login-form {
@@ -394,6 +392,12 @@ ul, li {
 @media ( max-width :800px ) {
 	.visible-none {
 		display: none;
+	}
+}
+@media ( min-width:801px ){
+	.login-form-box {
+		border: 1px solid #ccc;
+		box-shadow: 3px 3px 3px #ccc;
 	}
 }
 </style>

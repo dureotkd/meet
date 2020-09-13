@@ -15,7 +15,7 @@
 
 <script>
 
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$('.form-control').select2({
 		placeholder: '선택하여 주십시오.',
 		minimumInputLength: 1,
@@ -33,12 +33,23 @@ $(document).ready(function(){
 				},
 				 processResults: function (data) {
 				        return {
-				            results: data.ressults
+				            results:data.results
 				        };
 				    },
 			}
 	});
-});
+}); */
+
+alert('h3');
+
+$(document).ready(function(){
+	  var sportlist = [
+	   "baseball","soccer","golf","sex"
+	  ]
+	  $("#sports").select2({
+	    data:sportlist
+	  });
+	});
 
 $(function() {
     $( ".heart" ).click(function() {
@@ -106,13 +117,11 @@ margin:10px auto;
 }
 </style>
 
+<select id="sports" class="margin">
+<option value="" selected hidden>-- select sports --</option> 
+<option></option>
+</select>
 
-
-<div class="margin center" style="margin-left: 10px;">
-	<!-- 속성에 multiple를 추가합시다. -->
-	<select class="form-control" multiple="multiple">
-	</select>
-</div>
 
 <i class="fas fa-heart heart"></i>
 

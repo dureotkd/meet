@@ -30,9 +30,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
 
-<script>
-	
 
+<script>
 
 	function btnToggleDropMenu__init() {
 		var $btnToggleDropMenu = $('.myinfo');
@@ -90,8 +89,7 @@ function ViewActivity__updateAct(newAct) {
 function readAct(){
 	$.post('../member/readAct',{
 	
-	}, function (data) {
-		
+	}, function (data) {	
 	},
 	'json');
 }
@@ -123,6 +121,9 @@ function btnToggleDot__init() {
 $(function() {
 	btnToggleDot__init();
 });
+
+
+
 
 </script>
 
@@ -472,7 +473,9 @@ h1 {
 	background:#fafafa;
 }
 
-
+.redA {
+	color:red;
+}
 
 .setting-box {
 	position: relative;
@@ -567,17 +570,6 @@ h1 {
 	.menu-box {
 		margin-left:10px;
 	}
-	.circle {
-	position: absolute;
-    width: 2px;
-    height: 2px;
-    border-radius: 50%;
-    /* border: 0; */
-    bottom: -5px;
-    left: 50%;
-    background: #e23b3b;
-    transform: translate(-50%,0px);
-	}
 	
 }
 
@@ -630,6 +622,27 @@ h1 {
 	border-radius:50%;	
 	overflow:hidden;
 }
+.loader {
+	border: 16px solid #f3f3f3;
+	border-top:16px solid #3498db;
+	border-radius:50%;
+	width:120px;
+	height:120px;
+	position:fixed;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+	animation: spin 2s linear infinite;
+}
+@keyframes spin {
+	0% {transform:translate(-50%,-50%) rotate(0deg);}
+	100% {transform:translate(-50%,-50%) rotate(360deg);}
+}
+.none {
+	display:none;
+}
+
+
 </style>
 
 
@@ -638,7 +651,7 @@ h1 {
 <div class="top-line"></div>
 	<div class="top-bar visible-on-sm-up">
 	<div class="logo-box">
-	<a href="../home/main"><h1 class="logo">Meet In here</h1></a>
+	<a href="../home/main"><h1 class="logo visible-on-sm-up">Meet In here</h1></a>
 	</div>
 
 	<div class="search-box visible-on-sm-up">
@@ -659,7 +672,7 @@ h1 {
 	
 	<a href="../article/imgList"><i class="far fa-compass menu-i"></i></a>
 	<div class="down-box">
-	<a href="#" onclick="readAct();"><i class="far fa-heart menu-i  heartM"></i></a>
+	<a href="#" onclick="readAct(this);"><i class="far fa-heart menu-i  heartM"></i></a>
 	<c:if test="${isLogined}">
 	<c:if test="${myActivityCount > 0 }">
 	<p class="msg-notice2">${myActivityCount}</p>
@@ -748,10 +761,11 @@ h1 {
 		 </ul>
 		 </c:if>
 		 </div>
-		 
-		 
 	</div>
 	</div>
+	
+	<div class="loader none"></div>
+
 	
 	<div class="top-bar visible-on-sm-down">
 	
@@ -759,30 +773,73 @@ h1 {
 		<div class="menu-box">
 
 	<div class="down-box">
-	
-	<c:if test="${myActivityCount ==  0 }">
+	<c:if test="${myActivityCount == 0 }">
 	<a href="#" onclick="readAct(this);"><i class="far fa-heart menu-i  heartM"></i></a>
 	</c:if>
-	
+	<c:if test="${isLogined}">
 	<c:if test="${myActivityCount > 0 }">
 	<a href="#" onclick="readAct(this);"><i class="fas fa-heart  heartM red"></i></a>
 	<div class="circle visible-on-sm-down"></div>
 	</c:if>
-	
+	</c:if>
 	<ul class="dropdown-menu2">
 	<ul class="dropdown-act-menu">
 	<!--  만약에 아무 activity 가 없다면 -->
-	
+	<c:if test="${myActivityCount == 0 }">
 		<li><i class="fab fa-gratipay"></i></li>
 		<li>게시물 활동</li>
 		<li>다른 사람이 팔로우,댓글,좋아요 남길 시 표시</li>
+	</c:if>
 	
+	
+	<c:if test="${myActivityCount > 0 }">
+		<li class="act-title">게시물 활동</li>
+		<c:forEach items="${articleReplies}" var="articleReply">
+			<c:if test="${articleReply.memberId != loginedMemberId}">
+		<ul class="activity-box">
+		<a href="../article/detail?id=${articleReply.articleId}">
+		<li class="act-img-wrap">
+		<img class="act-profile" src="${articleReply.extra.replyWriterAvatarImgUrl}" alt="" />
+		</li>
+		<span>${articleReply.extra.writer}님이 댓글을 남겼습니다.</span>
+		<span>${articleReply.body}</span>
+		</a>
+		</ul>
+		</c:if>
+		</c:forEach>
+	</c:if>
+	
+	<c:if test="${myActivityCount > 0 }">
+		<c:forEach items="${articleLikes}" var="articleLike">
+		<ul class="activity-box">
+		<a href="../article/detail?id=${articleLike.articleId}">
+		<div class="act-img-wrap">
+		<img src="${articleLike.extra.likeSenderAvatarImgUrl}" class="act-profile" alt="" />
+		</div>
+		<li>${articleLike.extra.writer}님이 좋아요를 남겼습니다.</li>
+		</a>
+		</ul>
+		</c:forEach>
+	</c:if>
+	
+	<c:if test="${myActivityCount > 0 }">
+		<c:forEach items="${friends}" var="friend">
+		<ul class="activity-box">
+		<a href="../member/showOther?id=${friend.followerId}">
+		<div class="act-img-wrap">
+		<img src="${friend.extra.followSenderAvatarImgUrl}" class="act-profile" alt="" />
+		</div>
+		<li>${friend.extra.writer}님이 팔로우 중입니다.</li>
+		</a>
+		</ul>
+		</c:forEach>
+	</c:if>
 	</ul>
 	</ul>
 	</div>
 	
 	<div class="search-box visible-on-sm-up">
-	<input type="search" class="search" name="searchKeyword" placeholder="검색" value=""/>
+	<input type="search" class="search" name="searchKeyword" placeholder="검색" value="${param.searchKeyword}"/>
 	</div>
 	
 	</div>
@@ -796,18 +853,23 @@ h1 {
 		<div class="profile-box">
 		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
+		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
+			<p class="needChange">
+				현재 임시 비밀번호를 사용중입니다.<br>빠른 시일내에 변경해주세요.
+			</p>
 		</c:if>
-		<c:if test="${isLogined ==false}">
+		 일단 보류 !-->
+		</c:if>
+		<c:if test="${isLogined == false }">
 		 <li><a href="../member/login">로그인</a></li>
 		</c:if>
-		
-		<ul class="dropdown-menu">
-		 <li><a href="../member/showOther?id=1">프로필</a></li>
-		 <li><a href="../member/mystatistics?id=1">통계</a></li>
+		 <c:if test="${isLogined}">
+		  <ul class="dropdown-menu">
+		 <li><a href="../member/showOther?id=${loginedMemberId}">프로필</a></li>
+		 <li><a href="../member/mystatistics?id=${loginedMemberId}">통계</a></li>
 		 <li><a href="../member/doLogout" onclick="logOutNotify()">로그아웃</a></li>
 		 </ul>
+		 </c:if>
 		 </div>
 	
 	</div>
-	
-	

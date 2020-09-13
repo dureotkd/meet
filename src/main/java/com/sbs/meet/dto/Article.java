@@ -59,13 +59,15 @@ public class Article {
 		} else if ((diffTime /= TIME_MAXIMUM.DAY) < TIME_MAXIMUM.DAY) {
 			// day
 			msg = diffTime + "일전";
-		} else if ((diffTime /= TIME_MAXIMUM.MONTH) < TIME_MAXIMUM.MONTH) {
+		} else if (diffTime == 0) {
+			msg = "1일전";
+		}
+		else if ((diffTime /= TIME_MAXIMUM.MONTH) < TIME_MAXIMUM.MONTH) {
 			// month
 			msg = diffTime + "달전";
 		} else {
 			msg = (diffTime /= TIME_MAXIMUM.MONTH) + "년 전";
 		}
-		
 		
 		return msg;
 

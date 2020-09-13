@@ -43,6 +43,18 @@
 		form.body.value = '';
 	}
 
+	function doFollow(el) {
+		var $div = $(el).closest('.recomend-item');
+		// 가장 가까운 li를 찾아라
+		var followId = parseInt($div.attr('data-id'));
+		// 정수화 -> data-id
+		$.post('../member/doActionFollow', {
+			followId : followId,
+			followerId : followerId
+		}, 'json');
+		location.reload();
+	}
+
 	function doDeleteFollow(el) {
 		if (confirm("팔로우를 취소하시겠습니까 ?") == true) {
 			var $div = $(el).closest('.articles-item');
@@ -452,7 +464,6 @@ textarea[readonly], textarea[disabled] {
 	margin-bottom: 50px;
 	position: relative;
 }
-
 .recomend-text {
 	display: flex;
 	justify-content: space-between;
@@ -483,6 +494,9 @@ textarea[readonly], textarea[disabled] {
 	height:100%;
 	object-fit:cover;
 	border-radius:50%;
+}
+.im-co-home {
+	color:black !important;
 }
 h4 {
 	font-size:20px;
@@ -560,11 +574,6 @@ h4 {
 	margin-left:15px;
 	margin-bottom:15px;
 	}
-	
-	
-	
-	
-
 }
 
 @media ( min-width :801px ) {
@@ -635,10 +644,10 @@ h4 {
 						<ul class="setting-box">
 							<li><i class="fas fa-ellipsis-h" data-id="${article.id}"></i></li>
 							<ul class="setting-items">
-								<li><a href="#" class="red"
+								<li><a href="#" class="redA"
 									onclick="blockWhoClickedUser(this);">사용자 차단</a></li>
 								<li><a href="../article/detail?id=${article.id}"
-									class="msgSubmit">게시물로 이동하기</a></li>
+								>게시물로 이동하기</a></li>
 								<li><a href="#">공유하기</a></li>
 							</ul>
 						</ul>
@@ -655,30 +664,26 @@ h4 {
 				</nav>
 			</div>
 		</c:forEach>
-	</div>	
-	
-	<c:if test="${followCount == 0 }">
-	<c:if test="${isLogined}">
-	<h4>회원님을 위한 추천</h4>
-	<p class="blue p13 mal">게시글이 마음에 들거나 아는 분이 있으면 팔로우를 먼저 걸어보세요.</p>
-	<div class="recomend-box">
-	<c:forEach items="${members}" var="members">
-	<div class="recomend-item" data-id="${members.id}">
-	<div class="reco-img-wrap">
-	<img src="${members.extra.recomendAvatarImgUrl}" class="reco-img" alt="" />
 	</div>
-	<div class="reco-column">
-	<p>${members.nickname}</p>
-	<span class="intro-hdn">${members.introduce}</span>
-	</div>
-	<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
-	</div>
-	</c:forEach>
-	</div>
-	</c:if>
-	</c:if>
-	
 </nav>
+<c:if test="${followerCount == 0}">
+<h4>회원님을 위한 추천</h4>
+<p class="blue p13 mal">게시글이 마음에 들거나 아는 분이 있으면 팔로우를 먼저 걸어보세요.</p>
+<div class="recomend-box">
+<c:forEach items="${members}" var="members">
+<div class="recomend-item" data-id="${members.id}">
+<div class="reco-img-wrap">
+<img src="${members.extra.recomendAvatarImgUrl}"  class="reco-img" alt="" />
+</div>
+<div class="reco-column">
+<p>${members.nickname}</p>
+<span class="intro-hdn">${members.introduce}</span>
+</div>
+<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
+</div>
+</c:forEach>
+</div>
+</c:if>
 
 
 <!--  메시지 팝업  -->

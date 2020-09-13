@@ -688,11 +688,14 @@ textarea[readonly], textarea[disabled] {
 	border: 1px solid #e0e0e0;
 	box-sizing: border-box;
 	border-radius: 3px;
-	margin-top: 50px;
+	margin-top:15px;
 }
 
 .silver {
 	color: #8e8e8e;
+}
+.ma-l {
+	margin-left:10px;
 }
 
 .margin10 {
@@ -707,6 +710,10 @@ textarea[readonly], textarea[disabled] {
 	cursor: pointer;
 	color: #aaa;
 	transition: .2s;
+}
+
+.redA {
+	color:red;
 }
 
 .heart:hover {
@@ -783,25 +790,6 @@ padding
 			}
 		});
 	});
-
-	function btnToggleDropMenu2__init() {
-		var $btnToggleDropMenu2 = $('.heartM');
-
-		$btnToggleDropMenu2.click(function() {
-			if ($(this).hasClass('drop')) {
-				$(this).removeClass('drop');
-				$('.dropdown-menu2').removeClass('drop');
-			} else {
-				$(this).addClass('drop');
-				$('.dropdown-menu2').addClass('drop');
-				$('.msg-notice2').addClass('none');
-			}
-		});
-	}
-	$(function() {
-		btnToggleDropMenu2__init();
-	});
-
 	function doFollow() {
 		$.post('../member/doActionFollow', {
 			followId : followId,
@@ -1087,8 +1075,8 @@ padding
 					<li><i class="fas fa-ellipsis-h"></i></li>
 					<c:if test="${loginedMemberId != article.memberId }">
 						<ul class="setting-items">
-							<li><a href="#" class="red">사용자 차단</a></li>
-							<li><a href="#" class="msgSubmit">메시지 보내기</a></li>
+							<li><a href="#" class="redA">사용자 차단</a></li>
+							<li><a href="#">메시지 보내기</a></li>
 							<li><a href="#">공유하기</a></li>
 						</ul>
 					</c:if>
@@ -1178,7 +1166,7 @@ padding
 			// 6초댓글불러오기
 			ReplyList__loadMoreInterval = 1 * 1000;
 
-			ReplyList__loadMoreInterval = 10 * 1000; // 임시
+			// ReplyList__loadMoreInterval = 10 * 1000; // 임시
 
 			function ReplyList__loadMoreCallback(data) {
 				if (data.body.articleReplies
@@ -1252,26 +1240,28 @@ padding
 
 
 	<div class="con">
-		<span class="silver">${member.nickname}</span><span class="silver">님의
-			게시글 더보기</span><i class="fas fa-plus margin10 blue"></i>
+		<span class="silver ma-l">${member.nickname}</span><span class="silver">님의
+			게시글 더보기</span>
 		<div class="articles-box">
 			<ul>
-				<c:forEach items="${articles}" var="article">
-					<c:if test="${article.extra.file__common__attachment['3'] != null}">
-						<li data-id="${article.id}">
+				<c:forEach items="${articles}" var="articles">
+					<c:if test="${articles.extra.file__common__attachment['3'] != null}">
+					<c:if test="${article.id != articles.id}">
+						<li data-id="${articles.id}">
 							<div class="img-wrap">
-								<a class="cursor1" href="../article/detail?id=${article.id}">
+								<a class="cursor1" href="../article/detail?id=${articles.id}">
 									<img class="other-articleImg"
-									src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									src="/file/showImg?id=${articles.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 									alt="" />
 								</a>
 								<c:set var="articleReplyCount" value="0" />
 								<c:forEach var="articleReply" items="${articleReply}">
-									<c:if test="${articleReply.articleId == article.id}">
+									<c:if test="${articleReply.articleId == articles.id}">
 									</c:if>
 								</c:forEach>
 							</div>
 						</li>
+						</c:if>
 					</c:if>
 				</c:forEach>
 			</ul>

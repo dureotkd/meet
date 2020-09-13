@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8085
   error:    include-binding-errors: always
     include-exception: true
     include-message: always
@@ -12,6 +12,15 @@ custom:
   emailFromName: meetInHere  
 spring:
   profiles:    active: local
+    redis:
+    host: localhost
+    port: 6379
+  session:
+    timeout: 600
+    store-type: redis
+    redis:
+      flush-mode: on-save
+      namespace: spring:session
   mail:
     host: smtp.gmail.com
     port: 587
@@ -37,4 +46,25 @@ spring:
     username: sbsst
 mybatis:
   type-aliases-package: com.sbs.meet.dto
+  
+  
+---
+
+spring:
+  profiles: local
+server:
+  port: 8085
+
+---
+
+spring:
+  profiles: production
+  servlet:
+    multipart:
+      location: /tmp
+  datasource:
+    username: dureotkd
+    password: slsksh33
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/st_n31_blog?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
     

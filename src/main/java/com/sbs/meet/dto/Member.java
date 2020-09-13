@@ -32,6 +32,15 @@ public class Member {
 	private String level;
 	private Map<String, Object> extra;
 	
+	public void valueBound(HttpSessionBindingEvent event) {
+		Member member = (Member)event.getValue();
+		HttpSession session = event.getSession();
+		
+		member.email = session.getId();
+		member.session = session;
+		
+		member.setSession(session);
+	}
 	
 	private static class TIME_MAXIMUM {
 		public static final int SEC = 60;

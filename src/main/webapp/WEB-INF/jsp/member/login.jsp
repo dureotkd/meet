@@ -97,10 +97,8 @@ ul, li {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid #ccc;
 	height: 400px;
 	width: 400px;
-	box-shadow: 3px 3px 3px #ccc;
 }
 
 .login-input-box {
@@ -166,7 +164,6 @@ ul, li {
 .logo {
 	font-family: 'Courgette', cursive;
 	color:#d81b60;
-	margin-top:10px;
 }
 .articleImg {
 	height:326px;
@@ -175,22 +172,43 @@ ul, li {
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	margin-right:50px;
 }
+
 @media ( max-width:800px ) {
 	.visible-none {
 		display:none;
 	}
+	.total-wrap {
+		display:flex;
+		flex-direction:column;
+	}
+	
 }
+
+@media ( min-width:801px ){
+	.login-form-box {
+		border: 1px solid #ccc;
+		box-shadow: 3px 3px 3px #ccc;
+	}
+	
+	.best-img-box {
+		margin-right:50px;
+	}
+	.logo {
+		margin-top:10px;
+	}
+
+}
+
 </style>
 
 </head>
 <body>
 	<div class="total-wrap">
-	<div class="best-img-box visible-none">
-	<img class="articleImg" src="http://localhost:8088/file/showImg?id=31&updateDate=2020-08-31%2018:20:51" alt="" />
+	<div class="best-img-box ">
+	<img class="articleImg visible-none" src="http://localhost:8088/file/showImg?id=31&updateDate=2020-08-31%2018:20:51" alt="" />
 	<h1 class="logo">Meet In here</h1>
-	<p>사진,동영상 SNS 사이트</p>
+	<p class="visible-none">사진,동영상 SNS 사이트</p>
 	</div>
 		<div class="login-form-box">
 			<form action="doLogin" class="login-form"

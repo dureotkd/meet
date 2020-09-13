@@ -201,15 +201,12 @@
 	max-width: 940px;
 	justify-content: space-between;
 	align-items: center;
-	margin-right:15px;
-	margin-left:15px;
 }
 
 .other-text-box {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width:100%;
 }
 
 .other-follow-box {
@@ -274,7 +271,6 @@
 .articles-box>ul {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: center;
 }
 
 .other-articleImg {
@@ -673,7 +669,7 @@ textarea[readonly], textarea[disabled] {
 }
 
 .img-wrap2>p {
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 }
 
 .img-wrap2>span {
@@ -736,6 +732,13 @@ input[type="file"] {
 	font-size:17px;
 	color:#bdbdbd;
 }
+.w100 {
+	width:100%;
+}
+.fa-camera-retro {
+	font-size:40px;
+}
+
 
 @media ( min-width :800px ) {
 	.articles-box>ul>li {
@@ -810,9 +813,12 @@ input[type="file"] {
 		margin-top: 50px;
 		justify-content: center;
 		align-items: center;
+		margin-left:15px;
+		margin-right:15px;
 	}
 	.other-text-box {
 		margin-top: 20px;
+		width:100%;
 	}
 }
 </style>
@@ -1013,14 +1019,14 @@ input[type="file"] {
 
 		<c:if test="${articleCount == 0 }">
 			<c:if test="${member.id == loginedMemberId }">
-				<li>
+				<div class="w100">
 					<div class="img-wrap2">
 						<a href="../article/write" class="empty-img"><i
 							class="fas fa-camera-retro"></i></a>
 						<p>소중한 순간을 공유해보세요.</p>
 						<span>${member.nickname}님의 첫 사진을 기다리고 있습니다.</span>
 					</div>
-				</li>
+				</div>
 			</c:if>
 		</c:if>
 		
@@ -1097,9 +1103,5 @@ input[type="file"] {
 					</c:if>
 	</ul>
 </div>
-
-
-
-
 
 <%@ include file="../part/foot.jspf"%>

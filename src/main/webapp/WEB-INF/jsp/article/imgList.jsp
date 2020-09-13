@@ -136,6 +136,9 @@ $(function() {
 .fa-search {
 	color:#484848;
 }
+.im-co-search{
+	color:black !important;
+}
 @
 keyframes fade { 0% {
 	color: #transparent;

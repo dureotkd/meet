@@ -36,13 +36,16 @@ public class HomeController {
 		
 		int loginedMemberId = (int) request.getAttribute("loginedMemberId");
 		
+		int followerCount = memberService.getFollowerCount(loginedMemberId);
+		
 		// 팔로우한 애들 게시글
 		List<Article> articles = articleService.getForPrintArticlesInFollow(loginedMemberId);
+	
 		// 추천 멤버들 ( follow가 된 애들 말고 다른애들 전부 )
 		
-		int followCount = memberService.getFollowCount(loginedMemberId);
-		
 		List<Member> members = memberService.getForPrintNotFollow(loginedMemberId);
+		
+						
 		
 		for ( Member member : members) {
 			List<File> files = fileService.getFiles("member",member.getId(),"common","attachment");
@@ -105,8 +108,7 @@ public class HomeController {
 			}
 		
 		
-		
-		model.addAttribute("followCount",followCount);
+		model.addAttribute("followerCount",followerCount);
 		model.addAttribute("members",members);
 		model.addAttribute("articles",articles);
 		return "home/main";

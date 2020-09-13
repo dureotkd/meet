@@ -85,6 +85,16 @@
 		WHERE
 		id = #{id}
 	</update>
+	
+	<update id="doMyInfoEdit2">
+		UPDATE member
+		SET name = #{name},
+		email = #{email},
+		nickname = #{nickname},
+		introduce = #{introduce}
+		WHERE
+		id = #{id}
+	</update>
 
 	<select id="getArticleCount" resultType="int">
 		SELECT COUNT(*) AS
@@ -189,9 +199,8 @@
 		SELECT M.*,
 		M.nickname AS extra__writer
 		FROM `member` AS M
-		WHERE M.id != ${loginedMemberId}
-		AND
-		M.delStatus = 0
+		WHERE M.id != #{loginedMemberId}
+		AND M.delStatus = 0
 		ORDER BY M.id DESC
 		LIMIT 5;
 	</select>
@@ -405,21 +414,18 @@
 		INNER JOIN articleReply AS AR
 		ON member.id = AR.memberId
 		SET A.displayStatus = 0,
-		AR.displayStatus =
-		0,
+		AR.displayStatus = 0,
 		`member`.delStatus = 1
 		WHERE member.id = #{memberId}
 	</update>
 
 	<update id="ableAccount">
 		UPDATE article,articleReply,`member`
-		INNER JOIN
-		`article` AS A
+		INNER JOIN `article` AS A
 		ON member.id =
 		A.memberId
 		INNER JOIN articleReply AS AR
-		ON
-		member.id = AR.memberId
+		ON member.id = AR.memberId
 		SET
 		A.displayStatus = 1,
 		AR.displayStatus = 1,
@@ -427,12 +433,11 @@
 		WHERE
 		member.id = #{memberId}
 	</update>
-
+	
 	<update id="doChangePassword">
 		UPDATE member
 		SET updateDate = NOW(),
-		loginPw =
-		#{loginPw}
+		loginPw = #{loginPw}
 		WHERE id = #{memberId}
 	</update>
 

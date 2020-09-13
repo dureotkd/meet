@@ -129,6 +129,14 @@
 	background: #fafafa;
 }
 
+.fa-plus {
+	color:#484848;
+}
+
+.im-co-plus{
+	color:black !important;
+}
+
 .submit {
 	background: none;
 	border: 1px solid #f50057;
@@ -222,7 +230,7 @@ textarea {
 	display: none;
 }
 
-input[type="file"] {
+.file1 {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -245,8 +253,7 @@ input[type="file"] {
 	font-size: 1.3rem;
 	padding: 13px;
 	position: absolute;
-	top: 0;
-	right: -70px;
+	top: -60px;
 	box-shadow: 0 10px 10px -12px rgba(0, 0, 0, 0.56), 0 4px 10px 0px
 		rgba(0, 0, 0, 0.12), 0 8px 10px -10px rgba(0, 0, 0, 0.2);
 }
@@ -277,6 +284,15 @@ input[type="file"] {
 	color:#bdbdbd;
 	line-height:35px;
 }
+.wrapping {
+	display:flex;
+}
+@media (max-width:800px){
+	.input-img {
+		flex-direction:column;
+	}
+}
+
 </style>
 
 <div class="total-wrap">
@@ -295,47 +311,36 @@ input[type="file"] {
 		<form class="form-box" method="POST"
 			onsubmit="ArticleWriteForm__submit(this); return false;"
 			action="doWriteArticle">
+			 <input
+						type="hidden" accept="video/*"
+						name="file__article__0__common__attachment__2" />
 			<input type="hidden" name="memberId" value="${loginedMemberId}" /> <input
 				type="hidden" name="redirectUri" value="detail?id=#id" /> <input
 				type="hidden" name="fileIdsStr"> <input type="hidden"
 				name="title" placeholder="제목" value="1" />
-			<div class="wrapping">
-				<input type="hidden" name="tag" />
-				<div class="input-img">
+				
+				<div class="f-box">
 					<label for="video"></label> <input type="file" accept="video/*"
-						name="file__article__0__common__attachment__1" /> <input
-						type="hidden" accept="video/*"
-						name="file__article__0__common__attachment__2" />
-
-					<div class="file-con">
-						<img
-							src="https://data.photo-ac.com/data/thumbnails/7a/7acf9df1e8b0588d23c8b36530540aa0_t.jpeg"
-							id="imgpreview1" class="file-upload" />
-					</div>
-
-					<div class="file-con none">
-						<label for="idupload-2"> <img
-							src="https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2"
-							id="imgpreview2" class="file-upload" />
-						</label>
-					</div>
-
-					<div class="file-con none">
-						<label for="idupload-3"> <img id="imgpreview3"
-							class="file-upload"
-							src="https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" />
-						</label>
-					</div>
-					<input type="file" accept="image/*" id="idupload-1"
-						onchange="imagepreview(this);"
-						name="file__article__0__common__attachment__3"> <input
+						name="file__article__0__common__attachment__1" />
+				<input
 						type="file" accept="image/*" id="idupload-2"
 						onchange="imagepreview(this);"
 						name="file__article__0__common__attachment__4"> <input
 						type="file" accept="image/*" id="idupload-3"
 						onchange="imagepreview(this);"
 						name="file__article__0__common__attachment__5">
-
+						</div>
+			<div class="wrapping">
+				<input type="hidden" name="tag" />
+				<div class="input-img">
+					<div class="file-con">
+						<img
+							src="https://data.photo-ac.com/data/thumbnails/7a/7acf9df1e8b0588d23c8b36530540aa0_t.jpeg"
+							id="imgpreview1" class="file-upload" />
+					</div>
+					<input type="file" class="file1" accept="image/*" id="idupload-1"
+						onchange="imagepreview(this);"
+						name="file__article__0__common__attachment__3"> 
 					<div class="textarea-box">
 						<textarea name="body" class="font3" cols="30" rows="10"
 							placeholder="내용을 입력해주세요." autofocus></textarea>

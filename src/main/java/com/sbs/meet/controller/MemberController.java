@@ -4,10 +4,12 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -200,13 +202,13 @@ public class MemberController {
 		// boolean int 는 null 을 담을수 없다. 그러니 Strng으로 담아주자..
 
 		if (isNeedToChangePwPass3Months) {
-			return "../member/changePassword";
+			return "member/changePassword";
 		}
 
 		boolean isNeedToChangePasswordForTemp = memberService.isNeedToChangeaPasswordForTemp(loginedMemberId);
 
 		if (isNeedToChangePasswordForTemp) {
-			return "../member/changePassword";
+			return "member/changePassword";
 		}
 
 		model.addAttribute("redirectUri", redirectUri);
@@ -260,11 +262,13 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/doMyInfoEdit")
-	public String doMyInfoEdit(String email, String name, String nickname, String introduce, int id, Model model,
+	@ResponseBody
+	public String doMyInfoEdit(Map<String, Object> param,String email, String name, String nickname, String introduce, Model model,
 			String redirectUri) {
-
-		memberService.doMyInfoEdit(email, name, nickname, introduce, id);
-
+		Map<String, Object> newParam =  Util.getNewMapOf(param, "email", "name","nickname","introduce", "fileIdsStr", "id");
+		
+		memberService.doMyInfoEdit2(newParam);
+		
 		model.addAttribute("redirectUri", redirectUri);
 		return "common/redirect";
 	}
@@ -684,25 +688,28 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
-		return "common/redirect";
+		return "common/redirect";	
 	}
 	
-	@RequestMapping("/member/doChangePassword")
-	public String doChangePassword(Model model ,String loginPwReal,HttpServletRequest req ,int id ) {
+	@RequestMapping("/member/changePassword")
+	public String changePassword(int id,String loginPwReal,HttpServletRequest req,Model model) {
 		
 		String loginPw = loginPwReal;
 		
 		Member member = memberService.getMemberById(id);
 		
-		if (member.getLoginPw().equals(loginPw) == false) {
+		int memberId = member.getId();
+		
+		if ( member.getLoginPw().equals(loginPw) == false ) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
+
+		memberService.doChangePassword(loginPw, memberId);
 		
-		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
 		
-		"common/redirect";
+		return"common/redirect";
 	}
 	
 	@RequestMapping("/member/changeProfile")

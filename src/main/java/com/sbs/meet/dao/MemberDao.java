@@ -33,8 +33,6 @@ public interface MemberDao {
 
 	void doUpdateTempLoginPw(String loginPw, String email);
 
-	void doMyInfoEdit(Map<String, Object> param);
-
 	void doMyInfoEdit(String email, String name, String nickname, String introduce, int id);
 
 	int getArticleCount(int memberId);
@@ -116,5 +114,7 @@ public interface MemberDao {
 	void ableAccount(int memberId);
 
 	void doChangePassword(String loginPw,int memberId);
+
+	void doMyInfoEdit2(Map<String, Object> param);
 
 }

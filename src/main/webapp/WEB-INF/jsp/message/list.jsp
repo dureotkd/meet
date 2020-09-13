@@ -49,10 +49,13 @@
 	display: flex;
 	border: 1px solid #eee;
 	border-radius: 2px;
-	box-shadow: 3px 3px 3px #ccc;
 	align-items: center;
 	justify-content: center;
 	margin: 60px auto;
+}
+
+.im-co-message{
+	color:black !important;
 }
 
 .msg-notice {
@@ -63,6 +66,7 @@
 	display: flex;
 	height: 500px;
 	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
 	flex-direction: column;
 }
 
@@ -514,6 +518,14 @@ textarea[readonly], textarea[disabled] {
 	overflow:hidden;
 	margin-right:10px;
 }
+.direct-m {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	position: relative;
+}
+
+
 </style>
 <div class="total-wrap">
 	<div class="msg-con">
@@ -521,7 +533,7 @@ textarea[readonly], textarea[disabled] {
 			<div class="msg-title">
 				<i class="fas fa-ellipsis-h"></i>
 				<p>Direct</p>
-				<i class="far fa-edit"></i>
+				<img class="direct-m" src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png" alt="" />
 			</div>
 
 			<div class="table-box message-list-box">
@@ -599,7 +611,7 @@ textarea[readonly], textarea[disabled] {
 
 
 		</div>
-		<div class="msg-send">
+		<div class="msg-send visible-on-sm-up">
 		<!--  -->
 			<img class="direct" src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png" alt="" />
 					<div class="msg-text">
