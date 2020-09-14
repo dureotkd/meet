@@ -311,7 +311,7 @@ ul, li {
 
 .login-input-box {
 	width: 220px;
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 	color: #262626;
 	border: 1px solid #ccc;
 	font-size: 13px;
@@ -321,9 +321,9 @@ ul, li {
 
 .submit {
 	background: none;
-	background: #f50057;;
-	border: 1px solid #ccc;
-	color: #fff;
+	background: #fff;
+	border: 1px solid #f50057;
+	color: #f50057;
 	font-size: 13px;
 	padding: 10px;
 	cursor: pointer;

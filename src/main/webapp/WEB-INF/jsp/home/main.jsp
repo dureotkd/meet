@@ -9,6 +9,61 @@
 
 
 <script>
+// 이게 왜 안되지?
+	$(function() {
+		var $parent = $('.article-sub');
+		$(".heart").click(function() {
+			var $heart = $(this).siblings('.heart');
+			$heart.toggleClass("press", 1000);
+			if ($heart.hasClass('press')) {
+				callDoLike();
+			} else {
+				cancleLike();
+			}
+		});
+	});
+
+	// closest 가 안됨 
+
+	function callDoLike(el) {
+		var $div = $(el).closest('.articles-item');
+		// 가장 가까운 li를 찾아라
+		var id = parseInt($div.attr('data-id2'));
+		// 정수화 -> data-id2
+		$.post('./doLike', {
+			id : id
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+			if (data.resultCode.substr(0, 2) == "S-") {
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		}, 'json');
+	}
+
+	function cancleLike(el) {
+
+		var $div = $(el).closest('.articles-item');
+		// 가장 가까운 li를 찾아라
+		var id = parseInt($div.attr('data-id2'));
+		// 정수화 -> data-id2
+
+		$.post('./cancleLike', {
+			id : id
+		}, function(data) {
+			if (data.msg) {
+				alert(data.msg);
+			}
+
+			if (data.resultCode.substr(0, 2) == "S-") {
+				ViewArticle1__updateLikePoint(data.likePoint);
+			}
+		}, 'json');
+	}
+
+	
+
 	$(document).ready(function() {
 		$(".direct").on('click', function() {
 			$(".popup").show();
@@ -91,6 +146,10 @@
 <style>
 .fa-home {
 	color: #484848;
+}
+
+.heart.press {
+	color: #e23b3b;
 }
 
 .popup {
@@ -408,7 +467,12 @@ textarea[readonly], textarea[disabled] {
 
 .article-sub {
 	font-size: 15px;
-	padding: 20px;
+	padding-left: 20px;
+	margin-top: 20px;
+}
+
+.padding-top {
+	padding-top: 20px;
 }
 
 .like {
@@ -446,13 +510,13 @@ textarea[readonly], textarea[disabled] {
 }
 
 .recomend-box {
-	max-width:940px;
-	width:100%;
-	display:flex;
-	justify-content:space-between;
-	align-items:center;
-	margin-bottom:15px;
-	flex-direction:column;
+	max-width: 940px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+	flex-direction: column;
 }
 
 .recomend-con {
@@ -464,6 +528,7 @@ textarea[readonly], textarea[disabled] {
 	margin-bottom: 50px;
 	position: relative;
 }
+
 .recomend-text {
 	display: flex;
 	justify-content: space-between;
@@ -484,40 +549,46 @@ textarea[readonly], textarea[disabled] {
 }
 
 .recomend-item {
-		display:flex;
-		width:100%;
-		margin-bottom:25px;
-		align-items:center;
+	display: flex;
+	width: 100%;
+	margin-bottom: 25px;
+	align-items: center;
 }
+
 .reco-img {
-	width:100%;
-	height:100%;
-	object-fit:cover;
-	border-radius:50%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 50%;
 }
+
 .im-co-home {
-	color:black !important;
+	color: black !important;
 }
+
 h4 {
-	font-size:20px;
-	color:#484848;
-	font-weight:normal;
+	font-size: 20px;
+	color: #484848;
+	font-weight: normal;
 }
+
 .reco-column {
-	display:flex;
-	flex-direction:column;
-	justify-content:center;
-	margin-left:15px;
-	width:300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 15px;
+	width: 300px;
 }
+
 .intro-hdn {
-	color:#9e9e9e;
-	font-size:14px;
-	overflow:hidden;
-	height:18px;
+	color: #9e9e9e;
+	font-size: 14px;
+	overflow: hidden;
+	height: 18px;
 	white-space: nowrap;
-    text-overflow: ellipsis;
+	text-overflow: ellipsis;
 }
+
 .submit-item, .msgSubmit {
 	padding: 5px;
 	background: #0095f6;
@@ -526,24 +597,176 @@ h4 {
 	cursor: pointer;
 	color: white;
 	font-size: 15px;
-	height:20px;
-	margin-right:15px;
+	height: 20px;
+	margin-right: 15px;
 }
+
 .reco-img-wrap {
-		width:50px;
-		height:50px;
-		overflow:hidden;
-		text-align:center;
-	}
-	
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	text-align: center;
+}
+
 .fa-check {
-	color:#0095f6;
+	color: #0095f6;
 }
+
 .blue {
-	color:#0095f6;
+	color: #0095f6;
 }
+
 .p13 {
-	font-size:13px;
+	font-size: 13px;
+}
+
+.heart {
+	cursor: pointer;
+	transition: .2s;
+	font-size: 1.3rem;
+	margin-right: 15px;
+}
+
+.comment {
+	font-size: 1.3rem;
+}
+
+.redA {
+	color: red;
+}
+
+.heart:hover {
+	color: #e23b3b;
+}
+
+.heart.press {
+	color: #e23b3b;
+}
+
+@
+keyframes fade { 0% {
+	color: #transparent;
+}
+
+50
+%
+{
+color
+
+
+
+
+:
+
+
+
+
+#e23b3b
+
+
+;
+}
+100
+%
+{
+color
+
+
+
+
+:
+
+
+
+
+#transparent
+
+
+;
+}
+}
+@
+keyframes size { 0% {
+	padding: 10px 12px 8px;
+}
+
+50
+%
+{
+padding
+
+
+
+
+:
+
+
+
+
+14
+px
+
+
+
+
+16
+px
+
+
+
+
+12
+px
+
+
+;
+margin-top
+
+
+
+
+:
+
+
+
+
+-4
+px
+
+
+;
+}
+100
+%
+{
+padding
+
+
+
+
+:
+
+
+
+
+10
+px
+
+
+
+
+12
+px
+
+
+
+
+8
+px
+
+
+;
+}
 }
 @media ( max-width :800px ) {
 	.articles-item {
@@ -562,17 +785,15 @@ h4 {
 		width: 500px;
 		overflow: hidden;
 	}
-	
 	h4 {
-	margin-left:15px;
+		margin-left: 15px;
 	}
 	.reco-img-wrap {
-		margin-left:15px;
+		margin-left: 15px;
 	}
-	
 	.mal {
-	margin-left:15px;
-	margin-bottom:15px;
+		margin-left: 15px;
+		margin-bottom: 15px;
 	}
 }
 
@@ -593,28 +814,39 @@ h4 {
 		height: 500px;
 		overflow: hidden;
 	}
-	
 	h4 {
-		margin:0 auto;
-		max-width:940px;
+		margin: 0 auto;
+		max-width: 940px;
 	}
 	.recomend-box {
-		margin:0 auto;
-		margin-top:30px;
+		margin: 0 auto;
+		margin-top: 30px;
 	}
-	
 	.mal {
-		max-width:940px;
-		margin:0 auto;
+		max-width: 940px;
+		margin: 0 auto;
 	}
+}
 
+.articleReplies-box {
+	display: flex;
+}
+
+.margin-left {
+	margin-left: 20px;
+}
+
+.reply-regDate {
+	color: #bdbdbd;
+	font-size: 14px;
+	margin-bottom: 10px;
 }
 </style>
 
 <nav class="total-box">
 	<div class="articles-box">
 		<c:forEach items="${articles}" var="article">
-			<div class="articles-item" data-id="${article.memberId}">
+			<div class="articles-item" data-id="${article.memberId}" data-id2="${article.id}">
 				<c:if test="${article.extra.file__common__attachment['3'] != null}">
 					<div class="article-img-box">
 						<img class="article-img"
@@ -646,8 +878,8 @@ h4 {
 							<ul class="setting-items">
 								<li><a href="#" class="redA"
 									onclick="blockWhoClickedUser(this);">사용자 차단</a></li>
-								<li><a href="../article/detail?id=${article.id}"
-								>게시물로 이동하기</a></li>
+								<li><a href="../article/detail?id=${article.id}">게시물로
+										이동하기</a></li>
 								<li><a href="#">공유하기</a></li>
 							</ul>
 						</ul>
@@ -656,33 +888,46 @@ h4 {
 						<p class="article-body">${article.body}</p>
 						<p class="regDate">${article.regDateFormat}</p>
 					</div>
+					<div class="article-sub padding-top">
+						<i class="far fa-heart heart"></i> <i
+							class="far fa-comment comment"></i>
+					</div>
 
 					<div class="article-sub">
-						<i class="fas fa-heart like"></i> 1 개 ,
-						<i class="far fa-comment-dots"></i> ${article.replyCnt} 개
+						<c:forEach items="${articleRepliesBig}" var="articleReplies">
+							<c:forEach items="${articleReplies}" var="articleReply">
+								<c:if test="${articleReply.articleId == article.id }">
+									<div class="articleReplies-box">
+										<p>${articleReply.extra.writer}</p>
+										<p class="margin-left">${articleReply.body}</p>
+									</div>
+									<p class="reply-regDate">${articleReply.regDateFormat}</p>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
 					</div>
 				</nav>
 			</div>
 		</c:forEach>
-	</div>
 </nav>
 <c:if test="${followerCount == 0}">
-<h4>회원님을 위한 추천</h4>
-<p class="blue p13 mal">게시글이 마음에 들거나 아는 분이 있으면 팔로우를 먼저 걸어보세요.</p>
-<div class="recomend-box">
-<c:forEach items="${members}" var="members">
-<div class="recomend-item" data-id="${members.id}">
-<div class="reco-img-wrap">
-<img src="${members.extra.recomendAvatarImgUrl}"  class="reco-img" alt="" />
-</div>
-<div class="reco-column">
-<p>${members.nickname}</p>
-<span class="intro-hdn">${members.introduce}</span>
-</div>
-<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
-</div>
-</c:forEach>
-</div>
+	<h4>회원님을 위한 추천</h4>
+	<p class="blue p13 mal">게시글이 마음에 들거나 아는 분이 있으면 팔로우를 먼저 걸어보세요.</p>
+	<div class="recomend-box">
+		<c:forEach items="${members}" var="members">
+			<div class="recomend-item" data-id="${members.id}">
+				<div class="reco-img-wrap">
+					<img src="${members.extra.recomendAvatarImgUrl}" class="reco-img"
+						alt="" />
+				</div>
+				<div class="reco-column">
+					<p>${members.nickname}</p>
+					<span class="intro-hdn">${members.introduce}</span>
+				</div>
+				<a href="#" class="submit-item" onclick="doFollow(this);">팔로우</a>
+			</div>
+		</c:forEach>
+	</div>
 </c:if>
 
 

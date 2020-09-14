@@ -86,13 +86,13 @@ function MemberModifyForm__submit(form) {
 	width:100px;
 	height:100px;
 	border-radius:50%;
-	margin-top:20px;
 	margin-bottom:20px;
 }
 .profile {
 	width:100%;
 	height:100%;
 	object-fit:cover;
+	cursor:pointer;
 }
 .menu {
 	width:300px;
@@ -192,6 +192,10 @@ label {
 	background:#fff;
 	border:1px solid  #e0e0e0;
 	}
+	.imgBox {
+	margin-top:20px;
+	}
+	
 }
 </style>
 
@@ -213,7 +217,7 @@ label {
 
 <div class="column">
 <input type="hidden" name="fileIdsStr" />
-<input class="inputItem" type="hidden" name="redirectUri" value="myInfoEdit" />
+<input class="inputItem" type="hidden" name="redirectUri" value="../member/myInfoEdit" />
 <input class="inputItem" type="hidden" name="id" value="${loginedMember.id}" />
 <label for="">이메일</label>
 <input class="inputItem" type="email"  name="email" value="${loginedMember.email}"/>

@@ -64,6 +64,22 @@
 	SET replyCnt = replyCnt + 1
 	WHERE id = #{articleId}
 	</update>
+	
+	<select id="getForPrintArticleRepliesLimit3" resultMap="articleReply">
+	SELECT AR.*,
+	M.nickname AS extra__writer
+	FROM articleReply AS AR
+	INNER JOIN 
+	article AS A
+	ON AR.articleId = A.id
+	INNER JOIN 
+	`member` AS M
+	ON M.id = AR.memberId
+	WHERE AR.articleId = #{articleId}
+	AND AR.displayStatus = 1
+	ORDER BY AR.id DESC
+	LIMIT 3
+	</select>
 
 	<resultMap type="ArticleReply" id="articleReply">
 		<id property="id" column="id" />

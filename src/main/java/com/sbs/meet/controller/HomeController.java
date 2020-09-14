@@ -1,5 +1,6 @@
 package com.sbs.meet.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
 import com.sbs.meet.service.ArticleService;
@@ -44,6 +46,23 @@ public class HomeController {
 		// 추천 멤버들 ( follow가 된 애들 말고 다른애들 전부 )
 		
 		List<Member> members = memberService.getForPrintNotFollow(loginedMemberId);
+		
+		// 댓글 보여주기
+		
+		
+		
+		List<List<ArticleReply>> articleRepliesBig = new ArrayList<>(); 
+		
+		for ( Article article : articles ) {
+			
+			int articleId = article.getId();
+						
+			List<ArticleReply> articleReplys = replyService.getForPrintArticleRepliesLimit3(articleId);
+			
+			articleRepliesBig.add(articleReplys);
+		}
+		
+		model.addAttribute("articleRepliesBig",articleRepliesBig);
 		
 						
 		

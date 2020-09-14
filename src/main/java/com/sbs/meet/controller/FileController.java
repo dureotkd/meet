@@ -55,7 +55,7 @@ public class FileController {
 	public ResponseEntity<byte[]> streamVideo(@RequestHeader(value = "Range", required = false) String httpRangeList,
 			int id) {
 		File file = Util.getCacheData(fileCache, id);
-
+		
 		return videoStreamService.prepareContent(new ByteArrayInputStream(file.getBody()), file.getFileSize(),
 				file.getFileExt(), httpRangeList);
 	}

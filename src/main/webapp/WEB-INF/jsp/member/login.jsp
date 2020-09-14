@@ -103,7 +103,7 @@ ul, li {
 
 .login-input-box {
 	width: 220px;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 	color: #262626;
 	border: 1px solid #ccc;
 	font-size: 13px;
@@ -164,6 +164,7 @@ ul, li {
 .logo {
 	font-family: 'Courgette', cursive;
 	color:#d81b60;
+	font-weight:normal;
 }
 .articleImg {
 	height:326px;

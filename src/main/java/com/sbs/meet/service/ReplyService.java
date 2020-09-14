@@ -39,6 +39,10 @@ public class ReplyService {
 
 	public void increaseReplyCount(Map<String, Object> param) {
 		replyDao.increaseReplyCount(param);
+	}
+
+	public List<ArticleReply> getForPrintArticleRepliesLimit3(int articleId) {
+		return replyDao.getForPrintArticleRepliesLimit3(articleId);
 	}	
 	
 }	

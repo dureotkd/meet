@@ -42,6 +42,7 @@ public class MemberController {
 	private ArticleService articleService;
 	@Autowired
 	private FileService fileService;
+	
 
 	@RequestMapping("/member/join")
 	public String join(Model model) {
@@ -257,9 +258,10 @@ public class MemberController {
 
 	@RequestMapping("/member/myInfoEdit")
 	public String myInfoEdit(HttpSession session) {
-
 		return "member/myInfoEdit";
 	}
+	
+	
 
 	@RequestMapping("/member/doMyInfoEdit")
 	@ResponseBody

@@ -34,7 +34,7 @@ public class MemberService {
 	private String siteName;
 
 	public boolean checkNicknameJoinable(String nickname) {
-		
+
 		return memberDao.getNicknameDupCount(nickname);
 	}
 
@@ -73,9 +73,9 @@ public class MemberService {
 	}
 
 	public Member getMemberById(int id) {
-		
+
 		Member member = memberDao.getMemberById(id);
-		
+
 		List<File> files = fileService.getFiles("member", member.getId(), "common", "attachment");
 
 		Map<String, File> filesMap = new HashMap<>();
@@ -85,7 +85,7 @@ public class MemberService {
 		}
 
 		Util.putExtraVal(member, "file__common__attachment", filesMap);
-		
+
 		return member;
 	}
 
@@ -102,10 +102,10 @@ public class MemberService {
 	}
 
 	public void doModifyPrivate(int loginedMemberId, String loginPw) {
-		
+
 		// 비밀번호 수정시 useTempPw 삭제
 		attrService.remove("member", loginedMemberId, "extra", "useTempPw");
-		
+
 		memberDao.doModifyPrivate(loginedMemberId, loginPw);
 	}
 
@@ -128,33 +128,31 @@ public class MemberService {
 	public void sendUpdateTempLoginPw(String tempPw, String email) {
 		String mailTitle = String.format("[%s] 입니다. 귀하의 임시패스워드입니다!", siteName);
 		StringBuilder mailBodySb = new StringBuilder();
-		mailBodySb.append(String.format("<h1>임시 패스워드 : %s </h1>",tempPw));
+		mailBodySb.append(String.format("<h1>임시 패스워드 : %s </h1>", tempPw));
 		mailService.send(email, mailTitle, mailBodySb.toString());
 	}
 
 	public boolean isNeedToChangeaPasswordForTemp(int loginedMemberId) {
-		String val = attrService.getValue("member",loginedMemberId,"extra","useTempPw");
-		
-		if ( val == null ) {
+		String val = attrService.getValue("member", loginedMemberId, "extra", "useTempPw");
+
+		if (val == null) {
 			return false;
 		}
-		
+
 		return val.equals("1");
 	}
 
 	public int setValue(Member member) {
-		return attrService.setValue("member",member.getId(),"extra","useTempPw","1");
+		return attrService.setValue("member", member.getId(), "extra", "useTempPw", "1");
 	}
 
-
 	public void doMyInfoEdit(String email, String name, String nickname, String introduce, int id) {
-		memberDao.doMyInfoEdit(email,name,nickname,introduce,id);
+		memberDao.doMyInfoEdit(email, name, nickname, introduce, id);
 	}
 
 	public int getArticleCount(int memberId) {
 		return memberDao.getArticleCount(memberId);
 	}
-
 
 	public void actionUpdetaSessionKey(String sessionId, Date sessionLimit, String email) {
 		memberDao.actionUpdetaSessionKey(sessionId, sessionLimit, email);
@@ -165,7 +163,7 @@ public class MemberService {
 	}
 
 	public void applyToFollow(int memberId, int loginedMemberId) {
-		memberDao.applyToFollow(memberId,loginedMemberId);
+		memberDao.applyToFollow(memberId, loginedMemberId);
 	}
 
 	public File getUserAvatarImg(int memberId) {
@@ -197,39 +195,38 @@ public class MemberService {
 	}
 
 	public boolean isNeedToChangePwPass3Months(int loginedMemberId) {
-		
-		String test =memberDao.isNeedToChangePwPass3Months(loginedMemberId); 
-		
-		if ( test == null ) {
+
+		String test = memberDao.isNeedToChangePwPass3Months(loginedMemberId);
+
+		if (test == null) {
 			return false;
 		}
-		
+
 		return test != null;
 	}
 
 	public void updateActReadStatus(int loginedMemberId) {
-		 memberDao.updateActReadStatus(loginedMemberId);
+		memberDao.updateActReadStatus(loginedMemberId);
 	}
 
 	public void updateActReadStatusInReply(int loginedMemberId) {
-		 memberDao.updateActReadStatusInReply(loginedMemberId);
+		memberDao.updateActReadStatusInReply(loginedMemberId);
 	}
 
 	public Map<String, Object> doActionFollow(int followId, int followerId) {
-		
-		
-		memberDao.doActionFollow(followId,followerId);
-		
+
+		memberDao.doActionFollow(followId, followerId);
+
 		Map<String, Object> rs = new HashMap<>();
-		
-		rs.put("resultCode","S-1");
+
+		rs.put("resultCode", "S-1");
 		rs.put("msg", "팔로우 성공");
-		
+
 		return rs;
 	}
 
 	public void doDeleteFollow(int followId, int followerId) {
-		memberDao.doDeleteFollow(followId,followerId);
+		memberDao.doDeleteFollow(followId, followerId);
 	}
 
 	public int getMyFollowerCount(int loginedMemberId) {
@@ -252,14 +249,14 @@ public class MemberService {
 		return memberDao.getFollowerCount(memberId);
 	}
 
-	public int getFollowingConfirm(int memberId,int loginedMemberId) {
-		return memberDao.getFollowingConfirm(memberId,loginedMemberId);
+	public int getFollowingConfirm(int memberId, int loginedMemberId) {
+		return memberDao.getFollowingConfirm(memberId, loginedMemberId);
 	}
 
 	public void doUpdateLevel5(int memberId) {
 		memberDao.doUpdateLevel5(memberId);
 	}
-	
+
 	public void doUpdateLevel10(int memberId) {
 		memberDao.doUpdateLevel10(memberId);
 	}
@@ -268,27 +265,26 @@ public class MemberService {
 		return memberDao.getForPrintNotFollow(loginedMemberId);
 	}
 
-	
 	public boolean usePrivateAccount(int memberId) {
-		String val = attrService.getValue("member",memberId,"extra","usePrivateMode");
-		
-		if ( val == null ) {
+		String val = attrService.getValue("member", memberId, "extra", "usePrivateMode");
+
+		if (val == null) {
 			return false;
 		}
-		
+
 		return val.equals("1");
 	}
 
 	public int setValueForPrivateMode(int loginedMemberId) {
-		return attrService.setValue("member", loginedMemberId,"extra","usePrivateMode","1");
+		return attrService.setValue("member", loginedMemberId, "extra", "usePrivateMode", "1");
 	}
 
 	public void disAblePrivateMode(int loginedMemberId) {
-		 attrService.remove("member",loginedMemberId, "extra","usePrivateMode");
+		attrService.remove("member", loginedMemberId, "extra", "usePrivateMode");
 	}
 
 	public int getFollowCross(int memberId, int loginedMemberId) {
-		return memberDao.getFollowCross(memberId,loginedMemberId);
+		return memberDao.getFollowCross(memberId, loginedMemberId);
 	}
 
 	public List<Member> getMemberBySearch(String searchKeyword) {
@@ -335,17 +331,16 @@ public class MemberService {
 		memberDao.ableAccount(memberId);
 	}
 
-	public void doChangePassword(String loginPw,int memberId) {
-		memberDao.doChangePassword(loginPw,memberId);
+	public void doChangePassword(String loginPw, int memberId) {
+		memberDao.doChangePassword(loginPw, memberId);
 	}
 
 	public void doMyInfoEdit2(Map<String, Object> param) {
 		memberDao.doMyInfoEdit2(param);
-		
+
 		int id = Util.getAsInt(param.get("id"));
 
 		String fileIdsStr = (String) param.get("fileIdsStr");
-		
 
 		if (fileIdsStr != null && fileIdsStr.length() > 0) {
 			List<Integer> fileIds = Arrays.asList(fileIdsStr.split(",")).stream().map(s -> Integer.parseInt(s.trim()))

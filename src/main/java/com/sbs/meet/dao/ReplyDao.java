@@ -23,4 +23,6 @@ public interface ReplyDao {
 
 	void increaseReplyCount(@RequestParam Map<String, Object> param);
 
+	List<ArticleReply> getForPrintArticleRepliesLimit3(int articleId);
+
 }
