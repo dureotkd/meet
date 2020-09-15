@@ -210,7 +210,7 @@ label {
 <form action="doMyInfoEdit" method="POST" onsubmit="MemberModifyForm__submit(this); return false;" class="w100">
 <div class="imgBox">
 <label for="ex_file">
-<img class="profile file-upload" id="img" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+<img class="profile file-upload" id="img" src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 </label>
 <input type="file" id="ex_file" class="profile-file"  accept="image/*" name="file__member__${loginedMember.id}__common__attachment__1"/>
 </div>

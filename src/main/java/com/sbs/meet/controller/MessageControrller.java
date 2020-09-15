@@ -85,7 +85,7 @@ public class MessageControrller {
 				}
 
 				message.getExtra().put("writerAvatarImgUrl",
-						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 
 			} else {
 				message.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
@@ -150,7 +150,7 @@ public class MessageControrller {
 				}
 
 				message.getExtra().put("writerAvatarImgUrl",
-						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 
 			} else {
 				message.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");

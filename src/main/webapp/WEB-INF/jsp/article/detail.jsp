@@ -200,7 +200,7 @@ to {
 		justify-content: center;
 		flex-direction: column;
 		align-items: center;
-		margin-top: 60px;
+		margin-top: 41px;
 	}
 	.reply-list-box {
 		width: 100%;
@@ -219,7 +219,7 @@ to {
 	}
 	.articles-box>ul>li {
 		width: calc(100%/ 3 - ( 0px * ( 3 - 1)/3));
-		height: 200px;
+		height: 150px;
 	}
 	.img-wrap {
 		width: 99%;
@@ -689,6 +689,7 @@ textarea[readonly], textarea[disabled] {
 	box-sizing: border-box;
 	border-radius: 3px;
 	margin-top:15px;
+	margin-bottom:40px;
 }
 
 .silver {
@@ -976,7 +977,7 @@ padding
 				<c:if test="${article.extra.file__common__attachment['3'] != null}">
 					<div class="mySlides fade">
 						<img class="article-img"
-							src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+							src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 							alt="" />
 					</div>
 				</c:if>
@@ -985,7 +986,7 @@ padding
 				<c:if test="${article.extra.file__common__attachment['4'] != null}">
 					<div class="mySlides fade" style="display: none;">
 						<img class="article-img"
-							src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
+							src="/meet/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
 					</div>
 
 					<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -996,7 +997,7 @@ padding
 				<c:if test="${article.extra.file__common__attachment['5'] != null}">
 					<div class="mySlides fade" style="display: none;">
 						<img class="article-img"
-							src="/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
+							src="/meet/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
 					</div>
 
 
@@ -1028,7 +1029,7 @@ padding
 
 		<c:if test="${article.extra.file__common__attachment['1'] != null}">
 			<video controls
-				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+				src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
 				class="article-video"></video>
 		</c:if>
 
@@ -1251,7 +1252,7 @@ padding
 							<div class="img-wrap">
 								<a class="cursor1" href="../article/detail?id=${articles.id}">
 									<img class="other-articleImg"
-									src="/file/showImg?id=${articles.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									src="/meet/file/showImg?id=${articles.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 									alt="" />
 								</a>
 								<c:set var="articleReplyCount" value="0" />

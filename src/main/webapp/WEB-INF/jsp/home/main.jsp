@@ -400,7 +400,6 @@ textarea[readonly], textarea[disabled] {
 	max-width: 940px;
 	align-items: center;
 	justify-content: center;
-	margin: 100px auto;
 }
 
 .article-img {
@@ -452,7 +451,8 @@ textarea[readonly], textarea[disabled] {
 }
 
 .article-body-box {
-	padding: 20px;
+	padding-left: 20px;
+	padding-top:10px;
 	overflow: scroll;
 	height: 200px;
 }
@@ -468,7 +468,7 @@ textarea[readonly], textarea[disabled] {
 .article-sub {
 	font-size: 15px;
 	padding-left: 20px;
-	margin-top: 20px;
+	margin-top: 30px;
 }
 
 .padding-top {
@@ -774,15 +774,15 @@ px
 		flex-direction: column;
 		align-items: center;
 		width: 100%;
-		margin-bottom: 50px;
+		margin-bottom: 10px;
 	}
 	.article-info-wrap {
 		width: 100%;
 		height: 300px;
 	}
 	.article-img-box {
-		height: 500px;
-		width: 500px;
+		height: 350px;
+		width: 100%;
 		overflow: hidden;
 	}
 	h4 {
@@ -794,6 +794,9 @@ px
 	.mal {
 		margin-left: 15px;
 		margin-bottom: 15px;
+	}
+	.total-box {
+		margin: 41px auto;
 	}
 }
 
@@ -826,6 +829,9 @@ px
 		max-width: 940px;
 		margin: 0 auto;
 	}
+	.total-box {
+		margin: 100px auto;
+	}
 }
 
 .articleReplies-box {
@@ -850,14 +856,14 @@ px
 				<c:if test="${article.extra.file__common__attachment['3'] != null}">
 					<div class="article-img-box">
 						<img class="article-img"
-							src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+							src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 							alt="" />
 					</div>
 				</c:if>
 				<c:if test="${article.extra.file__common__attachment['1'] != null}">
 					<div class="article-img-box">
 						<video class="video" controls
-							src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
+							src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"
 							class="article-video"></video>
 					</div>
 				</c:if>

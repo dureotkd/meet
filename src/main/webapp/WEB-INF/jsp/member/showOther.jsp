@@ -788,7 +788,7 @@ input[type="file"] {
 
 @media ( max-width :799px ) {
 	.articles-box>ul>li {
-		height: 200px;
+		height: 150px;
 		width: calc(100%/ 3 - ( 0px * ( 3 - 1)/3));
 	}
 	.images-wrap {
@@ -989,12 +989,12 @@ input[type="file"] {
 						<a href="../article/detail?id=${article.id}"><c:if
 								test="${article.extra.file__common__attachment['3'] != null}">
 								<img class="other-articleImg"
-									src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 									alt="" />
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] != null}">
 								<video class="video" controls
-									src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+									src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] == null }">
 								<c:if
@@ -1039,12 +1039,12 @@ input[type="file"] {
 						<a href="../article/detail?id=${article.id}"><c:if
 								test="${article.extra.file__common__attachment['3'] != null}">
 								<img class="other-articleImg"
-									src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 									alt="" />
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] != null}">
 								<video class="video" controls
-									src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+									src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] == null }">
 								<c:if
@@ -1074,12 +1074,12 @@ input[type="file"] {
 						<a href="../article/detail?id=${article.id}"><c:if
 								test="${article.extra.file__common__attachment['3'] != null}">
 								<img class="other-articleImg"
-									src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+									src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 									alt="" />
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] != null}">
 								<video class="video" controls
-									src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+									src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
 							</c:if> <c:if
 								test="${article.extra.file__common__attachment['1'] == null }">
 								<c:if

@@ -130,6 +130,14 @@ label {
 	border-bottom:1px solid #e0e0e0;
 	margin-bottom:30px;
 }
+.submit2 {
+	color: #fff;
+	outline:none;
+	border:none;
+	padding:5px;
+	border-radius:3px;
+	background:#0095f6;
+}
 </style>
 
 <div class="wrap margin-bottom30">
@@ -142,6 +150,7 @@ label {
 </ul>
 <form action="disAbledAccount" method="POST"  onsubmit="disAbleAccountForm__submit(this); return false;" class="w100">
 <input type="hidden" name="loginPwReal"  />
+<input type="hidden" name="redirectUri" value="../member/login" />
 <input type="hidden" name="id" value="${loginedMemberId}" />
 <div class="column">
 <h2>계정 비활성화</h2>
@@ -154,7 +163,7 @@ label {
 <input type="password" class="inputItem" name="loginPw" placeholder="비밀번호" />
 </div>
 <div class="row sp-b">
-<input type="submit" class="submit margin-bottom30 w100px margin15" value="계정 비활성화 " />
+<input type="submit" class="submit2 margin-bottom30 w100px margin15" value="계정 비활성화 " />
 </div>
 </div>
 </form>

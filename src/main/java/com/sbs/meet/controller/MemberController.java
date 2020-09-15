@@ -59,7 +59,7 @@ public class MemberController {
 				}
 
 				article.getExtra().put("articleImgUrl",
-						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
@@ -138,7 +138,7 @@ public class MemberController {
 
 		String loginPw = loginPwReal;
 		Member member = memberService.getMemberByEmail(email);
-
+	
 		if (member == null) {
 			model.addAttribute("historyBack", true);
 			model.addAttribute("alertMsg", "존재하지 않는 계정입니다.");
@@ -150,6 +150,10 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
+		
+		int memberId = member.getId();
+		
+		memberService.ableAccount(memberId);
 
 		session.setAttribute("loginedMemberId", member.getId());
 
@@ -264,14 +268,16 @@ public class MemberController {
 	
 
 	@RequestMapping("/member/doMyInfoEdit")
-	@ResponseBody
-	public String doMyInfoEdit(Map<String, Object> param,String email, String name, String nickname, String introduce, Model model,
-			String redirectUri) {
+	public String doMyInfoEdit(Map<String, Object> param,String email, String name, String nickname, String introduce, Model model) {
 		Map<String, Object> newParam =  Util.getNewMapOf(param, "email", "name","nickname","introduce", "fileIdsStr", "id");
 		
 		memberService.doMyInfoEdit2(newParam);
 		
+		String redirectUri = "../member/myInfoEdit";
 		model.addAttribute("redirectUri", redirectUri);
+		model.addAttribute("alertMsg","회원정보가 수정되었습니다.");
+		
+		
 		return "common/redirect";
 	}
 
@@ -490,7 +496,7 @@ public class MemberController {
 			}
 
 			member.getExtra().put("writerAvatarImgUrl",
-					"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+					"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 		} else {
 			member.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
 		}
@@ -529,7 +535,8 @@ public class MemberController {
 
 	@RequestMapping("/member/doDeleteFollow")
 	public String doDeleteFollow(int followId, int followerId, String redirectUri, Model model) {
-
+		
+		
 		redirectUri = "..home/main";
 		memberService.doDeleteFollow(followId, followerId);
 		model.addAttribute("redirectUri", redirectUri);
@@ -645,7 +652,7 @@ public class MemberController {
 					}
 
 					oldFriend.getExtra().put("writerAvatarImgUrl",
-							"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+							"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 				} else {
 					oldFriend.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
 				}
@@ -676,7 +683,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/member/disAbledAccount")
-	public String disAbledAccount(int id,HttpServletRequest req,String loginPwReal,Model model) {
+	public String disAbledAccount(int id,HttpServletRequest req,@RequestParam Map<String, Object> param,String loginPwReal,Model model,HttpSession session) {
 		
 		String loginPw = loginPwReal;
 		
@@ -690,6 +697,18 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
+		
+		int memberId = member.getId();
+		
+		if ( member.getLoginPw().equals(loginPw)) {
+			model.addAttribute("alertMsg","계정이 비활성화 되었습니다.");
+			memberService.disAbleAccount(memberId);
+			session.invalidate();
+		}
+		
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri", redirectUri);
+		
 		return "common/redirect";	
 	}
 	
@@ -707,6 +726,10 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
+		
+		
+		
+		
 
 		memberService.doChangePassword(loginPw, memberId);
 		

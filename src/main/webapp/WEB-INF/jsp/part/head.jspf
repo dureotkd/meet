@@ -740,7 +740,7 @@ h1 {
 		<div class="myinfo">
 		<c:if test="${isLogined}">
 		<div class="profile-box">
-		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+		<img class="Myinfo-profile" src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
 		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">
@@ -851,7 +851,7 @@ h1 {
 	<div class="myinfo">
 		<c:if test="${isLogined}">
 		<div class="profile-box">
-		<img class="Myinfo-profile" src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+		<img class="Myinfo-profile" src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
 		<!-- <c:if test="${loginedMember.extra.isNeedToChangePasswordForTemp}">
 			<p class="needChange">

@@ -388,7 +388,7 @@ function callDoLike(){
 			<c:if test="${article.extra.file__common__attachment['3'] != null}">
 				<div class="mySlides fade">
 					<img class="article-img"
-						src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+						src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 						alt="" />
 				</div>
 			</c:if>
@@ -397,7 +397,7 @@ function callDoLike(){
 			<c:if test="${article.extra.file__common__attachment['4'] != null}">
 				<div class="mySlides fade" style="display: none;">
 					<img class="article-img"
-						src="/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
+						src="/meet/file/showImg?id=${article.extra.file__common__attachment['4'].id}&updateDate=${article.extra.file__common__attachment['4'].updateDate}" />
 				</div>
 				
 				<a class="prev" onclick="plusSlides(-1)">&#10094;</a> <a class="next"
@@ -407,7 +407,7 @@ function callDoLike(){
 			<c:if test="${article.extra.file__common__attachment['5'] != null}">
 				<div class="mySlides fade" style="display: none;">
 					<img class="article-img"
-						src="/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
+						src="/meet/file/showImg?id=${article.extra.file__common__attachment['5'].id}&updateDate=${article.extra.file__common__attachment['5'].updateDate}" />
 				</div>
 			</c:if>
 			

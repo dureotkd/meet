@@ -341,6 +341,8 @@ public class MemberService {
 		int id = Util.getAsInt(param.get("id"));
 
 		String fileIdsStr = (String) param.get("fileIdsStr");
+		
+		System.out.println("제발" + fileIdsStr);
 
 		if (fileIdsStr != null && fileIdsStr.length() > 0) {
 			List<Integer> fileIds = Arrays.asList(fileIdsStr.split(",")).stream().map(s -> Integer.parseInt(s.trim()))
@@ -352,4 +354,5 @@ public class MemberService {
 			}
 		}
 	}
+
 }

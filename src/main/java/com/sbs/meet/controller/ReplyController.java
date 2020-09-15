@@ -53,7 +53,7 @@ public class ReplyController {
 				}
 
 				articleReply.getExtra().put("writerAvatarImgUrl",
-						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
 				articleReply.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
 			}

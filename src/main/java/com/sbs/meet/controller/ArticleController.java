@@ -283,7 +283,7 @@ public class ArticleController {
 				if ( article.getExtra() == null ) {
 					article.setExtra(new HashMap<>());
 				}
-				article.getExtra().put("writerAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
+				article.getExtra().put("writerAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
 			}
 			else {
 				article.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");

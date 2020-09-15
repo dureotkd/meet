@@ -177,7 +177,7 @@
 		<div class="img-wrap">
 		<a class="cursor1"  href="../article/detail?id=${article.id}">
 		<video class="video"  controls
-				src="/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
+				src="/meet/file/streamVideo?id=${article.extra.file__common__attachment['1'].id}&updateDate=${article.extra.file__common__attachment['1'].updateDate}"></video>
 		</a>
 		<a onclick="callDoLike(this);">
 		<i class="fas fa-heart good-item "></i>

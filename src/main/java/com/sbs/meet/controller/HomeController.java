@@ -75,7 +75,7 @@ public class HomeController {
 					member.setExtra(new HashMap<>());
 				}
 				
-				member.getExtra().put("recomendAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+				member.getExtra().put("recomendAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
 				member.getExtra().put("recomendAvatarImgUrl", "/resource/img/avatar_no.jpg");
 			}
@@ -98,7 +98,7 @@ public class HomeController {
 					article.setExtra(new HashMap<>());
 				}
 				
-				article.getExtra().put("writerAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
+				article.getExtra().put("writerAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
 			}
 			else {
 				article.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");

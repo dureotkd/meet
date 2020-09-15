@@ -300,7 +300,7 @@ textarea {
 	<div class="logined-wrap">
 		<div class="login-box">
 			<img class="login-profile"
-				src="/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
+				src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
 		<div class="login-reco">
 		<h2 class="font3">${loginedMember.nickname}님의 ${articleIdCount+1}번째 글입니다 .</h2>

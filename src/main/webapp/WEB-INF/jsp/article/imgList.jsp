@@ -243,7 +243,7 @@ px
 	}
 	.articles-box>ul>li {
 		width: calc(100%/ 3 - ( 0px * ( 3 - 1)/3));
-		height: 200px;
+		height: 150px;
 	}
 	.articles-box {
 		max-width: 940px;
@@ -311,7 +311,7 @@ px
 						<div class="img-wrap">
 							<a class="cursor1" href="../article/detail?id=${article.id}">
 								<img class="other-articleImg"
-								src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
+								src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 								alt="" />
 
 							</a>
