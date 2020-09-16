@@ -726,15 +726,27 @@ public class MemberController {
 			model.addAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "common/redirect";
 		}
-		
-		
-		
-		
-
 		memberService.doChangePassword(loginPw, memberId);
 		
 		
 		return"common/redirect";
+	}
+	
+	@RequestMapping("/member/doChangePassword")
+	public String doChagePassword(@RequestParam Map<String, Object> param ,int id, String loginPwReal, HttpServletRequest req,Model model) {
+		
+		String loginPw = loginPwReal;
+		
+		
+		int memberId = (int) req.getAttribute("loginedMemberId");
+		
+		String redirectUri = (String) param.get("redirectUri");
+		model.addAttribute("redirectUri",redirectUri);
+		model.addAttribute("alert","비밀번호가 변경되었습니다.");
+		memberService.doChangePassword(loginPw,memberId);
+		
+
+		return "common/redirect";
 	}
 	
 	@RequestMapping("/member/changeProfile")

@@ -9,7 +9,7 @@
 
 
 <script>
-// 이게 왜 안되지?
+	// 이게 왜 안되지?
 	$(function() {
 		var $parent = $('.article-sub');
 		$(".heart").click(function() {
@@ -62,8 +62,6 @@
 		}, 'json');
 	}
 
-	
-
 	$(document).ready(function() {
 		$(".direct").on('click', function() {
 			$(".popup").show();
@@ -107,7 +105,7 @@
 			followId : followId,
 			followerId : followerId
 		}, 'json');
-		location.reload();
+		location.href = location.href;
 	}
 
 	function doDeleteFollow(el) {
@@ -159,18 +157,15 @@
 	left: 50%;
 	top: 50%;
 	z-index: 100;
-	padding: 25px 60px 60px;
-	width: 600px;
-	height: 500px;
+	padding: 25px 60px;
 	transform: translate(-50%, -50%);
 	box-sizing: border-box;
 	background: #fff;
 }
 
 .popup h2 {
-	padding: 0 0 42px;
+	padding: 0 0 20px;
 	font-weight: normal;
-	font-size: 30px;
 	font-family: 'Courgette', cursive;
 	color: #d81b60;
 	text-align: center;
@@ -179,17 +174,12 @@
 
 .popup .close {
 	position: absolute;
-	right: 30px;
-	top: 30px;
+	right: 10px;
+	top: 27px;
 	width: 41px;
 	height: 41px;
 	color: black;
 	text-align: center;
-}
-
-.popup .con {
-	padding: 35px 50px;
-	border: 1px solid #e8e8e8;
 }
 
 .agree {
@@ -232,6 +222,10 @@ table.type1 th, table.type1 td {
 	padding: 0 0 20px;
 }
 
+.type1 {
+	width: 100%;
+}
+
 table.type1 th {
 	padding-top: 15px;
 	font-size: 14px;
@@ -255,6 +249,7 @@ table.type1 textarea {
 
 table.type1 tr:last-child th, table.type1 tr:last-child td {
 	padding: 0 0 30px;
+	text-align: center;
 }
 
 input[type="checkbox"] {
@@ -452,7 +447,6 @@ textarea[readonly], textarea[disabled] {
 
 .article-body-box {
 	padding-left: 20px;
-	padding-top:10px;
 	overflow: scroll;
 	height: 200px;
 }
@@ -468,11 +462,11 @@ textarea[readonly], textarea[disabled] {
 .article-sub {
 	font-size: 15px;
 	padding-left: 20px;
-	margin-top: 30px;
 }
 
 .padding-top {
 	padding-top: 20px;
+	margin-bottom: 10px;
 }
 
 .like {
@@ -656,12 +650,24 @@ color
 
 
 
+
+
+
+
 :
 
 
 
 
+
+
+
+
 #e23b3b
+
+
+
+
 
 
 ;
@@ -674,12 +680,24 @@ color
 
 
 
+
+
+
+
 :
 
 
 
 
+
+
+
+
 #transparent
+
+
+
+
 
 
 ;
@@ -698,7 +716,15 @@ padding
 
 
 
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -709,8 +735,16 @@ px
 
 
 
+
+
+
+
 16
 px
+
+
+
+
 
 
 
@@ -719,8 +753,16 @@ px
 px
 
 
+
+
+
+
 ;
 margin-top
+
+
+
+
 
 
 
@@ -730,8 +772,16 @@ margin-top
 
 
 
+
+
+
+
 -4
 px
+
+
+
+
 
 
 ;
@@ -744,7 +794,15 @@ padding
 
 
 
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -755,14 +813,26 @@ px
 
 
 
+
+
+
+
 12
 px
 
 
 
 
+
+
+
+
 8
 px
+
+
+
+
 
 
 ;
@@ -778,7 +848,7 @@ px
 	}
 	.article-info-wrap {
 		width: 100%;
-		height: 300px;
+		height: 400px;
 	}
 	.article-img-box {
 		height: 350px;
@@ -832,6 +902,14 @@ px
 	.total-box {
 		margin: 100px auto;
 	}
+	.popup {
+		width: 600px;
+		height: 400px;
+	}
+	.popup .con {
+		padding: 35px 50px;
+		border: 1px solid #e8e8e8;
+	}
 }
 
 .articleReplies-box {
@@ -852,7 +930,8 @@ px
 <nav class="total-box">
 	<div class="articles-box">
 		<c:forEach items="${articles}" var="article">
-			<div class="articles-item" data-id="${article.memberId}" data-id2="${article.id}">
+			<div class="articles-item" data-id="${article.memberId}"
+				data-id2="${article.id}">
 				<c:if test="${article.extra.file__common__attachment['3'] != null}">
 					<div class="article-img-box">
 						<img class="article-img"
@@ -895,6 +974,18 @@ px
 						<p class="regDate">${article.regDateFormat}</p>
 					</div>
 					<div class="article-sub padding-top">
+						<!--<c:forEach items="${articleLikeBox}" var="articleLikeBox">
+							<c:forEach items="${articleLikeBox}" var="articleLikes">
+								<c:if test="${articleLikes.articleId == article.id}">
+									<c:forEach items="${likesCountBox}" var="likesCountBox">
+										<!--  like ArticleId == articleId 랑 같아야 나오게? 
+										<c:forEach items="${likesCountBox}" var="likesCount">
+											<p>${likesCount}</p>
+										</c:forEach>
+									</c:forEach>
+								</c:if>
+							</c:forEach>
+						</c:forEach> -->
 						<i class="far fa-heart heart"></i> <i
 							class="far fa-comment comment"></i>
 					</div>
@@ -904,8 +995,10 @@ px
 							<c:forEach items="${articleReplies}" var="articleReply">
 								<c:if test="${articleReply.articleId == article.id }">
 									<div class="articleReplies-box">
-										<p>${articleReply.extra.writer}</p>
-										<p class="margin-left">${articleReply.body}</p>
+										<a href="../member/showOther?id=${articleReply.memberId}">
+											<span>${articleReply.extra.writer}</span> <span
+											class="margin-left">${articleReply.body}</span>
+										</a>
 									</div>
 									<p class="reply-regDate">${articleReply.regDateFormat}</p>
 								</c:if>
@@ -951,7 +1044,6 @@ px
 			</colgroup>
 			<tbody>
 				<tr>
-					<th><label for="txt3">내용</label><em>(0/300 byte)</em></th>
 					<td><textarea id="txt3" name="body"></textarea></td>
 				</tr>
 				<tr>

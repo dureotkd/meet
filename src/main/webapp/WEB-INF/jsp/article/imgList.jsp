@@ -236,7 +236,7 @@ px
 
 }
 }
-@media ( max-width :799px) {
+@media ( max-width :801px) {
 	.img-wrap {
 		width: 99%;
 		height: 99%;

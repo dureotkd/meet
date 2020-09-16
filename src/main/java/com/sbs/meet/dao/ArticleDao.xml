@@ -275,7 +275,17 @@
 	WHERE articleId = #{id}
 	AND memberId = #{loginedMemberId}
 	</delete>
-
+	
+	<select id="getLikePointByFollow" resultType="Integer">
+	SELECT COUNT(*) AS cnt
+	FROM articleLike
+	WHERE articleId = #{articleId}
+	</select>
+	
+	<select id="getArticleLikeByFollow" resultType="ArticleLike">
+	SELECT * FROM articleLike
+	WHERE articleId = #{articleId}
+	</select>
 
 
 	<resultMap type="ArticleLike" id="articleLike">

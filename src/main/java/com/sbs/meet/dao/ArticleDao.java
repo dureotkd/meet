@@ -66,5 +66,9 @@ public interface ArticleDao  {
 
 	List<Integer> getLikePointByMemberIdAndList(int id, int loginedMemberId);
 
+	List<Integer> getLikePointByFollow(int articleId);
+
+	List<ArticleLike> getArticleLikeByFollow(int articleId);
+
 
 }

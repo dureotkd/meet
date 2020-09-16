@@ -303,6 +303,18 @@ public class ArticleService {
 
 
 
+	public List<Integer> getLikePointByFollow(int articleId) {
+		return articleDao.getLikePointByFollow(articleId);
+	}
+
+
+
+	public List<ArticleLike> getArticleLikeByFollow(int articleId) {
+		return articleDao.getArticleLikeByFollow(articleId);
+	}
+
+
+
 
 	
 	

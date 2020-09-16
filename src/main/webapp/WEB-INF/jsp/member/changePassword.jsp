@@ -194,6 +194,4 @@ html, body {
 <button class="submit w50 next" onclick="location.href = '../home/main' ">다음에 변경하기</button>
 </div>
 </form>
-
-
 </nav>

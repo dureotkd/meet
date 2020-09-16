@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sbs.meet.dto.Article;
+import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
@@ -47,10 +48,8 @@ public class HomeController {
 		
 		List<Member> members = memberService.getForPrintNotFollow(loginedMemberId);
 		
-		// 댓글 보여주기
-		
-		
-		
+		// 팔로우 게시글 (댓글) 3개 보여주기
+	
 		List<List<ArticleReply>> articleRepliesBig = new ArrayList<>(); 
 		
 		for ( Article article : articles ) {
@@ -64,7 +63,35 @@ public class HomeController {
 		
 		model.addAttribute("articleRepliesBig",articleRepliesBig);
 		
-						
+		
+		// 팔로우 게시글 좋아요 갯수 보여주기
+		List<List<Integer>> likesCountBox = new ArrayList<>();
+		List<List<ArticleLike>> articleLikeBox = new ArrayList<>();
+		for ( Article article : articles ) {
+			
+			int articleId = article.getId();
+				
+			List<Integer> likesCount = articleService.getLikePointByFollow(articleId);
+			
+			List<ArticleLike> articleLikes = articleService.getArticleLikeByFollow(articleId);
+			
+			for ( ArticleLike articleLike : articleLikes ) {
+				int articleIdByLike = articleLike.getArticleId();
+				
+				if ( articleIdByLike == article.getId()) {
+					
+				}
+			}
+			
+			
+			likesCountBox.add(likesCount);
+			articleLikeBox.add(articleLikes);
+		}
+		
+		model.addAttribute("articleLikeBox",articleLikeBox);
+		model.addAttribute("likesCountBox",likesCountBox);
+		
+		// 
 		
 		for ( Member member : members) {
 			List<File> files = fileService.getFiles("member",member.getId(),"common","attachment");

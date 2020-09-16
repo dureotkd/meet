@@ -207,7 +207,7 @@ ul, li {
 <body>
 	<div class="total-wrap">
 	<div class="best-img-box ">
-	<img class="articleImg visible-none" src="http://localhost:8088/file/showImg?id=31&updateDate=2020-08-31%2018:20:51" alt="" />
+	<img class="articleImg visible-none" src="https://service1.n31.mihere.kr/meet/file/showImg?id=7&updateDate=2020-09-14%2015:55:08" alt="" />
 	<h1 class="logo">Meet In here</h1>
 	<p class="visible-none">사진,동영상 SNS 사이트</p>
 	</div>
