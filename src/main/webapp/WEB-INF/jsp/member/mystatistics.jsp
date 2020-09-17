@@ -306,7 +306,7 @@ function doDeleteFollow(el) {
 	<ul class="margin25">
 		<c:forEach items="${articles}" var="article">
 		<div class="img-box">
-		<img class="kingImg border-radius5px"   src="/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}" alt="" />
+		<img class="kingImg border-radius5px"   src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}" alt="" />
 		</div>	
 		</c:forEach>
 	</ul>

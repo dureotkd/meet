@@ -270,7 +270,8 @@
 
 .articles-box>ul {
 	display: flex;
-	flex-flow: row wrap;
+	justify-content: center;
+    flex-flow: row wrap;
 }
 
 .other-articleImg {
@@ -755,7 +756,7 @@ input[type="file"] {
 		box-sizing: border-box;
 	}
 	.images-wrap {
-		width: 90%;
+		width: 95%;
 		height: 100%;
 		overflow: hidden;
 	}

@@ -36,19 +36,23 @@
 
 	<select id="getForPrintArticlesInFollow" resultMap="article">
 		SELECT A.*,
-		M.nickname AS extra__writer
+		M.nickname AS extra__writer,
+		IFNULL(SUM(AL.point), 0) AS extra__heartPoint,
+		IFNULL(SUM(AR.displayStatus), 0) AS extra__replyCount
 		FROM article AS A
 		INNER JOIN member AS M
-		ON
-		M.id = A.memberId
+		ON M.id = A.memberId
 		INNER JOIN friend AS F
 		ON F.followId = M.id
-		WHERE
-		F.followerId = #{loginedMemberId}
+		LEFT JOIN articleLike AS AL
+		ON AL.articleId = A.id
+		LEFT JOIN articleReply AS AR
+		ON AR.articleId = A.id
+		WHERE F.followerId = #{loginedMemberId}
 		AND A.displayStatus = 1
+		GROUP BY A.id
 		ORDER BY A.id
-		DESC
-		LIMIT 10
+		DESC LIMIT 10
 	</select>
 
 
@@ -117,7 +121,7 @@
 		AL.articleId = #{id}
 		AND AL.memberId = #{loginedMemberId}
 	</select>
-	
+
 	<select id="getLikePointByMemberIdAndList" resultType="integer">
 		SELECT
 		IFNULL(SUM(AL.point), 0) AS point
@@ -251,12 +255,14 @@
 		a.id = f.relId
 		LEFT JOIN articleReply ar
 		ON a.id = ar.articleId
-		LEFT JOIN articleLike al
+		LEFT JOIN
+		articleLike al
 		ON a.id = al.articleId
 		WHERE a.id = #{id}
-		AND f.relTypeCode = 'article';
+		AND
+		f.relTypeCode = 'article';
 	</delete>
-	
+
 	<select id="getForPrintArticles3" resultMap="article">
 		SELECT A.*,
 		M.nickname AS extra__writer
@@ -269,22 +275,22 @@
 		ORDER BY A.id DESC
 		LIMIT 7
 	</select>
-	
+
 	<delete id="cancleLikeAction">
-	DELETE FROM articleLike
-	WHERE articleId = #{id}
-	AND memberId = #{loginedMemberId}
+		DELETE FROM articleLike
+		WHERE articleId = #{id}
+		AND memberId = #{loginedMemberId}
 	</delete>
-	
+
 	<select id="getLikePointByFollow" resultType="Integer">
-	SELECT COUNT(*) AS cnt
-	FROM articleLike
-	WHERE articleId = #{articleId}
+		SELECT COUNT(*) AS cnt
+		FROM articleLike
+		WHERE articleId = #{articleId}
 	</select>
-	
+
 	<select id="getArticleLikeByFollow" resultType="ArticleLike">
-	SELECT * FROM articleLike
-	WHERE articleId = #{articleId}
+		SELECT * FROM articleLike
+		WHERE articleId = #{articleId}
 	</select>
 
 
@@ -328,6 +334,8 @@
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
 			<id property="likePoint" column="extra__likePoint" />
+			<id property="heartPoint" column="extra__heartPoint"/>
+			<id property="replyCount" column="extra__replyCount"/>
 			<id property="tag" column="extra__tag"></id>
 		</association>
 	</resultMap>

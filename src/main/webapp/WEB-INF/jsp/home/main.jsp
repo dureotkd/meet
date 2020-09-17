@@ -925,6 +925,10 @@ px
 	font-size: 14px;
 	margin-bottom: 10px;
 }
+.count-unit {
+	font-size:14px;
+	margin-left:5px;
+}
 </style>
 
 <nav class="total-box">
@@ -974,20 +978,9 @@ px
 						<p class="regDate">${article.regDateFormat}</p>
 					</div>
 					<div class="article-sub padding-top">
-						<!--<c:forEach items="${articleLikeBox}" var="articleLikeBox">
-							<c:forEach items="${articleLikeBox}" var="articleLikes">
-								<c:if test="${articleLikes.articleId == article.id}">
-									<c:forEach items="${likesCountBox}" var="likesCountBox">
-										<!--  like ArticleId == articleId 랑 같아야 나오게? 
-										<c:forEach items="${likesCountBox}" var="likesCount">
-											<p>${likesCount}</p>
-										</c:forEach>
-									</c:forEach>
-								</c:if>
-							</c:forEach>
-						</c:forEach> -->
-						<i class="far fa-heart heart"></i> <i
-							class="far fa-comment comment"></i>
+						
+						<i class="far fa-heart heart"><span class="count-unit">${article.extra.heartPoint}</span></i>
+						<i class="far fa-comment comment"><span class="count-unit">${article.extra.replyCount}</span></i>
 					</div>
 
 					<div class="article-sub">
@@ -1028,6 +1021,9 @@ px
 		</c:forEach>
 	</div>
 </c:if>
+
+
+
 
 
 <!--  메시지 팝업  -->

@@ -82,8 +82,6 @@ public class HomeController {
 					
 				}
 			}
-			
-			
 			likesCountBox.add(likesCount);
 			articleLikeBox.add(articleLikes);
 		}
@@ -112,6 +110,8 @@ public class HomeController {
 				filesMap.put(file.getFileNo() + "", file);
 			}
 		}
+		
+		
 		
 		
 		

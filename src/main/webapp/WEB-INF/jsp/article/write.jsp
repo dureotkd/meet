@@ -44,12 +44,13 @@
 
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 //50MB
-
-		if (form.file__article__0__common__attachment__1.value) {
-			if (form.file__article__0__common__attachment__1.files[0].size > maxSize) {
+		
+		if (form.file__article__0__common__attachment__1.value) {	
+			 if (form.file__article__0__common__attachment__1.size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
+			
 		}
 
 		if (form.file__article__0__common__attachment__2.value) {

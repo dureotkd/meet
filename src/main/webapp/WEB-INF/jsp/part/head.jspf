@@ -503,7 +503,6 @@ h1 {
 
 .red {
 	color: #e23b3b;
-	font-size: 20px;
 }
 
 .setting-box ul li {
