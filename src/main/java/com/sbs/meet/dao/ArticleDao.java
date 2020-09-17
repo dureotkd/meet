@@ -70,5 +70,7 @@ public interface ArticleDao  {
 
 	List<ArticleLike> getArticleLikeByFollow(int articleId);
 
+	void doWriteStory(Map<String, Object> param);
+
 
 }

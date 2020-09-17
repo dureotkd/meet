@@ -686,6 +686,15 @@ textarea[readonly], textarea[disabled] {
 	border-radius: 2px;
 }
 
+.story-btn {
+	padding: 7px;
+	background: #0095f6;
+	border: none;
+	cursor: pointer;
+	color: white;
+	border-radius: 2px;	
+}
+
 .other-img-wrap {
 	border-radius: 50%;
 	overflow: hidden;
@@ -877,6 +886,7 @@ input[type="file"] {
 
 				<c:if test="${loginedMemberId == member.id }">
 					<a href="./myInfoEdit" class="edit-btn">프로필 편집</a>
+					<a href="./storyWrite" class="story-btn">스토리 올리기</a>
 				</c:if>
 
 				<c:if test="${loginedMemberId != member.id }">

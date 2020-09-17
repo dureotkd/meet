@@ -31,54 +31,63 @@
 </script>
 
 <script>
-	alert('sddsa');
 
-	var MemberModifyForm__submitDone = false;
-	function MemberModifyForm__submit(form) {
-		var fileInput1 = form["file__member__" + param.id
-				+ "__common__attachment__1"];
+var MemberJoinForm__submitDone = false;
+function MemberJoinForm__submit(form) {
+	var fileInput = form["file__member__" + id + "__common__attachment__1"];
 
-		if (MemberModifyForm__submitDone) {
-			alert('처리중입니다.');
+	
+	if (MemberJoinForm__submitDone) {
+		alert('처리중입니다.');
+		return;
+	}
+
+	
+
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024 //50MB
+
+	if (fileInput.value) {
+		if (fileInput.files[0].size > maxSize) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			return;
+		}
+	}
+
+
+	var startUploadFiles = function(onSuccess) {
+		if (fileInput.value.length == 0) {
+			onSuccess();
 			return;
 		}
 
-		var maxSizeMb = 50;
-		var maxSize = maxSizeMb * 1024 * 1024 //50MB
-		if (fileInput1.value) {
-			if (fileInput1.files[0].size > maxSize) {
-				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
-				return;
-			}
-		}
+		var fileUploadFormData = new FormData(form);
 
-		var startUploadFiles = function(onSuccess) {
-			if (fileInput1.value.length == 0) {
-				onSuccess();
-				return;
-			}
-			var fileUploadFormData = new FormData(form);
-			$.ajax({
-				url : './../file/doUploadAjax',
-				data : fileUploadFormData,
-				processData : false,
-				contentType : false,
-				dataType : "json",
-				type : 'POST',
-				success : onSuccess
-			});
-		}
-		MemberModifyForm__submitDone = true;
-		startUploadFiles(function(data) {
-			var fileIdsStr = '';
-			if (data && data.body && data.body.fileIdsStr) {
-				fileIdsStr = data.body.fileIdsStr;
-			}
-			form.fileIdsStr.value = fileIdsStr;
-			fileInput1.value = '';
-			form.submit();
+		$.ajax({
+			url : './../file/doUploadAjax',
+			data : fileUploadFormData,
+			processData : false,
+			contentType : false,
+			dataType : "json",
+			type : 'POST',
+			success : onSuccess
 		});
 	}
+
+	MemberJoinForm__submitDone = true;
+	startUploadFiles(function(data) {
+		var fileIdsStr = '';
+
+		if (data && data.body && data.body.fileIdsStr) {
+			fileIdsStr = data.body.fileIdsStr;
+		}
+
+		form.fileIdsStr.value = fileIdsStr;
+		fileInput.value = '';
+		form.submit();
+
+	});
+}
 </script>
 
 <style>
@@ -233,19 +242,20 @@ label {
 		<li><a href="#" class="padding25 silver">푸시 알림</a></li>
 		<li><a href="#" class="padding25 silver">계정 삭제</a></li>
 	</ul>
-	<form action="doMyInfoEdit" method="POST"
-		onsubmit="MemberModifyForm__submit(this); return false;" class="w100">
+	<form method="POST"
+		onsubmit="MemberJoinForm__submit(this); return false;" action="doMyInfoEdit"  class="w100">
+		<input type="hidden" name="fileIdsStr" />
 		<div class="imgBox">
 			<label for="ex_file"> <img class="profile file-upload"
 				id="img"
 				src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 			</label> <input type="file" id="ex_file" class="profile-file"
 				accept="image/*"
-				name="file__member__${loginedMember.id}__common__attachment__1" />
+				name="file__member__${loginedMemberId}__common__attachment__1" />
 		</div>
 
 		<div class="column">
-			<input type="hidden" name="fileIdsStr" /> <input class="inputItem"
+			 <input class="inputItem"
 				type="hidden" name="redirectUri" value="../member/myInfoEdit" /> <input
 				class="inputItem" type="hidden" name="id"
 				value="${loginedMember.id}" /> <label for="">이메일</label> <input

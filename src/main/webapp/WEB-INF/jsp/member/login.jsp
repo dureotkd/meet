@@ -163,7 +163,7 @@ ul, li {
 }
 .logo {
 	font-family: 'Courgette', cursive;
-	color:#d81b60;
+	color:#e23b3b;
 	font-weight:normal;
 }
 .articleImg {

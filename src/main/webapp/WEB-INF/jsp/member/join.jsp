@@ -384,7 +384,7 @@ ul, li {
 
 .logo {
 	font-family: 'Courgette', cursive;
-	color: #d81b60;
+	color: #e23b3b;
 	margin-bottom: 30px;
 	font-size: 50px;
 }

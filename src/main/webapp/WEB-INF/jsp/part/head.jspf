@@ -246,7 +246,7 @@ ul, li {
 
 .logo {
 	font-family: 'Courgette', cursive;
-	color: #d81b60;
+	color: #e23b3b;
 	font-weight: normal;
 }
 
@@ -613,36 +613,6 @@ h1 {
 	border-radius: 50%;
 	overflow: hidden;
 }
-
-.loader {
-	border: 16px solid #f3f3f3;
-	border-top: 16px solid #3498db;
-	border-radius: 50%;
-	width: 120px;
-	height: 120px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	animation: spin 2s linear infinite;
-}
-
-@
-keyframes spin { 0% {
-	transform: translate(-50%, -50%) rotate(0deg);
-}
-
-100%
-{
-transform
-:translate
-(-50%
-,
--50%)
-rotate
-(360deg);
-}
-}
 .none {
 	display: none;
 }
@@ -651,6 +621,7 @@ rotate
 
 </head>
 <body>
+	
 	<div class="top-line"></div>
 	<div class="top-bar visible-on-sm-up">
 		<div class="logo-box">

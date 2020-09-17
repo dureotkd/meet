@@ -162,7 +162,7 @@ video[controls]::-webkit-media-controls-panel {
 }
 
 .action {
-	color: #d81b60;
+	color: #e23b3b;
 }
 
 .cursor1 {

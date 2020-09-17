@@ -70,12 +70,26 @@ $(function() {
 	transition: all.3s;
 }
 
-.img-wrap:hover .heart {
-	opacity: 1;
+.dark-box {
+	background:#4c4c4c;
+	position:absolute;	
+	height:100%;
+	transition:all.3s;
+	opacity:0;
 }
 
-.img-wrap:hover .other-articleImg {
-	opacity: 0.8;
+li:hover .heart {
+	opacity:1;
+}
+li:hover .comment {
+	opacity:1;
+}
+
+li:hover .dark-box{
+	opacity:0.1;
+}
+li:hover .img-wrap {
+	opacity:0.4;
 }
 
 .other-articleVideo {
@@ -110,7 +124,7 @@ $(function() {
 }
 
 .action {
-	color: #d81b60;
+	color: #e23b3b;
 }
 
 .cursor1 {
@@ -125,6 +139,17 @@ $(function() {
 	top: 10px;
 	left:10px;
 	opacity: 0;
+	color: black;
+}
+.comment {
+	cursor: pointer;
+	color: #aaa;
+	transition: .2s;
+	position: absolute;
+	top: 10px;
+	left:50px;
+	opacity: 0;
+	color: black;
 }
 .heart:hover {
 	color: #666;
@@ -139,6 +164,10 @@ $(function() {
 .im-co-search{
 	color:black !important;
 }
+.articles-box>ul>li {
+	position:relative;
+}
+
 @
 keyframes fade { 0% {
 	color: #transparent;
@@ -245,17 +274,14 @@ px
 		width: 99%;
 		height: 99%;
 	}
-	.fa-comment-dots, .good-item {
+	.fa-comment-dots, .heart {
 		font-size: 15px;
-	}
-	.fa-comment-dots {
-		left: 40px;
-	}
-	.good-item {
-		left: 10px;
 	}
 	.board {
 	padding: 10px;	
+	}
+	.dark-box {
+		width:100%;
 	}
 }
 @media (max-width:800px) and (min-width:521px) {
@@ -271,17 +297,11 @@ px
 		max-width: 940px;
 		margin: 0 auto;
 	}
-	.fa-comment-dots, .good-item {
-		font-size: 15px;
-	}
-	.fa-comment-dots {
-		left: 40px;
-	}
-	.good-item {
-		left: 10px;
-	}
 	.board {
 	padding: 10px;	
+	}
+	.dark-box {
+		width:100%;
 	}
 }
 
@@ -289,6 +309,9 @@ px
 	.img-wrap {
 		width: 90%;
 		height: 100%;
+	}
+	.dark-box {
+		width:90%;
 	}
 	.articles-box>ul>li {
 		margin-top: 20px;
@@ -302,15 +325,6 @@ px
 	}
 	.articles-box>ul {
 		margin-left: 20px;
-	}
-	.fa-comment-dots, .good-item {
-		font-size: 25px;
-	}
-	.fa-comment-dots {
-		left: 70px;
-	}
-	.good-item {
-		left: 20px;
 	}
 	.board {
 	font-size: 1.5rem;
@@ -330,20 +344,16 @@ px
 			<c:forEach items="${articles}" var="article">
 				<c:if test="${article.extra.file__common__attachment['3'] != null}">
 					<li data-id="${article.id}">
+					<div class="dark-box"></div>
 						<div class="img-wrap">
 							<a class="cursor1" href="../article/detail?id=${article.id}">
 								<img class="other-articleImg"
 								src="/meet/file/showImg?id=${article.extra.file__common__attachment['3'].id}&updateDate=${article.extra.file__common__attachment['3'].updateDate}"
 								alt="" />
-
 							</a>
-							<i class="fas fa-heart heart" onclick="callDoLike(this);"></i>
-							<c:set var="articleReplyCount" value="0" />
-							<c:forEach var="articleReply" items="${articleReply}">
-								<c:if test="${articleReply.articleId == article.id}">
-								</c:if>
-							</c:forEach>
 						</div>
+						<i class="fas fa-heart heart" onclick="callDoLike(this);">&nbsp;${article.extra.heartPoint}&nbsp;</i>
+						<i class="far fa-comment-dots comment">&nbsp;${article.extra.replyCount}</i>
 					</li>
 				</c:if>
 			</c:forEach>

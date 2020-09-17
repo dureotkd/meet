@@ -86,7 +86,6 @@ public class FileController {
 	@ResponseBody
 	public ResultData uploadAjax(@RequestParam Map<String, Object> param, HttpServletRequest req,
 			MultipartRequest multipartRequest) {
-		System.out.println("실행됨?");
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 
 		List<Integer> fileIds = new ArrayList<>();

@@ -31,9 +31,7 @@ public class ArticleController {
 	private FileService fileService;
 	@Autowired
 	private MemberService memberService;
-	@Autowired
-	private ReplyService replyService;
-	
+
 	//  write.jsp 연결
 	
 	@RequestMapping("article/write")
@@ -57,6 +55,16 @@ public class ArticleController {
 		
 		String redirectUri = (String) param.get("redirectUri");
 		redirectUri = redirectUri.replace("#id", newArticleId + "");
+		
+		return "redirect:" + redirectUri;
+	}
+	
+	@RequestMapping("article/doWriteStory")
+	public String doWriteStory(Model model,@RequestParam Map<String, Object> param,HttpServletRequest req) {
+		
+		int newStoryId = articleService.doWriteStory(param);
+		
+		String redirectUri = (String) param.get("redirectUri");
 		
 		return "redirect:" + redirectUri;
 	}

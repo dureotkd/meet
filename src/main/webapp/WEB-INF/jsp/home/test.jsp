@@ -87,43 +87,12 @@ margin:10px auto;
 }
 
 
-.heart {
-  cursor:pointer;
-  color:#aaa;
-  transition:.2s;
-}
-
-.heart:hover {
-  color:#666;
-}
-
-
-.heart.press {
-  color:#e23b3b;
-}
-
-
-@keyframes fade {
-  0% {color:#transparent;}
-  50% {color:#e23b3b;}
-  100% {color:#transparent;}
-}
-
-@keyframes size {
-  0% {padding:10px 12px 8px;}
-  50% {padding:14px 16px 12px;  
-    margin-top:-4px;}
-  100% {padding:10px 12px 8px;}
-}
 </style>
 
 <select id="sports" class="margin">
 <option value="" selected hidden>-- select sports --</option> 
 <option></option>
 </select>
-
-
-<i class="fas fa-heart heart"></i>
 
 
 

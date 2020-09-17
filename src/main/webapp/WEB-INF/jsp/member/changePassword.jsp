@@ -83,7 +83,6 @@ html, body {
 	max-width:940px;
 	align-items:center;
 	margin:0 auto;
-	margin-top:100px;
 }
 .form {
 	display:flex;
@@ -139,7 +138,7 @@ html, body {
 }
 .logo {
 	font-family: 'Courgette', cursive;
-	color:#d81b60;
+	color:#e23b3b;
 	font-weight:normal;
 }
 .redback {
@@ -162,6 +161,19 @@ html, body {
 @media ( min-width:800px){
 	.formBox {
 		box-shadow:rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+		margin:100px auto;
+	}
+	.rem2 {
+		font-size:1.5rem;
+	}
+}
+@media ( max-width:799px){
+	.rem2 {
+		font-size:1.2rem;
+	}
+	.formBox {
+		margin-top:50px;
+		margin:6px;
 	}
 }
 </style>
@@ -174,11 +186,13 @@ html, body {
 </div>
 <span class="red rem2">비밀번호 변경</span>
 
-<p class="silver margintop">고객님께서는 3개월 이상 비밀번호를 변경하지 않으셨습니다.</p>
-<p class="silver">동일한 비밀번호를 장기간 사용 할 경우</p>
+<p class="silver margintop">고객님께서는 3개월 이상 또는 임시패스워드를 발급 받은 후</p>
+<p class="silver">비밀번호를 변경하지 않으셨습니다.</p>
+<br>
+<p class="silver">동일한 비밀번호를 장기간 사용하거나 임시패스워드를 사용 할 경우</p>
 <p class="silver">개인정보 도용 및 유출 등의 위험이 있습니다.</p>
-<p class="silver margintop">연속적인 숫자,생일,전화번호, 아이디와 비슷한 설정을 제외하여</p>
-<p class="silver">비밀번호를 변경해주세요.</p>
+<p class="silver margintop">연속적인 숫자,생일,전화번호, 아이디와 비슷한 설정을</p>
+<p class="silver">제외하여 비밀번호를 변경해주세요.</p>
 
 <p class="red margintop">[ 안전한 비밀번호 설정방법 ]</p>
 <p>영문,숫자,특수문자 조합하여 10~16자</p>

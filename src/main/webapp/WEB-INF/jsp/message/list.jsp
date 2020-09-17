@@ -54,12 +54,12 @@
 	margin: 60px auto;
 }
 
-.im-co-message{
-	color:black !important;
+.im-co-message {
+	color: black !important;
 }
 
 .msg-notice {
-	display:none;
+	display: none;
 }
 
 .msg-box {
@@ -103,8 +103,9 @@
 	border-radius: 50%;
 	position: relative;
 }
+
 .fa-envelope {
-	color:#484848;
+	color: #484848;
 }
 
 .msgSubmit {
@@ -168,7 +169,7 @@ ul, ol, li {
 }
 
 table {
-	width: 100%;
+	width: 100%;	
 	border-spacing: 0;
 	border-collapse: collapse;
 }
@@ -464,24 +465,24 @@ textarea[readonly], textarea[disabled] {
 	transition: all 0.5s;
 }
 
-.message-list-box {s
-	height: 100%;
+.message-list-box {
+	s height: 100%;
 	overflow: scroll;
 }
 
 .data {
 	vertical-align: middle;
-	padding-bottom: 23px;
-	padding-top:23px;
-	padding-left:15px;
 	height: 60px;
-	align-items:center;
-	transition:all.4s;
-	cursor:pointer;
+	align-items: center;
+	transition: all.4s;
+	cursor: pointer;
+	justify-content: space-between;
+	display: flex;
+	padding: 25px;
 }
 
 .data:hover {
-	background:#eee;
+	background: #eee;
 }
 
 .-writer {
@@ -492,13 +493,13 @@ textarea[readonly], textarea[disabled] {
 	width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	margin-right:15px;
-	object-fit:cover;
+	margin-right: 15px;
+	object-fit: cover;
 }
 
 .message-item {
-	display:flex;
-	flex-direction:column;
+	display: flex;
+	flex-direction: column;
 }
 
 .message-list-box::-webkit-scrollbar {
@@ -508,16 +509,18 @@ textarea[readonly], textarea[disabled] {
 .skip:focus {
 	top: 0;
 }
+
 .-body {
-	margin-left:15px;
+	margin-left: 15px;
 }
+
 .info-con {
-	width:50px;
-	height:50px;
-	border-radius:50%;
-	overflow:hidden;
-	margin-right:10px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	overflow: hidden;
 }
+
 .direct-m {
 	width: 30px;
 	height: 30px;
@@ -525,7 +528,19 @@ textarea[readonly], textarea[disabled] {
 	position: relative;
 }
 
-
+.-regDate {
+	font-size: 14px;
+	color: #bdbdbd;
+}
+.none {
+	display:none;
+}
+.show {
+	display:block;
+}
+.msg-detail{
+	display:none;
+}
 </style>
 <div class="total-wrap">
 	<div class="msg-con">
@@ -533,7 +548,9 @@ textarea[readonly], textarea[disabled] {
 			<div class="msg-title">
 				<i class="fas fa-ellipsis-h"></i>
 				<p>Direct</p>
-				<img class="direct-m" src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png" alt="" />
+				<img class="direct-m"
+					src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png"
+					alt="" />
 			</div>
 
 			<div class="table-box message-list-box">
@@ -552,7 +569,7 @@ textarea[readonly], textarea[disabled] {
 				var MessageList__lastLodedId = 0;
 
 				// 1초 메시지 불러오기
-				MessageList__loadMoreInterval = 1 * 1000
+				MessageList__loadMoreInterval = 1 * 6000
 
 				function MessageList__loadMoreCallback(data) {
 					if (data.body.messages && data.body.messages.length > 0) {
@@ -583,7 +600,7 @@ textarea[readonly], textarea[disabled] {
 
 				function MessageList__drawMessage(message) {
 					var html = '';
-					html += '<tr class="data" data-id="' + message.id + '">';
+					html += '<tr class="data msgtoken" data-id="' + message.id + '">';
 					//	html += '<td>' + articleReply.id + '</td>';
 					//	html += '<td>' + articleReply.regDate + '</td>';
 
@@ -601,28 +618,44 @@ textarea[readonly], textarea[disabled] {
 
 					//	html += '<button type="button" onclick="ReplyList__showModifyFormModal(this);">수정</button>';
 					html += '</td>';
+
+					html += '<td class="-regDate">' + message.regDateFormat
+							+ '</td>';
 					html += '</tr>';
 					var $tr = $(html);
 					MessageList__$tbody.prepend($tr);
 				}
 
-				MessageList__loadMore();
+				MessageList__loadMore();			
 			</script>
-
-
+			<script>
+			$(document).ready(function() {
+				$(".msgtoken").on('click', function() {
+					$(".msg-text").addClass('none');
+					$(".direct").addClass('none');
+					$(".msg-detail").addClass('show');
+				});
+			});
+		</script>
+		
 		</div>
 		<div class="msg-send visible-on-sm-up">
-		<!--  -->
-			<img class="direct" src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png" alt="" />
-					<div class="msg-text">
-						<p>내 메시지</p>
-						<span>친구나 그룹에 메시지를 보내보세요.</span> <a href="#" class="msgSubmit">메시지
-							보내기</a>
-					</div>
-
+			<!--  -->
+			<img class="direct"
+				src="https://i.pinimg.com/originals/7b/66/ac/7b66ac2787335ebcb565960d482f0846.png"
+				alt="" />
+			<div class="msg-text">
+				<p>내 메시지</p>
+				<span>친구나 그룹에 메시지를 보내보세요.</span> <a href="#" class="msgSubmit">메시지
+					보내기</a>
+			</div>
+		</div>
+		
+		<div class="message-list">
+		<div class="msg-detail">
+		</div>
 		</div>
 	</div>
-
 
 	<div class="popup">
 		<h2>Meet In Direct</h2>

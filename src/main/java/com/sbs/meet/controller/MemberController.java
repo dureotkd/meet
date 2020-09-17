@@ -261,7 +261,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("/member/myInfoEdit")
-	public String myInfoEdit(HttpSession session) {
+	public String myInfoEdit(Map<String, Object> param,HttpSession session) {
 		return "member/myInfoEdit";
 	}
 	
@@ -747,6 +747,11 @@ public class MemberController {
 		
 
 		return "common/redirect";
+	}
+	
+	@RequestMapping("/member/storyWrite")
+	public String stroyWrite() {
+		return "member/storyWrite";
 	}
 	
 	@RequestMapping("/member/changeProfile")

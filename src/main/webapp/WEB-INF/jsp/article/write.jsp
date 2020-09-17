@@ -17,7 +17,6 @@
 			filerd.readAsDataURL(input.files[0]);
 		}
 	}
-
 	var ArticleWriteForm__submitDone = false;
 	function ArticleWriteForm__submit(form) {
 		if (ArticleWriteForm__submitDone) {
@@ -25,23 +24,17 @@
 			return;
 		}
 		form.title.value = form.title.value.trim();
-
 		if (form.title.value.length == 0) {
 			form.title.focus();
 			alert('제목을 입력해주세요.');
-
 			return;
 		}
-
 		form.body.value = form.body.value.trim();
-
 		if (form.body.value.length == 0) {
 			form.body.focus();
 			alert('내용을 입력해주세요.');
-
 			return;
 		}
-
 		var maxSizeMb = 50;
 		var maxSize = maxSizeMb * 1024 * 1024 //50MB
 		
@@ -52,35 +45,30 @@
 			}
 			
 		}
-
 		if (form.file__article__0__common__attachment__2.value) {
 			if (form.file__article__0__common__attachment__2.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
 		}
-
 		if (form.file__article__0__common__attachment__3.value) {
 			if (form.file__article__0__common__attachment__3.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
 		}
-
 		if (form.file__article__0__common__attachment__4.value) {
 			if (form.file__article__0__common__attachment__4.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
 		}
-
 		if (form.file__article__0__common__attachment__5.value) {
 			if (form.file__article__0__common__attachment__5.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
 				return;
 			}
 		}
-
 		var startUploadFiles = function(onSuccess) {
 			if (form.file__article__0__common__attachment__1.value.length == 0
 					&& form.file__article__0__common__attachment__2.value.length == 0
@@ -90,9 +78,7 @@
 				onSuccess();
 				return;
 			}
-
 			var fileUploadFormData = new FormData(form);
-
 			$.ajax({
 				url : './../file/doUploadAjax',
 				data : fileUploadFormData,
@@ -103,15 +89,12 @@
 				success : onSuccess
 			});
 		}
-
 		ArticleWriteForm__submitDone = true;
 		startUploadFiles(function(data) {
 			var fileIdsStr = '';
-
 			if (data && data.body && data.body.fileIdsStr) {
 				fileIdsStr = data.body.fileIdsStr;
 			}
-
 			form.fileIdsStr.value = fileIdsStr;
 			form.file__article__0__common__attachment__1.value = '';
 			form.file__article__0__common__attachment__2.value = '';
@@ -129,15 +112,12 @@
 	height: 100vh;
 	background: #fafafa;
 }
-
 .fa-plus {
 	color:#484848;
 }
-
 .im-co-plus{
 	color:black !important;
 }
-
 .submit {
 	background: none;
 	border: 1px solid #f50057;
@@ -151,7 +131,6 @@
 	margin: 0 auto;
 	margin-bottom: 10px;
 }
-
 .write-wrap {
 	display: flex;
 	justify-content: center;
@@ -162,7 +141,6 @@
 	position: relative;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
 }
-
 .logined-wrap {
 	display: flex;
 	align-items: center;
@@ -173,17 +151,14 @@
 	position: relative;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
 }
-
 .form-box {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
-
 .font3 {
 	font-family: 'Nanum Myeongjo', serif;
 }
-
 textarea {
 	background: none;
 	padding: 10px;
@@ -191,13 +166,11 @@ textarea {
 	border: none;
 	outline: none;
 }
-
 .input-img {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
-
 .board-item {
 	display: flex;
 	margin-bottom: 20px;
@@ -205,31 +178,25 @@ textarea {
 	jusitfy-content: center;
 	text-align: center;
 }
-
 .board-item>a {
 	width: 100%;
 }
-
 .wrapping {
 	display: flex;
 }
-
 .file-upload {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-
 .file-con {
 	height: 400px;
 	overflow: hidden;
 	margin: 0 auto;
 }
-
 .none {
 	display: none;
 }
-
 .file1 {
 	position: absolute;
 	width: 1px;
@@ -240,14 +207,12 @@ textarea {
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
-
 .textarea-box {
 	display: flex;
 	flex-direction: column;
 	width: 50%;
 	justify-content: space-between;
 }
-
 .img-logo {
 	border-radius: 50%;
 	font-size: 1.3rem;
@@ -257,23 +222,19 @@ textarea {
 	box-shadow: 0 10px 10px -12px rgba(0, 0, 0, 0.56), 0 4px 10px 0px
 		rgba(0, 0, 0, 0.12), 0 8px 10px -10px rgba(0, 0, 0, 0.2);
 }
-
 .label-1, .label-2, .label-3 {
 	width: 1px;
 }
-
 .login-box {
 	width: 100px;
 	height: 100px;
 	overflow: hidden;
 }
-
 .login-profile {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 }
-
 .login-reco {
 	display:flex;
 	flex-direction:column;
@@ -292,7 +253,6 @@ textarea {
 		flex-direction:column;
 	}
 }
-
 </style>
 
 <div class="total-wrap">
@@ -358,4 +318,3 @@ textarea {
 	</div>
 </div>
 <%@ include file="../part/foot.jspf"%>
-

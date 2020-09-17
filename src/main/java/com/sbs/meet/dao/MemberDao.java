@@ -117,6 +117,8 @@ public interface MemberDao {
 
 	void doMyInfoEdit2(Map<String, Object> param);
 
+	Member getMe(int id);
+
 	
 
 }

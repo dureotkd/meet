@@ -20,6 +20,12 @@
 		introduce = "안녕하세요 처음뵙겠습니다.",
 		delStatus = 0
 	</insert>
+	
+	<select id="getMe" resultMap="member">
+		SELECT * FROM member
+		WHERE
+		id = #{id}
+	</select>
 
 	<select id="getNicknameDupCount" resultType="boolean">
 		SELECT COUNT(*)

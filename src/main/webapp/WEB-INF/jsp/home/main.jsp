@@ -978,7 +978,6 @@ px
 						<p class="regDate">${article.regDateFormat}</p>
 					</div>
 					<div class="article-sub padding-top">
-						
 						<i class="far fa-heart heart"><span class="count-unit">${article.extra.heartPoint}</span></i>
 						<i class="far fa-comment comment"><span class="count-unit">${article.extra.replyCount}</span></i>
 					</div>

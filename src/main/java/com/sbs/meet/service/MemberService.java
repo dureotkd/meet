@@ -336,14 +336,11 @@ public class MemberService {
 	}
 
 	public void doMyInfoEdit2(Map<String, Object> param) {
-		memberDao.doMyInfoEdit2(param);
 
 		int id = Util.getAsInt(param.get("id"));
 
 		String fileIdsStr = (String) param.get("fileIdsStr");
 		
-		System.out.println("제발" + fileIdsStr);
-
 		if (fileIdsStr != null && fileIdsStr.length() > 0) {
 			List<Integer> fileIds = Arrays.asList(fileIdsStr.split(",")).stream().map(s -> Integer.parseInt(s.trim()))
 					.collect(Collectors.toList());
@@ -353,6 +350,12 @@ public class MemberService {
 				fileService.changeRelId(fileId, id);
 			}
 		}
+		
+		memberDao.doMyInfoEdit2(param);
+	}
+
+	public Member getMe(int id) {
+		return memberDao.getMe(id);
 	}
 
 
