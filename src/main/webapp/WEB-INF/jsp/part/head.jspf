@@ -74,7 +74,7 @@
 				$(this).addClass('drop');
 				$('.dropdown-menu2').addClass('drop');
 				$('.msg-notice2').addClass('none');
-				
+
 				$.post('../member/readAct', 'json');
 
 				return false;
@@ -113,7 +113,7 @@
 				});
 		$('body').click(function() {
 			$('.opnbox').removeClass('opnbox');
-		});		
+		});
 	}
 
 	$(function() {
@@ -613,6 +613,7 @@ h1 {
 	border-radius: 50%;
 	overflow: hidden;
 }
+
 .none {
 	display: none;
 }
@@ -621,7 +622,7 @@ h1 {
 
 </head>
 <body>
-	
+
 	<div class="top-line"></div>
 	<div class="top-bar visible-on-sm-up">
 		<div class="logo-box">
@@ -644,8 +645,7 @@ h1 {
 				</c:if>
 			</a> <a href="../article/imgList"><i class="far fa-compass menu-i"></i></a>
 			<div class="down-box">
-				<a href="#"><i
-					class="far fa-heart menu-i  heartM"></i></a>
+				<a href="#"><i class="far fa-heart menu-i  heartM"></i></a>
 				<c:if test="${isLogined}">
 					<c:if test="${myActivityCount > 0 }">
 						<p class="msg-notice2">${myActivityCount}</p>
@@ -684,7 +684,7 @@ h1 {
 											<img src="${articleLike.extra.likeSenderAvatarImgUrl}"
 												class="act-profile" alt="" />
 										</div>
-										<li>${articleLike.extra.writer}님이좋아요를 남겼습니다.</li>
+										<li>${articleLike.extra.writer}님이좋아요를남겼습니다.</li>
 									</a>
 								</ul>
 							</c:forEach>
@@ -698,7 +698,7 @@ h1 {
 											<img src="${friend.extra.followSenderAvatarImgUrl}"
 												class="act-profile" alt="" />
 										</div>
-										<li>${friend.extra.writer}님이팔로우 중입니다.</li>
+										<li>${friend.extra.writer}님이팔로우중입니다.</li>
 									</a>
 								</ul>
 							</c:forEach>
@@ -738,9 +738,6 @@ h1 {
 		</div>
 	</div>
 
-	<div class="loader none"></div>
-
-
 	<div class="top-bar visible-on-sm-down">
 
 
@@ -752,8 +749,7 @@ h1 {
 				</c:if>
 				<c:if test="${isLogined}">
 					<c:if test="${myActivityCount > 0 }">
-						<a href="#"><i
-							class="fas fa-heart  heartM red"></i></a>
+						<a href="#"><i class="fas fa-heart  heartM red"></i></a>
 						<div class="circle visible-on-sm-down"></div>
 					</c:if>
 				</c:if>
@@ -790,7 +786,7 @@ h1 {
 											<img src="${articleLike.extra.likeSenderAvatarImgUrl}"
 												class="act-profile" alt="" />
 										</div>
-										<li>${articleLike.extra.writer}님이좋아요를 남겼습니다.</li>
+										<li>${articleLike.extra.writer}님이좋아요를남겼습니다.</li>
 									</a>
 								</ul>
 							</c:forEach>
@@ -804,7 +800,7 @@ h1 {
 											<img src="${friend.extra.followSenderAvatarImgUrl}"
 												class="act-profile" alt="" />
 										</div>
-										<li>${friend.extra.writer}님이팔로우 중입니다.</li>
+										<li>${friend.extra.writer}님이팔로우중입니다.</li>
 									</a>
 								</ul>
 							</c:forEach>

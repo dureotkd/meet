@@ -16,6 +16,7 @@ import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.util.Util;
 import com.sbs.meet.dto.File;
+import com.sbs.meet.dto.Story;
 
 @Service
 public class ArticleService {
@@ -332,6 +333,12 @@ public class ArticleService {
 		}
 		
 			return id;
+	}
+
+
+
+	public List<Story> getForPrintStroiesInFollow(int loginedMemberId) {	
+		return articleDao.getForPrintStroiesInFollow(loginedMemberId);
 	}
 
 

@@ -8,6 +8,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 	
+	
+	
 <!--  toast 메시지 라이브러리 -->
 <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
 <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -40,59 +42,13 @@
 	});
 }); */
 
-alert('h3');
-
-$(document).ready(function(){
-	  var sportlist = [
-	   "baseball","soccer","golf","sex"
-	  ]
-	  $("#sports").select2({
-	    data:sportlist
-	  });
-	});
-
-$(function() {
-    $( ".heart" ).click(function() {
-      $( ".heart" ).toggleClass( "press", 1000 );
-    });
-  });
 </script>
 
 <style>
-h2 {
-	margin-top: 300px;
-}
 
-.margin {
-	margin-top: 300px;
-}
-
-.form-control {
-	width: 300px;
-}
-
-
-body{
-font-family:arial;
-}
-.wrap{
-border:0px solid;
-width:40%;
-margin:10px auto;
-}
-.input-label{
-    background-color:#009688;
-    color:#fff;
-    padding:5px 15px;
-}
 
 
 </style>
-
-<select id="sports" class="margin">
-<option value="" selected hidden>-- select sports --</option> 
-<option></option>
-</select>
 
 
 

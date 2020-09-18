@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
+import com.sbs.meet.dto.Story;
 
 @Mapper
 public interface ArticleDao  {
@@ -71,6 +72,8 @@ public interface ArticleDao  {
 	List<ArticleLike> getArticleLikeByFollow(int articleId);
 
 	void doWriteStory(Map<String, Object> param);
+
+	List<Story> getForPrintStroiesInFollow(int loginedMemberId);
 
 
 }

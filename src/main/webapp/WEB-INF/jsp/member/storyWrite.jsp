@@ -253,21 +253,17 @@ textarea {
 			<input type="hidden" name="memberId" value="${loginedMemberId}" /> <input
 				type="hidden" name="redirectUri"
 				value="../member/showOther?id=${loginedMemberId}" /> <input
-				type="hidden" name="fileIdsStr"> <input type="hidden"
-				name="title" placeholder="제목" value="1" />
-
+				type="hidden" name="fileIdsStr"> 
 			<div class="f-box">
 				<label for="video"></label>
 				<div class="wrapping">
-					<input type="hidden" name="tag" /> 
 					<input type="file" id="ex_file" class="login-input-box"
 					placeholder="프로필" accept="video/*"
 					name="file__story__0__common__attachment__1">
 					<div class="textarea-box">
 						<textarea name="title" class="font3" cols="30" rows="10"
 							placeholder="제목을 입력해주세요." autofocus></textarea>
-						<input type="submit" class="submit" value="저장"
-							onclick="articleWriteNotify()" />
+						<input type="submit" class="submit" value="저장" />
 					</div>
 
 				</div>

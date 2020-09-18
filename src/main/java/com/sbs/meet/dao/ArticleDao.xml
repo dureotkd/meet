@@ -308,11 +308,43 @@
 		delStatus = 1,
 		displayStatus = 1
 	</insert>
+	<!--  스토리 리스트 ( 팔로우 )  -->
+	
+	<select id="getForPrintStroiesInFollow" resultMap="story">
+		SELECT S.*,
+		M.nickname AS extra__writer
+		FROM story AS S
+		INNER JOIN member AS M
+		ON M.id = S.memberId
+		INNER JOIN friend AS F
+		ON F.followId = M.id
+		WHERE F.followerId = #{loginedMemberId}
+		AND S.displayStatus = 1
+		AND S.delStatus = 1
+		ORDER BY S.id
+		DESC LIMIT 10	
+	</select>
 
 
+	<resultMap type="Story" id="story">
+		<id property="id" column="id" />
+		<id property="regDate" column="regDate" />
+		<id property="memberId" column="memberId" />
+		<id property="title" column="title" />
+		<id property="displayStatus" column="displayStatus" />
+		<id property="delStatus" column="delStatus" />
+		<id property="delRegDate" column="delRegDate" />
+		<association property="extra" javaType="map">
+			<id property="writer" column="extra__writer" />
+			<id property="heartPoint" column="extra__heartPoint"/>
+			<id property="replyCount" column="extra__replyCount"/>
+		</association>
+	</resultMap>
+	
 	<resultMap type="ArticleLike" id="articleLike">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />
+		<id property="title" column="regDate" />
 		<id property="articleId" column="articleId" />
 		<id property="memberId" column="memberId" />
 		<id property="readStatus" column="readStatus"></id>

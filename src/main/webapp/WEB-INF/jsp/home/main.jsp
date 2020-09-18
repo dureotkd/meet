@@ -654,6 +654,10 @@ color
 
 
 
+
+
+
+
 :
 
 
@@ -663,7 +667,15 @@ color
 
 
 
+
+
+
+
 #e23b3b
+
+
+
+
 
 
 
@@ -684,6 +696,10 @@ color
 
 
 
+
+
+
+
 :
 
 
@@ -693,7 +709,15 @@ color
 
 
 
+
+
+
+
 #transparent
+
+
+
+
 
 
 
@@ -720,7 +744,15 @@ padding
 
 
 
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -739,8 +771,16 @@ px
 
 
 
+
+
+
+
 16
 px
+
+
+
+
 
 
 
@@ -757,8 +797,16 @@ px
 
 
 
+
+
+
+
 ;
 margin-top
+
+
+
+
 
 
 
@@ -776,8 +824,16 @@ margin-top
 
 
 
+
+
+
+
 -4
 px
+
+
+
+
 
 
 
@@ -798,7 +854,15 @@ padding
 
 
 
+
+
+
+
 :
+
+
+
+
 
 
 
@@ -817,6 +881,10 @@ px
 
 
 
+
+
+
+
 12
 px
 
@@ -827,8 +895,16 @@ px
 
 
 
+
+
+
+
 8
 px
+
+
+
+
 
 
 
@@ -925,13 +1001,194 @@ px
 	font-size: 14px;
 	margin-bottom: 10px;
 }
+
 .count-unit {
+	font-size: 14px;
+	margin-left: 5px;
+}
+
+.stories-box {
+	max-width: 940px;
+	height: 100px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	margin-bottom : 50px;
+	position:relative;
+	display: flex;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.profile_wrapper {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+.profile_wrapper>p {
+	color: #262626;
+	font-size: 14px;
+	margin-left: 5px;
+	margin-top: 5px;
+	text-align:center;
+}
+
+.image-wrapper {
+	width: 65px;
+	height: 65px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.storyAvatar {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+#video-view {
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 10000000;
+	height: 100%;
+	width: 100%;
+}
+
+.overlay {
+	background: #000;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: 9999999;
+}
+
+.class-video {
+	z-index: 9999999999;
+	position: fixed;
+	top: 20%;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+.close-video {
+	z-index: 9999999999999;
+	position: fixed;
+	top: 15%;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	text-align: center;
+	color: black;
+	font-size: 1.2rem;
+}
+
+.image-wrapper2 {
+	z-index: 9999999999999;
+	top: 14%;
+	right: 0;
+	left: 50%;
+	bottom: 0;
+	text-align: center;
+	font-weight: bold;
+	width: 65px;
+	height: 65px;
+	border-radius: 50%;
+	overflow: hidden;
+	
+}
+.ss-video-holder {
+	margin-bottom: 40px;
+	max-width: 520px;
+}
+
+.ss-popup {
+	max-width: 50px;
+	position: relative;
+	background-size: cover;
+}
+
+iframe {
+	border: none;
+}
+.video-wrapping {
+    z-index: 9999999;
+    position: relative;
+    width: 800px;
+    height: 700px;
+    background: white;
+    left: 50%;
+    top: 50%;
+    border-radius:30px;
+    transform: translate(-50%, -50%);
+   }
+.story-info {
+	z-index: 9999999;
+    width: 695px;
+    bottom: 14%;
+    height: 150px;
+    position: absolute;
+    display: flex;
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%, -50%);
+    align-items: center;
+}
+.story-sub > span {
+	margin-left:15px;
+}
+.story-sub {
+	display:flex;
+	flex-direction:column;
+}
+.silver {
+	color:#bdbdbd;
+}
+.f14  {
 	font-size:14px;
-	margin-left:5px;
+}
+.story-main {
+    width: 60%;
+    margin-left: 100px;
+    /* height: 150px; */
+    display: flex;
+    justify-content: space-between;
+}
+.story-btn {
+	position: absolute;
+    right: 0;
+    right: 15px;
+    padding: 10px;
+    color: #e23b3b;
+    font-family: 'Courgette', cursive;
+    font-size:20px;  
 }
 </style>
 
 <nav class="total-box">
+	<c:if test="${isLogined}">
+		<div class="stories-box">
+			<c:forEach items="${stories}" var="story">
+			<c:if test="${story.extra.file__common__attachment['1'] != null}">
+				<div class="profile_wrapper">
+					<div class="image-wrapper">
+						<a class="ss-popup" href="#!"
+							data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
+							<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
+							alt="" />
+						</a>
+					</div>
+					<p>${story.extra.writer}</p>
+				</div>
+			</c:if>
+			</c:forEach>
+			<a href="../member/storyWrite" class="story-btn">Meet In Story +</a>
+		</div>
+	</c:if>
 	<div class="articles-box">
 		<c:forEach items="${articles}" var="article">
 			<div class="articles-item" data-id="${article.memberId}"
@@ -1023,6 +1280,58 @@ px
 
 
 
+<div id="video-view">
+	<div class="overlay"></div>
+	<span class="close-video"><i class="far fa-times-circle"></i></span>
+	<div class="video-wrapping">
+	<c:forEach items="${stories}" var="story">
+	<c:forEach items="${files}" var="file">
+	<c:if test="${ file.relId == story.id }">
+	<div class="story-info">
+	<div class="image-wrapper2">
+	<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}" alt="" />
+	</div>
+	<div class="story-sub">
+	<span>${story.extra.writer}</span>
+	<span class="silver f14">${story.regDateFormat}</span>
+	</div>
+	<div class="story-main">
+	<p>${story.title}</p>
+	<i class="fas fa-heart heart red"></i>
+	<p>테스트 기능..테스트!</p>
+	</div>
+	</div>
+	</c:if>
+	</c:forEach>
+	</c:forEach>
+	</div>
+</div>
+
+<script>
+	$(".ss-popup").click(
+			function() {
+				$("#video-view").show();
+				var $this = $(this);
+				var autoplay = "&amp;autoplay=1"
+				var $iframe = $("<iframe>").attr("src",
+						($this.data("link") + autoplay)).css({
+					"width" : 695,
+					"height" : 400
+				});
+				var $title = $("<h1>").text($this.data("title"));
+				$("#video-view").append($iframe);
+				$iframe.wrap("<div class='class-video'>");
+			});
+
+	$(".close-video").click(function() {
+		$("#video-view").hide();
+		$("#video-view iframe").attr("src", "");
+	});
+
+	$("#video-view .overlay").click(function() {
+		$("#video-view").hide();
+	});
+</script>
 
 
 <!--  메시지 팝업  -->

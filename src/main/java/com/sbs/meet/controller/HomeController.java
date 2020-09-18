@@ -17,6 +17,7 @@ import com.sbs.meet.dto.ArticleLike;
 import com.sbs.meet.dto.ArticleReply;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
+import com.sbs.meet.dto.Story;
 import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FileService;
 import com.sbs.meet.service.MemberService;
@@ -60,6 +61,51 @@ public class HomeController {
 			
 			articleRepliesBig.add(articleReplys);
 		}
+		// 스토리 리스트
+		
+		List<Story> stories = articleService.getForPrintStroiesInFollow(loginedMemberId);
+		
+		// 스토리 [ 동영상 파일 ] 불러오기 
+		for ( Story story : stories ) {
+			
+			List<File> files = fileService.getFiles("story",story.getId(),"common","attachment");
+			 
+			Map<String, File> filesMap = new HashMap<>();
+			
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "",file);
+			}
+			
+			Util.putExtraVal(story,"file__common__attachment",filesMap);
+			
+			model.addAttribute("files",files);
+		}
+		
+		for (Story story : stories) {
+			// 스토리 글쓴이 [프로필 파일] 불러오기
+			
+			List<File> files = fileService.getFiles("member",story.getMemberId(),"common","attachment");
+			
+			if (files.size() > 0) {
+				File file = files.get(0);
+				
+				if ( story.getExtra() == null ) {
+					story.setExtra(new HashMap<>());
+				}
+				
+				story.getExtra().put("storyAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+			} else {
+				story.getExtra().put("storyAvatarImgUrl", "/resource/img/avatar_no.jpg");
+			}
+			Map<String, File> filesMap = new HashMap<>();
+
+			for (File file : files) {
+				filesMap.put(file.getFileNo() + "", file);
+			}	
+		}
+		
+		
+		
 		
 		model.addAttribute("articleRepliesBig",articleRepliesBig);
 		
@@ -153,7 +199,7 @@ public class HomeController {
 			Util.putExtraVal(article, "file__common__attachment", filesMap);
 			}
 		
-		
+		model.addAttribute("stories",stories);
 		model.addAttribute("followerCount",followerCount);
 		model.addAttribute("members",members);
 		model.addAttribute("articles",articles);
