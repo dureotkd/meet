@@ -263,7 +263,8 @@
 		followId =
 		#{followId},
 		followerId = #{followerId},
-		readStatus = 0
+		readStatus = 0,
+		displayStatus = 1
 	</insert>
 
 	<delete id="doDeleteFollow">
@@ -458,6 +459,7 @@
 		<id property="followId" column="followId" />
 		<id property="followerId" column="followerId" />
 		<id property="readStatus" column="readStatus" />
+		<id property="displayStatus" column="displayStatus"></id>
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
 		</association>

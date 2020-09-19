@@ -75,5 +75,10 @@ public interface ArticleDao  {
 
 	List<Story> getForPrintStroiesInFollow(int loginedMemberId);
 
+	void increaseHit(int id);
+
+	List<Story> getForPrintStories(int memberId);
+
+
 
 }

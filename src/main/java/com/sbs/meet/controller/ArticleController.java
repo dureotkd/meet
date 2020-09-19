@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sbs.meet.dto.Article;
 import com.sbs.meet.dto.File;
 import com.sbs.meet.dto.Member;
+import com.sbs.meet.dto.Story;
 import com.sbs.meet.service.ArticleService;
 import com.sbs.meet.service.FileService;
 import com.sbs.meet.service.MemberService;
@@ -294,7 +295,7 @@ public class ArticleController {
 				article.getExtra().put("writerAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
 			}
 			else {
-				article.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				article.getExtra().put("writerAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			
 			Map<String, File> filesMap = new HashMap<>();
@@ -310,7 +311,11 @@ public class ArticleController {
 		return "article/textList";
 	}
 
-	
+	@RequestMapping("article/increaseHit")
+	@ResponseBody
+	public void increaseHit(int id) {	
+		articleService.increaseHit(id);
+	}
 	
 	
 	

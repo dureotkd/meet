@@ -131,13 +131,15 @@
 		});
 	});
 
-	function blockWhoClickedUser() {
-		if (confirm('사용자를 차단하시겠습니까? \n차단하면 팔로우가 끊기며 피드를 접할 수 없습니다.') == true) {
-		} else {
-			return;
-		}
+	function increaseHit(el) {
+		var $div = $(el).closest('.image-wrapper');
+		// 가장 가까운 li를 찾아라
+		var id = parseInt($div.attr('data-id'));
+		// 정수화 -> data-id
 
-		location.reload();
+		$.post('../article/increaseHit', {
+			id : id
+		},'json');
 	}
 </script>
 
@@ -637,6 +639,7 @@ h4 {
 	color: #e23b3b;
 }
 
+
 @
 keyframes fade { 0% {
 	color: #transparent;
@@ -927,7 +930,6 @@ px
 		height: 400px;
 	}
 	.article-img-box {
-		height: 350px;
 		width: 100%;
 		overflow: hidden;
 	}
@@ -943,6 +945,26 @@ px
 	}
 	.total-box {
 		margin: 41px auto;
+	}
+	iframe {
+		max-width:700px;
+		height:272px;
+	}
+	.image-wrapper2{
+		margin-left:10px;
+	}
+	.s-title {
+		margin-left:10px;
+	}
+	.marl-10 {
+	margin-left:10px;
+	}
+	.image-wrapper2 {
+		bottom: 0;
+	}
+	.image-wrapper {
+		width: 50px;
+		height: 50px;
 	}
 }
 
@@ -986,6 +1008,22 @@ px
 		padding: 35px 50px;
 		border: 1px solid #e8e8e8;
 	}
+	.video-wrapping {
+		border-radius:30px;
+		max-height: 600px;
+  
+	}
+	iframe {
+		max-width:700px;
+		height:350px;
+	}
+	.image-wrapper2 {
+		bottom: -10px;
+	}
+	.image-wrapper {
+		width: 65px;
+		height: 65px;
+	}
 }
 
 .articleReplies-box {
@@ -1017,6 +1055,7 @@ px
 	display: flex;
 	align-items: center;
 	margin-bottom: 50px;
+	margin-top:80px;
 }
 
 .profile_wrapper {
@@ -1033,8 +1072,6 @@ px
 }
 
 .image-wrapper {
-	width: 65px;
-	height: 65px;
 	border-radius: 50%;
 	overflow: hidden;
 }
@@ -1059,16 +1096,17 @@ px
 
 .overlay {
 	background: #000;
-	position: absolute;
+	position:fixed;
 	height: 100%;
 	width: 100%;
+	opacity:0.8;
 	z-index: 9999999;
 }
 
 .class-video {
 	z-index: 9999999999;
 	position: fixed;
-	top: 20%;
+	top: 15%;
 	right: 0;
 	left: 0;
 	bottom: 0;
@@ -1078,7 +1116,7 @@ px
 .close-video {
 	z-index: 9999999999999;
 	position: fixed;
-	top: 15%;
+	top: 10%;
 	right: 0;
 	left: 0;
 	bottom: 0;
@@ -1086,17 +1124,19 @@ px
 	color: black;
 	font-size: 1.2rem;
 }
+.close-video > i {
+	position:absolute;
+}
 
 .image-wrapper2 {
 	z-index: 9999999999999;
 	top: 14%;
 	right: 0;
 	left: 50%;
-	bottom: 0;
 	text-align: center;
 	font-weight: bold;
-	width: 65px;
-	height: 65px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 	overflow: hidden;
 	
@@ -1113,50 +1153,55 @@ px
 }
 
 iframe {
-	border: none;
+	border:none;
+	outline:none;
+	width:100%;
 }
 .video-wrapping {
     z-index: 9999999;
     position: relative;
-    width: 800px;
-    height: 700px;
+    max-width: 800px;
+    height:100%;
+    width:100%;
     background: white;
     left: 50%;
     top: 50%;
-    border-radius:30px;
     transform: translate(-50%, -50%);
-   }
+ }
 .story-info {
 	z-index: 9999999;
-    width: 695px;
-    bottom: 14%;
-    height: 150px;
+    max-width: 700px;
+    width:100%;
+    bottom: 30px;
     position: absolute;
     display: flex;
+    flex-direction:column;
     left: 50%;
-    bottom: 0px;
-    transform: translate(-50%, -50%);
-    align-items: center;
+    transform: translate(-50%,0%);
+ }
+.story-container {
+	display:flex;
+	width:100%;
+	margin-top:10px;
 }
 .story-sub > span {
-	margin-left:15px;
+	margin-left:10px;
 }
 .story-sub {
 	display:flex;
 	flex-direction:column;
+	width:20%;
+	justify-content:center;
 }
 .silver {
-	color:#bdbdbd;
+	color:#909090;
 }
 .f14  {
-	font-size:14px;
+	font-size:12px;
 }
 .story-main {
-    width: 60%;
-    margin-left: 100px;
-    /* height: 150px; */
     display: flex;
-    justify-content: space-between;
+    align-items:center;
 }
 .story-btn {
 	position: absolute;
@@ -1167,6 +1212,10 @@ iframe {
     font-family: 'Courgette', cursive;
     font-size:20px;  
 }
+.s-title {
+	font-weight:normal;
+}
+
 </style>
 
 <nav class="total-box">
@@ -1175,8 +1224,8 @@ iframe {
 			<c:forEach items="${stories}" var="story">
 			<c:if test="${story.extra.file__common__attachment['1'] != null}">
 				<div class="profile_wrapper">
-					<div class="image-wrapper">
-						<a class="ss-popup" href="#!"
+					<div class="image-wrapper" data-id="${story.id}">
+						<a class="ss-popup" href="#!" onclick="increaseHit(this);"
 							data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
 							<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
 							alt="" />
@@ -1279,33 +1328,34 @@ iframe {
 </c:if>
 
 
-
+<c:forEach items="${stories}" var="story">
+	<c:forEach items="${files}" var="file">
+	<c:if test="${ file.relId == story.id }">
 <div id="video-view">
 	<div class="overlay"></div>
 	<span class="close-video"><i class="far fa-times-circle"></i></span>
 	<div class="video-wrapping">
-	<c:forEach items="${stories}" var="story">
-	<c:forEach items="${files}" var="file">
-	<c:if test="${ file.relId == story.id }">
 	<div class="story-info">
+	<h2 class="s-title">${story.title} ${file.relId} ${story.id}</h2>
+	<span class="silver f14 marl-10 ">${story.regDateFormat} &nbsp; 조회수 : ${story.hit} </span>
+	<div class="story-container">
 	<div class="image-wrapper2">
 	<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}" alt="" />
 	</div>
 	<div class="story-sub">
 	<span>${story.extra.writer}</span>
-	<span class="silver f14">${story.regDateFormat}</span>
+	<span class="silver f14">팔로워 ${story.extra.followCount}</span>
 	</div>
 	<div class="story-main">
-	<p>${story.title}</p>
 	<i class="fas fa-heart heart red"></i>
-	<p>테스트 기능..테스트!</p>
 	</div>
 	</div>
-	</c:if>
-	</c:forEach>
-	</c:forEach>
+	</div>
 	</div>
 </div>
+</c:if>
+	</c:forEach>
+	</c:forEach>
 
 <script>
 	$(".ss-popup").click(
@@ -1314,11 +1364,7 @@ iframe {
 				var $this = $(this);
 				var autoplay = "&amp;autoplay=1"
 				var $iframe = $("<iframe>").attr("src",
-						($this.data("link") + autoplay)).css({
-					"width" : 695,
-					"height" : 400
-				});
-				var $title = $("<h1>").text($this.data("title"));
+						($this.data("link") + autoplay));
 				$("#video-view").append($iframe);
 				$iframe.wrap("<div class='class-video'>");
 			});

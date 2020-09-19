@@ -21,6 +21,7 @@
 	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap"
 	rel="stylesheet">
 
+
 <style>
 @media ( min-width :800px ) {
 	.visible-off-pc {
@@ -83,6 +84,8 @@
 	justify-content: center;
 }
 </style>
+
+
 
 <div class="footline visible-off-pc"></div>
 <div class="footbar visible-off-pc">

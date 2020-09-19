@@ -188,6 +188,17 @@
 		}
 		location.reload();
 	}
+
+	function increaseHit(el) {
+		var $div = $(el).closest('.image-wrapper');
+		// 가장 가까운 li를 찾아라
+		var id = parseInt($div.attr('data-id'));
+		// 정수화 -> data-id
+
+		$.post('../article/increaseHit', {
+			id : id
+		},'json');
+	}
 </script>
 
 
@@ -956,8 +967,6 @@ input[type="file"] {
 </div>
 <div class="dim"></div>
 
-
-
 <div class="articles-box">
 	<ul>
 		<c:if test="${usePrivateAccount == false }">
@@ -1114,5 +1123,28 @@ input[type="file"] {
 					</c:if>
 	</ul>
 </div>
+
+<script>
+	$(".ss-popup").click(
+			function() {
+				$("#video-view").show();
+				var $this = $(this);
+				var autoplay = "&amp;autoplay=1"
+				var $iframe = $("<iframe>").attr("src",
+						($this.data("link") + autoplay));
+				$("#video-view").append($iframe);
+				$iframe.wrap("<div class='class-video'>");
+			});
+
+	$(".close-video").click(function() {
+		$("#video-view").hide();
+		$("#video-view iframe").attr("src", "");
+	});
+
+	$("#video-view .overlay").click(function() {
+		$("#video-view").hide();
+	});
+</script>
+
 
 <%@ include file="../part/foot.jspf"%>

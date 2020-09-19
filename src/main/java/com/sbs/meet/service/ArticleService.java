@@ -69,7 +69,7 @@ public class ArticleService {
 			article.getExtra().put("writerAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
 		}
 		else {
-			article.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+			article.getExtra().put("writerAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 		}
 		
 		
@@ -339,6 +339,18 @@ public class ArticleService {
 
 	public List<Story> getForPrintStroiesInFollow(int loginedMemberId) {	
 		return articleDao.getForPrintStroiesInFollow(loginedMemberId);
+	}
+
+
+
+	public void increaseHit(int id) {
+		articleDao.increaseHit(id);
+	}
+
+
+
+	public List<Story> getForPrintStroies(int memberId) {
+		return articleDao.getForPrintStories(memberId);
 	}
 
 

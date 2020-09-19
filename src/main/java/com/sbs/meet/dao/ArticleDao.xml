@@ -312,7 +312,8 @@
 	
 	<select id="getForPrintStroiesInFollow" resultMap="story">
 		SELECT S.*,
-		M.nickname AS extra__writer
+		M.nickname AS extra__writer,
+		IFNULL(SUM(F.displayStatus),0) AS extra__followCount
 		FROM story AS S
 		INNER JOIN member AS M
 		ON M.id = S.memberId
@@ -321,9 +322,30 @@
 		WHERE F.followerId = #{loginedMemberId}
 		AND S.displayStatus = 1
 		AND S.delStatus = 1
+		GROUP BY S.id
 		ORDER BY S.id
 		DESC LIMIT 10	
 	</select>
+	
+	<select id="getForPrintStories" resultMap="story">
+		SELECT S.*,
+		M.nickname AS extra__writer
+		FROM story AS S
+		INNER JOIN member AS M
+		ON M.id = S.memberId
+		WHERE M.id = #{memberId}
+		AND S.displayStatus = 1
+		AND S.delStatus = 1
+		AND M.delStatus = 0
+		ORDER BY S.id
+		DESC LIMIT 10	
+	</select>
+	
+	<update id="increaseHit">
+	UPDATE story
+	SET hit = hit + 1
+	WHERE id = #{id}
+	</update>
 
 
 	<resultMap type="Story" id="story">
@@ -334,8 +356,10 @@
 		<id property="displayStatus" column="displayStatus" />
 		<id property="delStatus" column="delStatus" />
 		<id property="delRegDate" column="delRegDate" />
+		<id property="hit" column="hit"></id>
 		<association property="extra" javaType="map">
 			<id property="writer" column="extra__writer" />
+			<id property="followCount" column="extra__followCount"/>
 			<id property="heartPoint" column="extra__heartPoint"/>
 			<id property="replyCount" column="extra__replyCount"/>
 		</association>
@@ -344,7 +368,6 @@
 	<resultMap type="ArticleLike" id="articleLike">
 		<id property="id" column="id" />
 		<id property="regDate" column="regDate" />
-		<id property="title" column="regDate" />
 		<id property="articleId" column="articleId" />
 		<id property="memberId" column="memberId" />
 		<id property="readStatus" column="readStatus"></id>

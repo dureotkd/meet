@@ -61,48 +61,50 @@ public class HomeController {
 			
 			articleRepliesBig.add(articleReplys);
 		}
-		// 스토리 리스트
-		
-		List<Story> stories = articleService.getForPrintStroiesInFollow(loginedMemberId);
-		
-		// 스토리 [ 동영상 파일 ] 불러오기 
-		for ( Story story : stories ) {
+			// 스토리 리스트
 			
-			List<File> files = fileService.getFiles("story",story.getId(),"common","attachment");
-			 
-			Map<String, File> filesMap = new HashMap<>();
+			List<Story> stories = articleService.getForPrintStroiesInFollow(loginedMemberId);
 			
-			for (File file : files) {
-				filesMap.put(file.getFileNo() + "",file);
-			}
-			
-			Util.putExtraVal(story,"file__common__attachment",filesMap);
-			
-			model.addAttribute("files",files);
-		}
-		
-		for (Story story : stories) {
-			// 스토리 글쓴이 [프로필 파일] 불러오기
-			
-			List<File> files = fileService.getFiles("member",story.getMemberId(),"common","attachment");
-			
-			if (files.size() > 0) {
-				File file = files.get(0);
+			// 스토리 [ 동영상 파일 ] 불러오기 
+			for ( Story story : stories ) {
 				
-				if ( story.getExtra() == null ) {
-					story.setExtra(new HashMap<>());
+				List<File> files = fileService.getFiles("story",story.getId(),"common","attachment");
+				 
+				Map<String, File> filesMap = new HashMap<>();
+				
+				for (File file : files) {
+					filesMap.put(file.getFileNo() + "",file);
 				}
 				
-				story.getExtra().put("storyAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
-			} else {
-				story.getExtra().put("storyAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				Util.putExtraVal(story,"file__common__attachment",filesMap);
+				
+				model.addAttribute("files",files);
 			}
-			Map<String, File> filesMap = new HashMap<>();
-
-			for (File file : files) {
-				filesMap.put(file.getFileNo() + "", file);
-			}	
-		}
+			
+			for (Story story : stories) {
+				// 스토리 글쓴이 [프로필 파일] 불러오기
+				
+				List<File> files = fileService.getFiles("member",story.getMemberId(),"common","attachment");
+				
+				if (files.size() > 0) {
+					File file = files.get(0);
+					
+					if ( story.getExtra() == null ) {
+						story.setExtra(new HashMap<>());
+					}
+					
+					story.getExtra().put("storyAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+				} else {
+					story.getExtra().put("storyAvatarImgUrl","https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+				}
+				Map<String, File> filesMap = new HashMap<>();
+	
+				for (File file : files) {
+					filesMap.put(file.getFileNo() + "", file);
+				}
+			}
+			
+		
 		
 		
 		
@@ -148,7 +150,7 @@ public class HomeController {
 				
 				member.getExtra().put("recomendAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
-				member.getExtra().put("recomendAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				member.getExtra().put("recomendAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
@@ -174,7 +176,7 @@ public class HomeController {
 				article.getExtra().put("writerAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());				
 			}
 			else {
-				article.getExtra().put("writerAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				article.getExtra().put("writerAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			
 			Map<String, File> filesMap = new HashMap<>();

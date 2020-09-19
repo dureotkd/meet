@@ -16,6 +16,7 @@ public class Friend {
 	private int readStatus;
 	private int followId;
 	private int followerId;
+	private int displayStatus;
 	private String regDate;
 	private Map<String, Object> extra;
 	

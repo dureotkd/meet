@@ -21,6 +21,7 @@ public class Story {
 	private int delStatus;
 	private int displayStatus;
 	private int memberId;
+	private int hit;
 	
 	private Map<String, Object> extra;
 	

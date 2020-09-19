@@ -241,8 +241,7 @@ textarea {
 				src="/meet/file/showImg?id=${loginedMember.extra.file__common__attachment['1'].id}&updateDate=${loginedMember.extra.file__common__attachment['1'].updateDate}" />
 		</div>
 		<div class="login-reco">
-			<h2 class="font3">${loginedMember.nickname}님의
-				${articleIdCount+1}번째 스토리입니다 .</h2>
+			<h2 class="font3">${loginedMember.nickname}님 환영합니다.
 		</div>
 	</div>
 
@@ -262,7 +261,7 @@ textarea {
 					name="file__story__0__common__attachment__1">
 					<div class="textarea-box">
 						<textarea name="title" class="font3" cols="30" rows="10"
-							placeholder="제목을 입력해주세요." autofocus></textarea>
+							placeholder="제목을 입력해주세요." maxlength="20" autofocus></textarea>
 						<input type="submit" class="submit" value="저장" />
 					</div>
 

@@ -181,7 +181,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				if ( friend.getExtra() == null ) {
 					friend.setExtra(new HashMap<>());
 				}	
-				friend.getExtra().put("followSenderAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
+				friend.getExtra().put("followSenderAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
 			}
 			else {
 				friend.getExtra().put("followSenderAvatarImgUrl", "/resource/img/avatar_no.jpg");
@@ -202,7 +202,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				if ( articleReply.getExtra() == null ) {
 					articleReply.setExtra(new HashMap<>());
 				}	
-				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
+				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
 			}
 			else {
 				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/resource/img/avatar_no.jpg");
@@ -223,7 +223,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				if ( articleLike.getExtra() == null) {
 					articleLike.setExtra(new HashMap<>());
 				}
-				articleLike.getExtra().put("likeSenderAvatarImgUrl", "/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+				articleLike.getExtra().put("likeSenderAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			}
 			else {
 				articleLike.getExtra().put("likeSenderAvatarImgUrl", "/resource/img/avatar_no.jpg");
