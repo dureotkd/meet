@@ -944,7 +944,7 @@ px
 		margin-bottom: 15px;
 	}
 	.total-box {
-		margin: 41px auto;
+		margin: 0px auto;
 	}
 	iframe {
 		max-width:700px;
@@ -1024,6 +1024,9 @@ px
 		width: 65px;
 		height: 65px;
 	}
+	.stories-box {
+		margin-top:100px;
+	}
 }
 
 .articleReplies-box {
@@ -1055,7 +1058,6 @@ px
 	display: flex;
 	align-items: center;
 	margin-bottom: 50px;
-	margin-top:80px;
 }
 
 .profile_wrapper {

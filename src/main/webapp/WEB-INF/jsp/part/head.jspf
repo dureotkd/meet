@@ -269,7 +269,6 @@ h1 {
 	position: fixed;
 	background: #fff;
 	top: 0;
-	z-index: 50;
 	left: 50%;
 	transform: translate(-50%, 0px);
 }
@@ -535,6 +534,14 @@ h1 {
 	transform: translate(-50%, 0px);
 }
 
+.select-m-box {
+	display: flex;
+    height: 100px;
+    align-items: center;
+    margin-top: 30px;
+    justify-content: center;
+}
+
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
 @media ( max-width :799px ) {
 	.visible-on-sm-up {
@@ -546,6 +553,7 @@ h1 {
 	.top-bar {
 		justify-content: space-between;
 		height: 40px;
+		z-index:1000;
 	}
 	.top-line {
 		height: 40px;
@@ -573,6 +581,8 @@ h1 {
 	.menu-box {
 		margin-left: 10px;
 	}
+	
+	
 }
 
 /* 800px 이하면 안보이게 ( 모바일 버전 ) */
@@ -593,6 +603,7 @@ h1 {
 	.top-bar {
 		justify-content: space-between;
 		height: 60px;
+		z-index:50;
 	}
 	.top-line {
 		height: 60px;
@@ -629,8 +640,9 @@ h1 {
 	{
 	display: none;
 }
+
 .select2-container {
-	z-index:100;
+	z-index: 100;
 }
 
 .select {
@@ -638,6 +650,7 @@ h1 {
 	text-align: center;
 	width: 200px;
 }
+
 
 .select2-container--default.select2-container--focus .select2-selection--multiple
 	{
@@ -665,21 +678,25 @@ h1 {
 	height: 80px;
 	overflow: hidden;
 }
+
 .select2-result-repository__meta {
-	margin-left:10px;
+	margin-left: 10px;
 }
+
 .select2-result-repository__introduce {
 	width: 170px;
-    overflow: hidden;
-    display: flex;
-    text-overflow: ellipsis;
-    color: #c6dcef;
-    white-space: nowrap;
-    font-size: 14px;
+	overflow: hidden;
+	display: flex;
+	text-overflow: ellipsis;
+	color: #c6dcef;
+	white-space: nowrap;
+	font-size: 14px;
 }
+
 .select2-result-repository__statistics {
-	font-size:14px;
+	font-size: 14px;
 }
+
 .repo-avatar {
 	width: 100%;
 	height: 100%;
@@ -687,18 +704,20 @@ h1 {
 }
 
 .repo-box {
-	display:flex;
-	align-items:start;
+	display: flex;
+	align-items: start;
 }
 
 .fa-quote-left {
 	margin-right: 6px;
 }
+
 .aqua {
-	color:aqua;
+	color: aqua;
 }
+
 .fa-star {
-	color:yellow;
+	color: yellow;
 }
 </style>
 
@@ -713,7 +732,7 @@ h1 {
 					In here</h1></a>
 		</div>
 
-		<div class="select visible-on-sm-up">
+		<div class="select">
 			<!-- 속성에 multiple를 추가합시다. -->
 			<select class="form-control" multiple="multiple">
 			</select>
@@ -893,11 +912,6 @@ h1 {
 				</ul>
 			</div>
 
-			<div class="search-box visible-on-sm-up">
-				<input type="search" class="search" name="searchKeyword"
-					placeholder="검색" value="${param.searchKeyword}" />
-			</div>
-
 		</div>
 
 		<div class="logo-box">
@@ -930,8 +944,17 @@ h1 {
 		</div>
 
 	</div>
+		
+		<div class="select-m-box visible-on-sm-down">
+		<div class="select-m">
+				<!-- 속성에 multiple를 추가합시다. -->
+				<select class="form-control" multiple="multiple">
+				</select>
+			</div>
+			</div>
 	
-	
+
+
 	<script>
 
 $(document).ready(function(){
