@@ -669,7 +669,7 @@ h1 {
 	margin-left:10px;
 }
 .select2-result-repository__introduce {
-	width: 62px;
+	width: 170px;
     overflow: hidden;
     display: flex;
     text-overflow: ellipsis;
@@ -966,11 +966,10 @@ function formatRepo (repo) {
 	  if (repo.loading) {
 	    return "잠시만 기다려 주세요.";
 	  }
-
 	  var $container = $(
 	    "<div class='select2-result-repository clearfix'>" +
-	    "<a class='repo-box' href='../member/showOther?id="+repo.id+"'>"  + 
-	      "<div class='select2-result-repository__avatar'><img class='repo-avatar' src=' " + repo.image.repoAvatarImg +"' /></div>" +
+	    "<a class='repo-box' href='../member/showOther?id="+repo.id+"'>"  +
+		  "<div class='select2-result-repository__avatar'><img class='repo-avatar' src=' " + repo.image.repoAvatarImg +"' /></div>" +
 	      "<div class='select2-result-repository__meta'>" +
 	        "<div class='select2-result-repository__title'><p>" + repo.text +  "</p></div>" +
 	        "<div class='select2-result-repository__introduce'><p>" + repo.introduce +  "</p></div>" +
@@ -986,7 +985,6 @@ function formatRepo (repo) {
 
 	  $container.find(".select2-result-repository__stargazers").append(repo.followerCount + " 팔로우	");
 	  $container.find(".select2-result-repository__watchers").append(repo.articleCount + " 게시글 ");
-
 	  return $container;
 	}
 

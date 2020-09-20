@@ -441,14 +441,13 @@ public class MemberController {
 	public List<Object> showRegistory(String searchKeyword) {
 
 		List<Member> members = memberService.getMemberBySearch(searchKeyword);
-		
-		
-
-		Map<String, Object> rs = new HashMap<>();
 
 		List<Object> results = new ArrayList<>();
 
+
 		for (Member member : members) {
+			
+			Map<String, Object> rs = new HashMap<>();
 
 			// SELECT 2  검색 유저  [프로필 파일] 불러오기
 
@@ -464,7 +463,9 @@ public class MemberController {
 				member.getExtra().put("repoAvatarImg",
 						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
+				System.out.println("확인"+member.getExtra());
 				member.getExtra().put("repoAvatarImg", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+				System.out.println("확인2"+member.getExtra());	
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
@@ -476,17 +477,20 @@ public class MemberController {
 			int followerCount = memberService.getFollowCount(member.getId());
 			// 검색 유저 게시글 카운트
 			int articleCount = articleService.getArticleCount(member.getId());
-			rs.put("id", member.getId());
-			rs.put("text", member.getNickname());
-			rs.put("introduce",member.getIntroduce());
-			rs.put("email", member.getEmail());
-			rs.put("image", member.getExtra());
-			rs.put("followerCount", followerCount);
-			rs.put("articleCount", articleCount);
+			
+			
+				rs.put("id", member.getId());
+				rs.put("text", member.getNickname());
+				rs.put("introduce",member.getIntroduce());
+				rs.put("image", member.getExtra());
+				rs.put("followerCount", followerCount);
+				rs.put("articleCount", articleCount);
+						
+				results.add(rs);
+
 		}
-
-		results.add(rs);
-
+		
+		
 		return results;
 	}
 
