@@ -5,7 +5,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="../resource/css/" />
 <script>
 	function callDoLike(el) {
 		var $li = $(el).closest('li');
@@ -173,7 +172,6 @@ video[controls]::-webkit-media-controls-panel {
 	<div class="board-bar">
 		<a class="board" href="imgList"><i class="fas fa-image"></i></a> <a
 			class="board action " href="videoList"><i class="fas fa-video"></i></a>
-		<a class="board" href="textList"><i class="fas fa-quote-left"></i></a>
 	</div>
 	<div class="articles-box">
 		<ul>

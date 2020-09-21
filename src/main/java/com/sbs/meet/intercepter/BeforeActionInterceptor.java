@@ -184,7 +184,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				friend.getExtra().put("followSenderAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
 			}
 			else {
-				friend.getExtra().put("followSenderAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				friend.getExtra().put("followSenderAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			
 			Map<String, File> filesMap = new HashMap<>();
@@ -205,7 +205,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());		
 			}
 			else {
-				articleReply.getExtra().put("replyWriterAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				articleReply.getExtra().put("replyWriterAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			
 			Map<String, File> filesMap = new HashMap<>();
@@ -226,7 +226,7 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 				articleLike.getExtra().put("likeSenderAvatarImgUrl", "/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			}
 			else {
-				articleLike.getExtra().put("likeSenderAvatarImgUrl", "/resource/img/avatar_no.jpg");
+				articleLike.getExtra().put("likeSenderAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			
 			Map<String, File> filesMap = new HashMap<>();

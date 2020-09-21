@@ -22,9 +22,7 @@
 			}
 		});
 	});
-
 	// closest 가 안됨 
-
 	function callDoLike(el) {
 		var $div = $(el).closest('.articles-item');
 		// 가장 가까운 li를 찾아라
@@ -41,27 +39,22 @@
 			}
 		}, 'json');
 	}
-
 	function cancleLike(el) {
-
 		var $div = $(el).closest('.articles-item');
 		// 가장 가까운 li를 찾아라
 		var id = parseInt($div.attr('data-id2'));
 		// 정수화 -> data-id2
-
 		$.post('./cancleLike', {
 			id : id
 		}, function(data) {
 			if (data.msg) {
 				alert(data.msg);
 			}
-
 			if (data.resultCode.substr(0, 2) == "S-") {
 				ViewArticle1__updateLikePoint(data.likePoint);
 			}
 		}, 'json');
 	}
-
 	$(document).ready(function() {
 		$(".direct").on('click', function() {
 			$(".popup").show();
@@ -72,7 +65,6 @@
 			$(".dim").hide();
 		});
 	});
-
 	function WriteMessage__submitForm(form) {
 		form.body.value = form.body.value.trim();
 		if (form.body.value.length == 0) {
@@ -95,7 +87,6 @@
 		}, 'json');
 		form.body.value = '';
 	}
-
 	function doFollow(el) {
 		var $div = $(el).closest('.recomend-item');
 		// 가장 가까운 li를 찾아라
@@ -107,14 +98,12 @@
 		}, 'json');
 		location.href = location.href;
 	}
-
 	function doDeleteFollow(el) {
 		if (confirm("팔로우를 취소하시겠습니까 ?") == true) {
 			var $div = $(el).closest('.articles-item');
 			// 가장 가까운 li를 찾아라
 			var followId = parseInt($div.attr('data-id'));
 			// 정수화 -> data-id
-
 			$.post('../member/doDeleteFollow', {
 				followId : followId,
 				followerId : followerId
@@ -124,22 +113,19 @@
 			return;
 		}
 	}
-
 	$(document).ready(function() {
 		$('.slider').bxSlider({
 			mode : 'fade'
 		});
 	});
-
 	function increaseHit(el) {
 		var $div = $(el).closest('.image-wrapper');
 		// 가장 가까운 li를 찾아라
 		var id = parseInt($div.attr('data-id'));
 		// 정수화 -> data-id
-
 		$.post('../article/increaseHit', {
 			id : id
-		},'json');
+		}, 'json');
 	}
 </script>
 
@@ -639,7 +625,6 @@ h4 {
 	color: #e23b3b;
 }
 
-
 @
 keyframes fade { 0% {
 	color: #transparent;
@@ -655,12 +640,6 @@ color
 
 
 
-
-
-
-
-
-
 :
 
 
@@ -668,17 +647,7 @@ color
 
 
 
-
-
-
-
-
-
 #e23b3b
-
-
-
-
 
 
 
@@ -697,12 +666,6 @@ color
 
 
 
-
-
-
-
-
-
 :
 
 
@@ -710,17 +673,7 @@ color
 
 
 
-
-
-
-
-
-
 #transparent
-
-
-
-
 
 
 
@@ -745,19 +698,7 @@ padding
 
 
 
-
-
-
-
-
-
 :
-
-
-
-
-
-
 
 
 
@@ -772,20 +713,8 @@ px
 
 
 
-
-
-
-
-
-
 16
 px
-
-
-
-
-
-
 
 
 
@@ -800,18 +729,8 @@ px
 
 
 
-
-
-
-
 ;
 margin-top
-
-
-
-
-
-
 
 
 
@@ -825,18 +744,8 @@ margin-top
 
 
 
-
-
-
-
-
-
 -4
 px
-
-
-
-
 
 
 
@@ -855,19 +764,7 @@ padding
 
 
 
-
-
-
-
-
-
 :
-
-
-
-
-
-
 
 
 
@@ -882,12 +779,6 @@ px
 
 
 
-
-
-
-
-
-
 12
 px
 
@@ -896,18 +787,8 @@ px
 
 
 
-
-
-
-
-
-
 8
 px
-
-
-
-
 
 
 
@@ -947,17 +828,17 @@ px
 		margin: 0px auto;
 	}
 	iframe {
-		max-width:700px;
-		height:272px;
+		max-width: 700px;
+		height: 272px;
 	}
-	.image-wrapper2{
-		margin-left:10px;
+	.image-wrapper2 {
+		margin-left: 10px;
 	}
 	.s-title {
-		margin-left:10px;
+		margin-left: 10px;
 	}
 	.marl-10 {
-	margin-left:10px;
+		margin-left: 10px;
 	}
 	.image-wrapper2 {
 		bottom: 0;
@@ -965,6 +846,10 @@ px
 	.image-wrapper {
 		width: 50px;
 		height: 50px;
+	}
+	.stories-box {
+		margin-top: 42px;
+		height: 100px;
 	}
 }
 
@@ -1009,13 +894,12 @@ px
 		border: 1px solid #e8e8e8;
 	}
 	.video-wrapping {
-		border-radius:30px;
+		border-radius: 30px;
 		max-height: 600px;
-  
 	}
 	iframe {
-		max-width:700px;
-		height:350px;
+		max-width: 700px;
+		height: 350px;
 	}
 	.image-wrapper2 {
 		bottom: -10px;
@@ -1025,7 +909,8 @@ px
 		height: 65px;
 	}
 	.stories-box {
-		margin-top:100px;
+		margin-top: 100px;
+		height: 120px;
 	}
 }
 
@@ -1050,38 +935,48 @@ px
 
 .stories-box {
 	max-width: 940px;
-	height: 100px;
 	background: #fff;
 	border: 1px solid #e0e0e0;
-	margin-bottom : 50px;
-	position:relative;
+	margin-bottom: 50px;
+	position: relative;
 	display: flex;
 	align-items: center;
 	margin-bottom: 50px;
+	width: 100%;
 }
 
 .profile_wrapper {
-	margin-left: 15px;
+	margin-left: 10px;
 	margin-right: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .profile_wrapper>p {
 	color: #262626;
-	font-size: 14px;
-	margin-left: 5px;
+	font-size: 12px;
 	margin-top: 5px;
-	text-align:center;
+	text-align: center;
 }
 
 .image-wrapper {
 	border-radius: 50%;
 	overflow: hidden;
+	background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
+	position: relative;
 }
 
 .storyAvatar {
+	width: 95%;
+	height: 95%;
+	position: absolute;
+	left: 51%;
+	top: 50%;
 	object-fit: cover;
-	width: 100%;
-	height: 100%;
+	transform: translate(-51%, -50%);
+	border-radius: 50%;
 }
 
 #video-view {
@@ -1098,10 +993,10 @@ px
 
 .overlay {
 	background: #000;
-	position:fixed;
+	position: fixed;
 	height: 100%;
 	width: 100%;
-	opacity:0.8;
+	opacity: 0.8;
 	z-index: 9999999;
 }
 
@@ -1110,24 +1005,41 @@ px
 	position: fixed;
 	top: 15%;
 	right: 0;
-	left: 0;
+	left: 50%;
 	bottom: 0;
+	width: 95%; text-align : center;
+	max-width: 700px;
+	height: 500px;
+	transform: translate(-50%, 0px);
 	text-align: center;
 }
 
 .close-video {
 	z-index: 9999999999999;
 	position: fixed;
-	top: 10%;
+	top: 9%;
 	right: 0;
 	left: 0;
 	bottom: 0;
 	text-align: center;
 	color: black;
 	font-size: 1.2rem;
+	color:black;
+	box-sizing:border-box;
+	max-width:700px;
+	border-radius:5px;
+	height:40px;
+	width:95%;
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	margin:0 auto;
+	background:#fff;
 }
-.close-video > i {
-	position:absolute;
+
+.close-video>i {
+	color: black;
+	margin-right:5px;
 }
 
 .image-wrapper2 {
@@ -1141,101 +1053,119 @@ px
 	height: 50px;
 	border-radius: 50%;
 	overflow: hidden;
-	
 }
+
 .ss-video-holder {
 	margin-bottom: 40px;
 	max-width: 520px;
 }
 
-.ss-popup {
-	max-width: 50px;
-	position: relative;
-	background-size: cover;
+iframe {
+	border: none;
+	outline: none;
+	width: 100%;
 }
 
-iframe {
-	border:none;
-	outline:none;
-	width:100%;
-}
 .video-wrapping {
-    z-index: 9999999;
-    position: relative;
-    max-width: 800px;
-    height:100%;
-    width:100%;
-    background: white;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
- }
+	z-index: 9999999;
+	position: relative;
+	max-width: 800px;
+	height: 100%;
+	width: 100%;
+	background: white;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .story-info {
 	z-index: 9999999;
-    max-width: 700px;
-    width:100%;
-    bottom: 30px;
-    position: absolute;
-    display: flex;
-    flex-direction:column;
-    left: 50%;
-    transform: translate(-50%,0%);
- }
-.story-container {
-	display:flex;
-	width:100%;
-	margin-top:10px;
-}
-.story-sub > span {
-	margin-left:10px;
-}
-.story-sub {
-	display:flex;
-	flex-direction:column;
-	width:20%;
-	justify-content:center;
-}
-.silver {
-	color:#909090;
-}
-.f14  {
-	font-size:12px;
-}
-.story-main {
-    display: flex;
-    align-items:center;
-}
-.story-btn {
+	max-width: 700px;
+	width: 100%;
+	bottom: 30px;
 	position: absolute;
-    right: 0;
-    right: 15px;
-    padding: 10px;
-    color: #e23b3b;
-    font-family: 'Courgette', cursive;
-    font-size:20px;  
-}
-.s-title {
-	font-weight:normal;
+	display: flex;
+	flex-direction: column;
+	left: 50%;
+	transform: translate(-50%, 0%);
 }
 
+.story-container {
+	display: flex;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.story-sub>span {
+	margin-left: 10px;
+}
+
+.story-sub {
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	justify-content: center;
+}
+
+.silver {
+	color: #909090;
+}
+
+.f14 {
+	font-size: 12px;
+}
+
+.story-main {
+	display: flex;
+	align-items: center;
+}
+
+.story-btn {
+	position: absolute;
+	right: 0;
+	right: 15px;
+	padding: 10px;
+	color: #e23b3b;
+	font-family: 'Courgette', cursive;
+	font-size: 20px;
+	display: none;
+}
+
+.s-title {
+	font-weight: normal;
+}
+
+.fa-times-circle {
+	color: #fff;
+}
+
+.gradation {
+	background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+	width: 102px;
+	height: 102px;
+	border-radius: 50%;
+}
+.margin-left5 {
+	margin-left:5px;
+}
 </style>
 
 <nav class="total-box">
 	<c:if test="${isLogined}">
 		<div class="stories-box">
 			<c:forEach items="${stories}" var="story">
-			<c:if test="${story.extra.file__common__attachment['1'] != null}">
-				<div class="profile_wrapper">
-					<div class="image-wrapper" data-id="${story.id}">
-						<a class="ss-popup" href="#!" onclick="increaseHit(this);"
-							data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
-							<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
-							alt="" />
-						</a>
+				<c:if test="${story.extra.file__common__attachment['1'] != null}">
+					<div class="profile_wrapper">
+						<div class="image-wrapper" data-id="${story.id}">
+							<a class="ss-popup" href="#!" onclick="increaseHit(this);"
+								data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
+								<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
+								alt="" />
+							</a>
+						</div>
+						<p>${story.extra.writer}</p>
 					</div>
-					<p>${story.extra.writer}</p>
-				</div>
-			</c:if>
+				</c:if>
 			</c:forEach>
 			<a href="../member/storyWrite" class="story-btn">Meet In Story +</a>
 		</div>
@@ -1332,50 +1262,64 @@ iframe {
 
 <c:forEach items="${stories}" var="story">
 	<c:forEach items="${files}" var="file">
-	<c:if test="${ file.relId == story.id }">
-<div id="video-view">
-	<div class="overlay"></div>
-	<span class="close-video"><i class="far fa-times-circle"></i></span>
-	<div class="video-wrapping">
-	<div class="story-info">
-	<h2 class="s-title">${story.title} ${file.relId} ${story.id}</h2>
-	<span class="silver f14 marl-10 ">${story.regDateFormat} &nbsp; 조회수 : ${story.hit} </span>
-	<div class="story-container">
-	<div class="image-wrapper2">
-	<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}" alt="" />
-	</div>
-	<div class="story-sub">
-	<span>${story.extra.writer}</span>
-	<span class="silver f14">팔로워 ${story.extra.followCount}</span>
-	</div>
-	<div class="story-main">
-	<i class="fas fa-heart heart red"></i>
-	</div>
-	</div>
-	</div>
-	</div>
-</div>
-</c:if>
+		<c:if test="${ file.relId == story.id }">
+			<div id="video-view">
+				<div class="video-relative">
+					<div class="overlay"></div>
+					<div class="close-video"><span class="margin-left5">${story.extra.writer}</span><span class="s-title" >${story.title}</span><span class="f14">조회수 : ${story.hit} 시간 : ${story.regDateFormat} </span><i class="fas fa-times"></i></div>
+					<div class="video-wrapping">
+						<div class="story-info">
+							<h2 class="s-title">${story.title}</h2>
+							<span class="silver f14 marl-10 ">${story.regDateFormat}
+								&nbsp; 조회수 : ${story.hit} </span>
+							<div class="story-container">
+								<div class="image-wrapper2">
+									<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
+										alt="" />
+								</div>
+								<div class="story-sub">
+									<span>${story.extra.writer}</span> <span class="silver f14">팔로워
+										${story.extra.followCount}</span>
+								</div>
+								<div class="story-main">
+									<i class="fas fa-heart heart red"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
 	</c:forEach>
-	</c:forEach>
+</c:forEach>
 
 <script>
-	$(".ss-popup").click(
-			function() {
-				$("#video-view").show();
-				var $this = $(this);
-				var autoplay = "&amp;autoplay=1"
-				var $iframe = $("<iframe>").attr("src",
-						($this.data("link") + autoplay));
-				$("#video-view").append($iframe);
-				$iframe.wrap("<div class='class-video'>");
-			});
+	$(".ss-popup")
+			.click(
+					function() {
+						$("#video-view").show();
+						var $this = $(this);
+						var autoplay = "&amp;autoplay=1"
+						var $iframe = $("<iframe>").attr("src",
+								($this.data("link") + autoplay));
+						$("#video-view").append($iframe);
+						$iframe.wrap("<div class='class-video'>");
 
+						if ($(".class-video").find(".test").length) {
+						} else {
+							$(".class-video").find(".test").remove();
+							$(".class-video")
+									.append(
+											"<div class='test'><input type='text' placeholder='메시지 보내기'/></div>");
+
+						}
+						;
+
+					});
 	$(".close-video").click(function() {
 		$("#video-view").hide();
 		$("#video-view iframe").attr("src", "");
 	});
-
 	$("#video-view .overlay").click(function() {
 		$("#video-view").hide();
 	});

@@ -444,53 +444,50 @@ public class MemberController {
 
 		List<Object> results = new ArrayList<>();
 
-
 		for (Member member : members) {
-			
+
 			Map<String, Object> rs = new HashMap<>();
 
-			// SELECT 2  검색 유저  [프로필 파일] 불러오기
+			// SELECT 2 검색 유저 [프로필 파일] 불러오기
 
 			List<File> files = fileService.getFiles("member", member.getId(), "common", "attachment");
+
+			if (member.getExtra() == null) {
+				member.setExtra(new HashMap<>());
+			}
 
 			if (files.size() > 0) {
 				File file = files.get(0);
 
-				if (member.getExtra() == null) {
-					member.setExtra(new HashMap<>());
-				}
-
 				member.getExtra().put("repoAvatarImg",
 						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
-				System.out.println("확인"+member.getExtra());
-				member.getExtra().put("repoAvatarImg", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
-				System.out.println("확인2"+member.getExtra());	
+				member.getExtra().put("repoAvatarImg",
+						"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+				System.out.println("확인NULL" + member.getExtra());
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
 			for (File file : files) {
 				filesMap.put(file.getFileNo() + "", file);
 			}
-			
+
 			// 검색 유저 팔로워 카운트
 			int followerCount = memberService.getFollowCount(member.getId());
 			// 검색 유저 게시글 카운트
 			int articleCount = articleService.getArticleCount(member.getId());
-			
-			
-				rs.put("id", member.getId());
-				rs.put("text", member.getNickname());
-				rs.put("introduce",member.getIntroduce());
-				rs.put("image", member.getExtra());
-				rs.put("followerCount", followerCount);
-				rs.put("articleCount", articleCount);
-						
-				results.add(rs);
+
+			rs.put("id", member.getId());
+			rs.put("text", member.getNickname());
+			rs.put("introduce", member.getIntroduce());
+			rs.put("image", member.getExtra());
+			rs.put("followerCount", followerCount);
+			rs.put("articleCount", articleCount);
+
+			results.add(rs);
 
 		}
-		
-		
+
 		return results;
 	}
 
@@ -537,9 +534,10 @@ public class MemberController {
 				}
 
 				story.getExtra().put("storyAvatarImgUrl",
-						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
-				story.getExtra().put("storyAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+				story.getExtra().put("storyAvatarImgUrl",
+						"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
@@ -578,7 +576,8 @@ public class MemberController {
 			member.getExtra().put("writerAvatarImgUrl",
 					"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 		} else {
-			member.getExtra().put("writerAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+			member.getExtra().put("writerAvatarImgUrl",
+					"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 		}
 
 		Map<String, File> filesMap = new HashMap<>();
@@ -732,7 +731,8 @@ public class MemberController {
 				oldFriend.getExtra().put("writerAvatarImgUrl",
 						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
-				oldFriend.getExtra().put("writerAvatarImgUrl", "https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
+				oldFriend.getExtra().put("writerAvatarImgUrl",
+						"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
 			}
 
 			Map<String, File> filesMap = new HashMap<>();

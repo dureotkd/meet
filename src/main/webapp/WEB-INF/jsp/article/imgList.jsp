@@ -336,9 +336,8 @@ px
 <div class="total-wrap">
 	<div class="board-bar">
 		<a class="board action" href="imgList"><i class="fas fa-image"></i></a>
-		<a class="board" href="videoList"><i class="fas fa-video"></i></a> <a
-			class="board" href="textList"><i class="fas fa-quote-left"></i></a>
-	</div>
+		<a class="board" href="videoList"><i class="fas fa-video"></i></a>	
+		</div>
 	<div class="articles-box">
 		<ul>
 			<c:forEach items="${articles}" var="article">
