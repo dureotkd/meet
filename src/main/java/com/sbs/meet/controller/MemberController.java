@@ -534,7 +534,7 @@ public class MemberController {
 				}
 
 				story.getExtra().put("storyAvatarImgUrl",
-						"/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
+						"/meet/file/showImg?id=" + file.getId() + "&updateDate=" + file.getUpdateDate());
 			} else {
 				story.getExtra().put("storyAvatarImgUrl",
 						"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");

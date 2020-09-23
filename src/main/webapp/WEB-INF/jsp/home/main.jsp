@@ -867,9 +867,7 @@ px
 		width: 100%;
 		margin-bottom: 10px;
 	}
-	.close-video {
-		top: 50px;
-	}
+	
 	.article-info-wrap {
 		width: 100%;
 		height: 400px;
@@ -889,7 +887,7 @@ px
 		margin-bottom: 15px;
 	}
 	.total-box {
-		margin: 0px auto;
+		margin: 50px auto;
 	}
 	iframe {
 		max-width: 700px;
@@ -976,9 +974,7 @@ px
 		margin-top: 100px;
 		height: 120px;
 	}
-	.close-video {
-		top: 40px;
-	}
+
 }
 
 .articleReplies-box {
@@ -1036,8 +1032,8 @@ px
 }
 
 .storyAvatar {
-	width: 95%;
-	height: 95%;
+	width: 90%;
+	height: 90%;
 	position: absolute;
 	left: 51%;
 	top: 50%;
@@ -1063,14 +1059,14 @@ px
 	position: fixed;
 	height: 100%;
 	width: 100%;
-	opacity: 0.8;
+	opacity: 0.6;
 	z-index: 9999999;
 }
 
 .class-video {
 	z-index: 9999999999;
 	position: fixed;
-	top: 15%;
+	top: 50%;
 	right: 0;
 	left: 50%;
 	bottom: 0;
@@ -1078,34 +1074,15 @@ px
 	text-align: center;
 	max-width: 700px;
 	height: 500px;
-	transform: translate(-50%, 0px);
+	transform: translate(-50%, -50%);
 	text-align: center;
 }
 
 .close-video {
 	z-index: 9999999999999;
 	position: fixed;
-	right: 0;
-	left: 0;
-	bottom: 0;
-	text-align: center;
-	color: #f5f5f5;
-	box-sizing: border-box;
-	max-width: 700px;
-	border-radius: 5px;
-	height: 50px;
-	width: 95%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0 auto;
-}
-
-.close-video>i {
-	color: #f5f5f5;
-	cursor: pointer;
-	font-size:1.2rem;
-	margin-right: 5px;
+	height: 100%;
+	width: 100%;
 }
 
 .image-wrapper2 {
@@ -1208,26 +1185,12 @@ iframe {
 .fa-times-circle {
 	color: #fff;
 }
-
-.gradation {
-	background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
-	width: 102px;
-	height: 102px;
-	border-radius: 50%;
-}
-
 .margin-left5 {
 	margin-left:15px;
 	font-size:13px;
 }
 .margin-left10 {
 	margin-left: 10px;
-}
-.followingInvideo {
-	font-size: 13px;
-    margin-bottom: 2px;
-    color: #0095f6;
-    margin-left: 10px;
 }
 }
 .video-writer {
@@ -1237,10 +1200,6 @@ iframe {
 	width:100%;
 	height:100%;
 	object-fit:cover;
-}
-.story-title {
-	font-family: 'Inconsolata', monospace;
-	
 }
 </style>
 
@@ -1359,18 +1318,6 @@ iframe {
 				<div class="video-relative">
 					<div class="overlay"></div>
 					<div class="close-video">
-						<div class="story-owner">
-							<div class="image-wrapper2">
-								<img class="storyAvatarInVideo" src="${story.extra.storyAvatarImgUrl}"
-									alt="" />
-							</div>
-							<span class="margin-left5">${story.extra.writer}</span>
-							<span class="followingInvideo margin-left10">팔로잉</span>
-						</div>
-						<div class="story-title visible-on-sm-up">
-						<h2>${story.title}</h2>
-						</div>
-						<i class="fas fa-times"></i>
 					</div>
 				</div>
 			</div>

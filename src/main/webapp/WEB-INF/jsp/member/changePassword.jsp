@@ -189,11 +189,6 @@ html, body {
 <p class="silver margintop">고객님께서는 3개월 이상 또는 임시패스워드를 발급 받은 후</p>
 <p class="silver">비밀번호를 변경하지 않으셨습니다.</p>
 <br>
-<p class="silver">동일한 비밀번호를 장기간 사용하거나 임시패스워드를 사용 할 경우</p>
-<p class="silver">개인정보 도용 및 유출 등의 위험이 있습니다.</p>
-<p class="silver margintop">연속적인 숫자,생일,전화번호, 아이디와 비슷한 설정을</p>
-<p class="silver">제외하여 비밀번호를 변경해주세요.</p>
-
 <p class="red margintop">[ 안전한 비밀번호 설정방법 ]</p>
 <p>영문,숫자,특수문자 조합하여 10~16자</p>
 
