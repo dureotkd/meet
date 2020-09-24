@@ -85,52 +85,10 @@ public class MemberController {
 	@RequestMapping("/member/login")
 	public String login(Model model) {
 
-		Article article = articleService.getLikeKing();
-
-		if (article != null) {
-
-			List<File> files = fileService.getFiles("article", article.getId(), "common", "attachment");
-			Map<String, File> filesMap = new HashMap<>();
-
-			for (File file : files) {
-				filesMap.put(file.getFileNo() + "", file);
-			}
-			Util.putExtraVal(article, "file__common__attachment", filesMap);
-		}
-
-		model.addAttribute("article", article);
-
+	
 		return "member/login";
 	}
-
-	@RequestMapping("/member/getEmailDup")
-	@ResponseBody
-	public String actionGetEmailDup(HttpServletRequest req, HttpServletResponse resp) {
-		String email = req.getParameter("email");
-
-		boolean isJoinableEmail = memberService.checkEmailJoinable(email);
-
-		if (isJoinableEmail == false) {
-			return "json:{\"msg\":\"사용가능 한 이메일 입니다.\", \"resultCode\": \"S-1\", \"Email\":\"" + email + "\"}";
-		} else {
-			return "json:{\"msg\":\"이미 사용중인 이메일 입니다.\", \"resultCode\": \"F-1\", \"Email\":\"" + email + "\"}";
-		}
-	}
-
-	@RequestMapping("/member/getNicknameDup")
-	@ResponseBody
-	private String actionGetNicknameDup(HttpServletRequest req, HttpServletResponse resp) {
-		String nickname = req.getParameter("nickname");
-
-		boolean isJoinableNickname = memberService.checkNicknameJoinable(nickname);
-
-		if (isJoinableNickname == false) {
-			return "json:{\"msg\":\"사용가능 한 닉네임 입니다.\", \"resultCode\": \"S-1\", \"Nickname\":\"" + nickname + "\"}";
-		} else {
-			return "json:{\"msg\":\"이미 사용중인 닉네임 입니다.\", \"resultCode\": \"F-1\", \"Nickname\":\"" + nickname + "\"}";
-		}
-	}
-
+	
 	@RequestMapping("/member/doLogin")
 	public String doLogin(String email, String loginPwReal, String redirectUri, Model model, HttpSession session,
 			HttpServletResponse response, String loginChk) {
@@ -179,20 +137,6 @@ public class MemberController {
 			memberService.actionUpdetaSessionKey(sessionId, sessionLimit, email);
 		}
 
-		// 로그인 된 경우 해당 세션 id와 유효시간을 Member테이블에 세팅..
-
-		// 이때, 가장 중요하게 볼 부분이 쿠키에 Member 객체를 저장하는 것이 아니고!!!!
-
-		// (사실 쿠키는 문자열만 저장되기 때문에 가능하지도 않습니다.)
-
-		// 현재 브라우저의 세션 id를 저장해 놓는 겁니다.
-
-//		이후, AuthenticationInterceptor의 preHandle() 부분에서 
-//
-//		세션에 Member 객체가 null이 아닌 경우는 로그인 되어 있는 부분이니까 그대로 처리되도록 놔두고, 세션의 UserVO 객체가
-//
-//		null이지만, 쿠키가 null이 아닌 경우 쿠키에서 sessionId를 꺼내와서 사용자 객체를 반환받도록 작업할 것이다.
-
 		if (redirectUri == null || redirectUri.length() == 0) {
 			redirectUri = "home/main";
 		}
@@ -220,13 +164,40 @@ public class MemberController {
 		return "common/redirect";
 	}
 
+
+	@RequestMapping("/member/getEmailDup")
+	@ResponseBody
+	public String actionGetEmailDup(HttpServletRequest req, HttpServletResponse resp) {
+		String email = req.getParameter("email");
+
+		boolean isJoinableEmail = memberService.checkEmailJoinable(email);
+
+		if (isJoinableEmail == false) {
+			return "json:{\"msg\":\"사용가능 한 이메일 입니다.\", \"resultCode\": \"S-1\", \"Email\":\"" + email + "\"}";
+		} else {
+			return "json:{\"msg\":\"이미 사용중인 이메일 입니다.\", \"resultCode\": \"F-1\", \"Email\":\"" + email + "\"}";
+		}
+	}
+
+	@RequestMapping("/member/getNicknameDup")
+	@ResponseBody
+	private String actionGetNicknameDup(HttpServletRequest req, HttpServletResponse resp) {
+		String nickname = req.getParameter("nickname");
+
+		boolean isJoinableNickname = memberService.checkNicknameJoinable(nickname);
+
+		if (isJoinableNickname == false) {
+			return "json:{\"msg\":\"사용가능 한 닉네임 입니다.\", \"resultCode\": \"S-1\", \"Nickname\":\"" + nickname + "\"}";
+		} else {
+			return "json:{\"msg\":\"이미 사용중인 닉네임 입니다.\", \"resultCode\": \"F-1\", \"Nickname\":\"" + nickname + "\"}";
+		}
+	}
+
 	@RequestMapping("/member/doLogout")
 	public String doLogout(HttpSession session, HttpServletResponse response, HttpServletRequest request, Model model,
 			String redirectUri) {
 
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-		System.out.println("쿠키 잘왔나 ? : " + loginCookie);
-
 		session.invalidate();
 
 		if (loginCookie != null) {
@@ -365,7 +336,7 @@ public class MemberController {
 
 		if (member == null) {
 			model.addAttribute("historyBack", true);
-			model.addAttribute("alertMsg", String.format("응 돌아가"));
+			model.addAttribute("alertMsg", String.format("비밀번호가 틀립니다."));
 			return "common/redirect";
 		}
 
@@ -374,6 +345,8 @@ public class MemberController {
 
 		return "common/redirect";
 	}
+	
+	
 
 	@RequestMapping("/member/findLoginPw")
 	public String findLoginPw() {
@@ -464,7 +437,6 @@ public class MemberController {
 			} else {
 				member.getExtra().put("repoAvatarImg",
 						"https://scontent-cph2-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-cph2-1.cdninstagram.com&_nc_ohc=7xEzH-b7neEAX8-u4aK&oh=03aa0383a46332fd1b76eaa62a308799&oe=5F72988F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2");
-				System.out.println("확인NULL" + member.getExtra());
 			}
 			Map<String, File> filesMap = new HashMap<>();
 
@@ -487,7 +459,6 @@ public class MemberController {
 			results.add(rs);
 
 		}
-
 		return results;
 	}
 
@@ -558,7 +529,6 @@ public class MemberController {
 		int followCount = memberService.getFollowCount(memberId);
 		// 회원 팔로워 카운트
 		int followerCount = memberService.getFollowerCount(memberId);
-		// 맞팔 확인
 
 		// 회원이 쓴 게시글
 		List<Article> articles = articleService.getForPrintArticles2(memberId);
@@ -585,7 +555,8 @@ public class MemberController {
 		for (File file : files) {
 			filesMap.put(file.getFileNo() + "", file);
 		}
-
+		
+		// 비밀계정  true false 로 확인
 		boolean usePrivateAccount = memberService.usePrivateAccount(memberId);
 
 		model.addAttribute("usePrivateAccount", usePrivateAccount);
@@ -702,22 +673,6 @@ public class MemberController {
 		List<Friend> friends = memberService.getMemberByOldFriend(memberId);
 
 		for (Friend oldFriend : friends) {
-
-			// 로그인 한 본인이 팔로우 중.
-
-			int following = memberService.getFollowingConfirm(oldFriend.getFollowerId(), loginedMemberId);
-
-			System.out.println("확인좀하자 : " + oldFriend.getFollowerId());
-
-			// 상대방이 날 팔로우 한걸 확인
-			int followCross = memberService.getFollowCross(oldFriend.getFollowerId(), loginedMemberId);
-
-			System.out.println("확인좀하자2 : " + oldFriend.getFollowId());
-
-			model.addAttribute("following", following);
-			model.addAttribute("followCross", followCross);
-
-			System.out.println("확인 좀 : " + oldFriend.getId() + oldFriend.getRegDate());
 
 			List<File> files = fileService.getFiles("member", oldFriend.getFollowerId(), "common", "attachment");
 

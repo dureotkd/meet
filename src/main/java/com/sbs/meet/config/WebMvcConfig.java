@@ -28,21 +28,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// beforeActionInterceptor 인터셉터가 모든 액션 실행전에 실행되도록 처리
-		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**");
+		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**")
+				.excludePathPatterns("/favicon.ico");
 
-		// 로그인 없이도 접속할 수 있는 URI 전부 기술
-		registry.addInterceptor(needToLoginInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**")
-				.excludePathPatterns("/usr/").excludePathPatterns("/member/login")
-				.excludePathPatterns("/member/doLogin").excludePathPatterns("/member/join")
-				.excludePathPatterns("/member/doJoin").excludePathPatterns("/article/list")
-				.excludePathPatterns("/article/detail")	.excludePathPatterns("/reply/getForPrintReplies")
-				.excludePathPatterns("/file/streamVideo");
-		
-
+		// 로그인 상태에서 접속할 수 있는 URI 전부 기술
+		registry.addInterceptor(needToLoginInterceptor).addPathPatterns("/message/list").addPathPatterns("/article/detail")
+		.addPathPatterns("/member/showOther").addPathPatterns("/home/main");
+			
 		// 로그인 상태에서 접속할 수 없는 URI 전부 기술
 		registry.addInterceptor(needToLogoutInterceptor).addPathPatterns("/member/login")
-				.addPathPatterns("/member/doLogin").addPathPatterns("/member/join")
-				.addPathPatterns("/member/doJoin");
-
+				.addPathPatterns("/member/doLogin").addPathPatterns("/member/join").addPathPatterns("/member/doJoin");
 	}
 }

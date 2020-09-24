@@ -387,6 +387,7 @@ ul, li {
 	color: #e23b3b;
 	margin-bottom: 30px;
 	font-size: 50px;
+	font-weight:100;
 }
 
 @media ( max-width :800px ) {
