@@ -54,34 +54,104 @@ body {
 	.left-side.active {
 		z-index: 4;
 	}
-	.left-side.active>*:not (.logo ) {
-		opacity: 1;
-		transition: 0.3s 0.2s;
-	}
-	.left-side.active .left-side-button svg:first-child {
-		opacity: 0;
-	}
-	.left-side.active .left-side-button svg:last-child {
-		transform: translate(-50%, -50%);
-		opacity: 1;
-	}
-	.left-side:not (.active ) {
-		width: 56px;
-		overflow: hidden;
-	}
-	.left-side:not (.active ) >*:not (.logo ):not (.left-side-button ) {
-		opacity: 0;
-	}
-	.left-side:not (.active ) .logo {
-		writing-mode: vertical-lr;
-		transform: rotate(180deg);
-		transform-origin: bottom;
-		display: flex;
-		align-items: center;
-		margin-top: -10px;
-	}
+	.left-side
+	.active
+	>
+	*
+	:not
+	 
+	(
+	.logo
+	 
+	)
+	{
+	opacity
+	:
+	 
+	1;
+	transition
+	:
+	 
+	0
+	.3s
+	 
+	0
+	.2s
+	;
+	
+	
 }
 
+.left-side.active .left-side-button svg:first-child {
+	opacity: 0;
+}
+
+.left-side.active .left-side-button svg:last-child {
+	transform: translate(-50%, -50%);
+	opacity: 1;
+}
+
+.left-side
+:not
+ 
+(
+.active
+ 
+)
+{
+width
+:
+ 
+56
+px
+;
+
+		
+overflow
+:
+ 
+hidden
+;
+
+	
+}
+.left-side
+:not
+ 
+(
+.active
+ 
+)
+>
+*
+:not
+ 
+(
+.logo
+ 
+)
+:not
+ 
+(
+.left-side-button
+ 
+)
+{
+opacity
+:
+ 
+0;
+}
+.left-side:not (.active ) .logo {
+	writing-mode: vertical-lr;
+	transform: rotate(180deg);
+	transform-origin: bottom;
+	display: flex;
+	align-items: center;
+	margin-top: -10px;
+}
+
+}
 .main {
 	flex-grow: 1;
 	display: flex;
@@ -139,10 +209,25 @@ body {
 	color: #fff;
 }
 
-.side-menu a:not (:last-child ) {
-	margin-bottom: 20px;
-}
+.side-menu
+ 
+a
+:not
+ 
+(
+:last-child
+ 
+)
+{
+margin-bottom
+:
+ 
+20
+px
+;
 
+
+}
 .follow-me {
 	text-decoration: none;
 	font-size: 14px;
@@ -926,13 +1011,78 @@ body {
 	background: rgba(255, 255, 255, 0.1);
 }
 
-.none {
-	display: none;
-}
+.modal_wrap{
+        display: none;
+        width: 500px;
+        height: 500px;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        margin: -250px 0 0 -250px;
+        background:#eee;
+        z-index: 2;
+    }
+    .black_bg{
+        display: none;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color:rgba(0, 0,0, 0.5);
+        top:0;
+        left: 0;
+        z-index: 1;
+    }
+    .modal_close{
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: -30px;
+        right: 0;
+    }
+    .modal_close> a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+        text-indent: -9999px;
+    }
 </style>
+
+
+<script>
+window.onload = function() {
+	 
+    function onClick() {
+        document.querySelector('.modal_wrap').style.display ='block';
+        document.querySelector('.black_bg').style.display ='block';
+    }   
+    function offClick() {
+        document.querySelector('.modal_wrap').style.display ='none';
+        document.querySelector('.black_bg').style.display ='none';
+      
+    }
+    
+ 
+    document.getElementById('modal_btn').addEventListener('click', onClick);
+    document.querySelector('.black_bg').addEventListener('click', offClick);
+    
+};
+
+</script>
 
 </head>
 <body>
+
+
+<button type='button' id="modal_btn">모달창아 나와랏</button>
+<div class="black_bg"></div>
+<div class="modal_wrap">
+    <div>
+        모달창 내용
+    </div>
+<div>
+
 
 </body>
 </html>

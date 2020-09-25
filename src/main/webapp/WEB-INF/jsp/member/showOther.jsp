@@ -199,6 +199,25 @@
 			id : id
 		},'json');
 	}
+
+
+    // Get the 
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("followerBtn");
+
+    // When the user clicks on the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
 </script>
 
 
@@ -865,8 +884,8 @@ input[type="file"] {
 		margin-right: 25px;
 	}
 	.stories-box {
-		margin:0 auto;
-		margin-bottom:50px;
+		margin: 0 auto;
+		margin-bottom: 50px;
 	}
 }
 
@@ -951,6 +970,29 @@ iframe {
 	border: none;
 	outline: none;
 	width: 100%;
+}
+
+/* The Modal (background) */
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%; /* Could be more or less, depending on screen size */
 }
 </style>
 
@@ -1037,9 +1079,19 @@ iframe {
 			</div>
 			<div class="other-followBox">
 				<span class="article-count">게시글 ${articleCount}</span> <span
-					class="">팔로워 ${followCount}</span> <span> 팔로우
-					${followerCount}</span>
+					class="followerBtn" id="followerBtn">팔로워 ${followCount}</span> <span
+					class="followBtn"> 팔로우 ${followerCount}</span>
 			</div>
+			<!-- The Modal -->
+			<div id="myModal" class="modal">
+
+				<!-- Modal content -->
+				<div class="modal-content">
+					<p>Some text in the Modal..</p>
+				</div>
+
+			</div>
+
 			<div class="other-introduce">
 				<p>${member.introduce}</p>
 			</div>
@@ -1077,22 +1129,22 @@ iframe {
 </div>
 <div class="dim"></div>
 
-	<div class="stories-box">
-		<c:forEach items="${stories}" var="story">
-			<c:if test="${story.extra.file__common__attachment['1'] != null}">
-				<div class="profile_wrapper">
-					<div class="image-wrapper" data-id="${story.id}">
-						<a class="ss-popup" href="#!" onclick="increaseHit(this);"
-							data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
-							<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
-							alt="" />
-						</a>
-					</div>
-					<p>${story.title}</p>
+<div class="stories-box">
+	<c:forEach items="${stories}" var="story">
+		<c:if test="${story.extra.file__common__attachment['1'] != null}">
+			<div class="profile_wrapper">
+				<div class="image-wrapper" data-id="${story.id}">
+					<a class="ss-popup" href="#!" onclick="increaseHit(this);"
+						data-link="/meet/file/streamVideo?id=${story.extra.file__common__attachment['1'].id}&updateDate=${story.extra.file__common__attachment['1'].updateDate}">
+						<img class="storyAvatar" src="${story.extra.storyAvatarImgUrl}"
+						alt="" />
+					</a>
 				</div>
-			</c:if>
-		</c:forEach>
-	</div>
+				<p>${story.title}</p>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
 
 <div class="articles-box">
 	<ul>
